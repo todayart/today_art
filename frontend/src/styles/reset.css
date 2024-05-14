@@ -1,0 +1,24 @@
+@charset "uft-8";
+/* 기본설정 */
+body, div, dl, dt, dd, span, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td , button, a, select, option{
+    padding: 0;
+    margin: 0;
+}
+
+ol,ul,li {list-style: none;}
+a {text-decoration: none; color: #111111;}
+img {border: 0; padding: 0; margin: 0;}
+button{margin: 0; padding: 0; border: none;}
+input{margin: 0; padding: 0; border: none;}
+input:focus{outline: none;}
+select:focus{outline: none;}
+textarea:focus{outline: none;}
+
+*{
+    box-sizing: border-box;
+}
+
+#wrap {
+    margin: 0;
+    padding: 0px;
+}
