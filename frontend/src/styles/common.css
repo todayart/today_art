@@ -1,0 +1,85 @@
+@charset "uft-8";
+
+/********************* 컬러 *********************/
+/* :root[color-theme='light']{
+    --background: #444444;
+    --font: #444444;
+    --boxColor: #444444;
+    --borderColor: #444444;
+    --seachBox:#F1E6DD;
+}
+:root[color-theme='dark']{
+    --background: #FFFFFF;
+    --font: #FFFFFF;
+    --boxColor: #FFFFFF;
+    --borderColor: #FFFFFF;
+    --seachBox:#2F2F2F;
+} */
+:root {
+  --background: #444444;
+  --font: #444444;
+  --boxColor: #444444;
+  --borderColor: #444444;
+  --seachBox: #f1e6dd;
+}
+
+/********************* 반응형 *********************/
+/* 데스크탑 */
+@media (min-width: 1024px) {
+  #wrap {
+    background-color: #f1e6dd;
+  }
+}
+/* 테블릿 */
+@media all and (min-width: 769px) and (max-width: 1023px) {
+  #wrap {
+    background-color: aquamarine;
+  }
+}
+/* 모바일 */
+@media (max-width: 768px) {
+  #wrap {
+    background-color: pink;
+  }
+}
+
+header {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+main {
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+.headerBox {
+  max-width: 1440px;
+  margin: 0 auto;
+}
+
+/* 네비 */
+nav {
+  height: 50px;
+  display: flex;
+  justify-content: end;
+}
+nav > ul.navBox {
+  display: flex;
+  align-items: end;
+}
+nav > ul.navBox > li {
+  margin-left: 14px;
+}
+nav > ul.navBox > li > a {
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  color: var(--font);
+}
+nav > ul.navBox > li > a > svg {
+  margin-left: 6px;
+}
+.mainBox {
+  max-width: 1440px;
+  margin: 0 auto;
+}
