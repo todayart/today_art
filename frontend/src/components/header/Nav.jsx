@@ -1,9 +1,9 @@
 import React from "react";
-import { ReactComponent as HomeSvg } from "../../assets/home.svg";
-import { ReactComponent as UserSvg } from "../../assets/user.svg";
-import { ReactComponent as CalendarSvg } from "../../assets/calendar.svg";
-import { ReactComponent as QuestionSvg } from "../../assets/question.svg";
-import { ReactComponent as WishSvg } from "../../assets/wish.svg";
+import { ReactComponent as HomeSvg } from "../../assets/common/home.svg";
+import { ReactComponent as UserSvg } from "../../assets/common/user.svg";
+import { ReactComponent as CalendarSvg } from "../../assets/common/calendar.svg";
+import { ReactComponent as QuestionSvg } from "../../assets/common/question.svg";
+import { ReactComponent as WishSvg } from "../../assets/common/wish.svg";
 
 export default function Nav() {
   return (
