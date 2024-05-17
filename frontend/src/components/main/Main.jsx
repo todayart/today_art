@@ -3,6 +3,8 @@ import React from "react";
 import Logoimg from "./Logoimg";
 import MainSearch from "./MainSearch";
 import KategorieTag from "./KategorieTag";
+import KategorieList from "./KategorieList";
+import KategorieBtn from "./KategorieBtn";
 
 export default function Main() {
   return (
@@ -29,7 +31,9 @@ export default function Main() {
         {/* kategorieBox */}
         <div class="kategorieBox">
           {/* listBox */}
-          
+          <KategorieList/>
+          {/* buttonBox */}
+          <KategorieBtn/>
         </div>
       </section>
     </main>
