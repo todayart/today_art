@@ -1,8 +1,8 @@
 
 import React from "react";
-
+import TitleLogo  from "../../assets/main/title_logo_bk.png";
 export default function Logoimg(){
     return(
-        <img src="image/main/title_logo_bk.png" alt="title_logo"></img>
+        <img src={TitleLogo} alt="title_logo"></img>
     );
 }

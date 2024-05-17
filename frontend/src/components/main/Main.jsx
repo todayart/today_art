@@ -2,6 +2,7 @@ import React from "react";
 
 import Logoimg from "./Logoimg";
 import MainSearch from "./MainSearch";
+import KategorieTag from "./KategorieTag";
 
 export default function Main() {
   return (
@@ -19,11 +20,17 @@ export default function Main() {
           </div>
           {/* tagBox */}
           <div className="tagBox">
+            <KategorieTag/>
           </div>
         </div>
       </section>
       {/* kategorie */}
       <section className="kategorie">
+        {/* kategorieBox */}
+        <div class="kategorieBox">
+          {/* listBox */}
+          
+        </div>
       </section>
     </main>
   ); 
