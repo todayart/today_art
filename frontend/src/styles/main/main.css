@@ -3,6 +3,8 @@ section.title > .titleBox {
   display: flex;
   flex-direction: column;
   align-items: center;
+  padding-right: 20px;
+  padding-left: 20px;
 }
 /********** title **********/
 /* 로고 */
@@ -28,6 +30,8 @@ section.title > .titleBox > .searchBox > .searchGroup {
   border: 1px solid var(--borderColor);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.093), 0 4px 4px rgba(0, 0, 0, 0.097);
 }
+
+/********** search **********/
 .searchBox > .searchGroup > .searchGroupInner {
   height: 100%;
   display: flex;
@@ -49,7 +53,7 @@ section.title > .titleBox > .searchBox > .searchGroup {
   cursor: pointer;
 }
 
-/* 카테고리 태그 */
+/********** kategorie Tag **********/
 section.title > .titleBox > .tagBox {
   width: 100%;
   display: flex;
@@ -78,26 +82,103 @@ section.title > .titleBox > .tagBox > ul > li {
   margin-right: 10px;
 }
 
-/********** kategorie **********/
-/* 배경 */
+/********** kategorie list **********/
 section.kategorie {
+  width: 100%;
   position: relative;
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
-.kategorieBox {
-  height: 440px;
-  width: 100%;
-}
-.kategorieBg {
+
+/*** 배경 ***/
+.KategorieBg {
   position: absolute;
-  top: 0%;
+  top: 90%;
   right: 0%;
+  transform: translate(0%, -90%);
+  z-index: -1;
+}
+
+.kategorieBox {
+  max-width: 1440px;
+  min-height: 440px;
+  padding-right: 20px;
+  padding-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.kategorieBox > .listBox{
+  position: relative;
 }
 .kategorieBox > .listBox > ul {
   display: flex;
+  justify-content: center;
+  flex-flow:wrap
+}
+  .listBox > ul > li{
+    margin-right: 11px;
+    margin-left: 11px;
+  }
+  /* 이미지 */
+  .listBox > ul > li > a > div.imgBox{
+    width: 210px;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+  }
+    div.imgBox > img{
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+    /* 텍스트 */
+    .listBox > ul > li > a > div.detailBox {
+      width: 210px;
+      height: 65px;
+    }
+      div.detailBox > ul {
+        width: 100%;
+        height: 100%;
+      }
+      div.detailBox > ul > li{
+        width: 100%;
+      }
+      div.detailBox > ul > li > p{
+        width: 99%;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;  
+      }
+      div.detailBox > ul > li.place{
+        margin-top: 10px;
+      }
+
+/********** kategorie list BTN Next / Prev **********/
+.buttonBox{
+  top: 35%;
+  width: 75%;
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
 }
 
-/* MainPage - body -----------------------------*/
-.mainBox {
-  width: 100%;
+
+/********** kategorie list BTN 자세히보기 **********/
+.listBox > .detailBoxBtn{
+  position: absolute;
+  top: 0%;
+  right: 0%;
+  margin-top: -35px;
+}
+.listBox > .detailBoxBtn > a{
+  display: flex;
+  color: var(--font)
+}
+.listBox > .detailBoxBtn > a > span{
+  margin-left: 8px;
 }

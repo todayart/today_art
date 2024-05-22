@@ -43,15 +43,6 @@
   }
 }
 
-header {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-main {
-  padding-right: 20px;
-  padding-left: 20px;
-}
-
 .headerBox {
   max-width: 1440px;
   margin: 0 auto;
@@ -80,6 +71,22 @@ nav > ul.navBox > li > a > svg {
   margin-left: 6px;
 }
 .mainBox {
-  max-width: 1440px;
   margin: 0 auto;
+}
+
+/* 폰트 */
+.itemTitleFont {
+  color: var(--font);
+  font-size: 16px;
+  font-weight: normal;
+}
+.itemPlaceFont{
+  color: var(--font);
+  font-size: 12px;
+  font-weight:bold;
+}
+.itemDateFont{
+  color: var(--font);
+  font-size: 12px;
+  font-weight: bold;
 }

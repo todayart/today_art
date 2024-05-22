@@ -5,6 +5,7 @@ import MainSearch from "./MainSearch";
 import KategorieTag from "./KategorieTag";
 import KategorieList from "./KategorieList";
 import KategorieBtn from "./KategorieBtn";
+import KategorieBg from "../../assets/main/SemicircleBg.png";
 
 export default function Main() {
   return (
@@ -34,6 +35,9 @@ export default function Main() {
           <KategorieList/>
           {/* buttonBox */}
           <KategorieBtn/>
+        </div>
+        <div className="KategorieBg">
+          <img src={KategorieBg} alt="KategorieBg" />
         </div>
       </section>
     </main>

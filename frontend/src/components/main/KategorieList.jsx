@@ -2,7 +2,7 @@ import React from "react";
 import { ReactSVG } from "react-svg";
 
 import listCover from "../../assets/main/listCover.png";
-import PlusIcon from "../../assets/main/nextBtn.svg";
+import PlusIcon from "../../assets/main/plusIcon.svg";
 
 export default function KategorieList(){
     return(
@@ -18,17 +18,17 @@ export default function KategorieList(){
                     <div className="detailBox">
                         <ul>
                             {/* titleName */}
-                            <li className="titleName"><p>
-                                유키 구라모토 콘서트(제목)
+                            <li className="titleName itemTitleFont"><p>
+                                유키 구라모토 콘서트(제목)유키 구라모토 콘서트(제목)
                             </p></li>
                             {/* /titleName */}
                             {/* place */}
-                            <li className="place"><p>
-                                서울시 예술의전당 (장소)
+                            <li className="place itemPlaceFont"><p>
+                                서울시 예술의전당 (장소)서울시 예술의전당 (장소)
                             </p></li>
                             {/* /place */}
                             {/* data */}
-                            <li><p>
+                            <li><p className="itemDateFont">
                                 2024.04.01 ~ 2024.10.30
                             </p></li>
                             {/* /data */}
@@ -45,17 +45,17 @@ export default function KategorieList(){
                     <div className="detailBox">
                         <ul>
                             {/* titleName */}
-                            <li className="titleName"><p>
+                            <li className="titleName itemTitleFont"><p>
                                 유키 구라모토 콘서트(제목)
                             </p></li>
                             {/* /titleName */}
                             {/* place */}
-                            <li className="place"><p>
+                            <li className="place itemPlaceFont"><p>
                                 서울시 예술의전당 (장소)
                             </p></li>
                             {/* /place */}
                             {/* data */}
-                            <li><p>
+                            <li><p className="itemDateFont">
                                 2024.04.01 ~ 2024.10.30
                             </p></li>
                             {/* /data */}
@@ -72,17 +72,17 @@ export default function KategorieList(){
                     <div className="detailBox">
                         <ul>
                             {/* titleName */}
-                            <li className="titleName"><p>
+                            <li className="titleName itemTitleFont"><p>
                                 유키 구라모토 콘서트(제목)
                             </p></li>
                             {/* /titleName */}
                             {/* place */}
-                            <li className="place"><p>
+                            <li className="place itemPlaceFont"><p>
                                 서울시 예술의전당 (장소)
                             </p></li>
                             {/* /place */}
                             {/* data */}
-                            <li><p>
+                            <li><p className="itemDateFont">
                                 2024.04.01 ~ 2024.10.30
                             </p></li>
                             {/* /data */}
@@ -99,17 +99,17 @@ export default function KategorieList(){
                     <div className="detailBox">
                         <ul>
                             {/* titleName */}
-                            <li className="titleName"><p>
+                            <li className="titleName itemTitleFont"><p>
                                 유키 구라모토 콘서트(제목)
                             </p></li>
                             {/* /titleName */}
                             {/* place */}
-                            <li className="place"><p>
+                            <li className="place itemPlaceFont"><p>
                                 서울시 예술의전당 (장소)
                             </p></li>
                             {/* /place */}
                             {/* data */}
-                            <li><p>
+                            <li><p className="itemDateFont">
                                 2024.04.01 ~ 2024.10.30
                             </p></li>
                             {/* /data */}
@@ -126,17 +126,17 @@ export default function KategorieList(){
                     <div className="detailBox">
                         <ul>
                             {/* titleName */}
-                            <li className="titleName"><p>
+                            <li className="titleName itemTitleFont"><p>
                                 유키 구라모토 콘서트(제목)
                             </p></li>
                             {/* /titleName */}
                             {/* place */}
-                            <li className="place"><p>
+                            <li className="place itemPlaceFont"><p>
                                 서울시 예술의전당 (장소)
                             </p></li>
                             {/* /place */}
                             {/* data */}
-                            <li><p>
+                            <li><p className="itemDateFont">
                                 2024.04.01 ~ 2024.10.30
                             </p></li>
                             {/* /data */}
@@ -147,7 +147,7 @@ export default function KategorieList(){
             </ul>
             {/* /listBox */}
             {/* detailBox */}
-            <div className="detailBox"><a href="#">
+            <div className="detailBoxBtn"><a href="#">
                 자세히보기
                 <span className="detailIcon">
                     <ReactSVG src={PlusIcon} />
