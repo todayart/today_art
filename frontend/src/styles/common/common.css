@@ -26,19 +26,19 @@
 /********************* 반응형 *********************/
 /* 데스크탑 */
 @media (min-width: 1024px) {
-  #wrap {
+  body {
     background-color: #f1e6dd;
   }
 }
 /* 테블릿 */
 @media all and (min-width: 769px) and (max-width: 1023px) {
-  #wrap {
+  body {
     background-color: aquamarine;
   }
 }
 /* 모바일 */
 @media (max-width: 768px) {
-  #wrap {
+  body {
     background-color: pink;
   }
 }
