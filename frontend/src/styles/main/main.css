@@ -1,4 +1,52 @@
 @charset "uft-8";
+
+/********************* 반응형 *********************/
+/* 데스크탑 */
+@media (min-width: 1024px) {
+  .logoBox {
+    margin-top: 130px;
+  }
+  section.title > .titleBox > .tagBox > ul {
+    height: 100px;
+  }
+  .categorieBox > .listBox > ul {
+    flex-wrap: wrap;
+  }
+}
+/* 테블릿 */
+@media all and (min-width: 769px) and (max-width: 1023px) {
+  .logoBox {
+    margin-top: 130px;
+  }
+  section.title > .titleBox > .tagBox > ul {
+    height: 100px;
+  }
+  .categorieBox > .listBox > ul {
+    flex-wrap: nowrap;
+  }
+}
+/* 모바일 393x776 */
+@media (max-width: 768px) {
+  .listBox {
+    width: 100%;
+    height: 470px;
+    overflow: hidden;
+  }
+  .logoBox {
+    margin-top: 22px;
+  }
+  .searchBox {
+    margin-bottom: 30px;
+  }
+  section.title > .titleBox > .tagBox > ul {
+    height: 80px;
+    margin-bottom: 50px;
+  }
+  .categorieBox > .listBox > ul {
+    flex-wrap: nowrap;
+  }
+}
+
 section.title > .titleBox {
   display: flex;
   flex-direction: column;
@@ -6,12 +54,13 @@ section.title > .titleBox {
   padding-right: 20px;
   padding-left: 20px;
 }
+
 /********** title **********/
 /* 로고 */
 section.title > .titleBox > .logoBox {
   width: 260px;
   height: 90px;
-  margin-top: 130px;
+  /* margin-top: 130px; */
 }
 /* 검색창 */
 section.title > .titleBox > .searchBox {
@@ -61,9 +110,13 @@ section.title > .titleBox > .tagBox {
 }
 section.title > .titleBox > .tagBox > ul {
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
-  height: 100px;
+  justify-content: space-evenly;
+  column-gap: 10px;
+  /* height: 100px; */
 }
+
 section.title > .titleBox > .tagBox > ul > li {
   height: 34px;
   border-radius: 50px;
@@ -75,12 +128,13 @@ section.title > .titleBox > .tagBox > ul > li {
   font-size: 14px;
   cursor: pointer;
 }
-.tagBox > ul > li:not(:first-child) {
+
+/* .tagBox > ul > li:not(:first-child) {
   margin-left: 10px;
 }
 .tagBox > ul > li:last-child {
   margin-right: 10px;
-}
+} */
 
 /********** Categorie list **********/
 section.categorie {
@@ -109,57 +163,57 @@ section.categorie {
   justify-content: center;
   align-items: center;
 }
-.categorieBox > .listBox{
+.categorieBox > .listBox {
   position: relative;
 }
 .categorieBox > .listBox > ul {
   display: flex;
   justify-content: center;
-  flex-flow:wrap
+  /* flex-flow: wrap; */
 }
-  .listBox > ul > li{
-    margin-right: 11px;
-    margin-left: 11px;
-  }
-  /* 이미지 */
-  .listBox > ul > li > a > div.imgBox{
-    width: 210px;
-    height: 300px;
-    position: relative;
-    overflow: hidden;
-  }
-    div.imgBox > img{
-      width: 100%;
-      height: 100%;
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-    }
-    /* 텍스트 */
-    .listBox > ul > li > a > div.detailBox {
-      width: 210px;
-      height: 65px;
-    }
-      div.detailBox > ul {
-        width: 100%;
-        height: 100%;
-      }
-      div.detailBox > ul > li{
-        width: 100%;
-      }
-      div.detailBox > ul > li > p{
-        width: 99%;
-        overflow: hidden;
-        white-space: nowrap;
-        text-overflow: ellipsis;  
-      }
-      div.detailBox > ul > li.place{
-        margin-top: 10px;
-      }
+.listBox > ul > li {
+  margin-right: 11px;
+  margin-left: 11px;
+}
+/* 이미지 */
+.listBox > ul > li > a > div.imgBox {
+  width: 210px;
+  height: 300px;
+  position: relative;
+  overflow: hidden;
+}
+div.imgBox > img {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+/* 텍스트 */
+.listBox > ul > li > a > div.detailBox {
+  width: 210px;
+  height: 65px;
+}
+div.detailBox > ul {
+  width: 100%;
+  height: 100%;
+}
+div.detailBox > ul > li {
+  width: 100%;
+}
+div.detailBox > ul > li > p {
+  width: 99%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+div.detailBox > ul > li.place {
+  margin-top: 10px;
+}
 
 /********** Categorie list BTN Next / Prev **********/
-.buttonBox{
+.buttonBox {
   top: 35%;
   width: 75%;
   display: flex;
@@ -167,18 +221,17 @@ section.categorie {
   position: absolute;
 }
 
-
 /********** Categorie list BTN 자세히보기 **********/
-.listBox > .detailBoxBtn{
+.listBox > .detailBoxBtn {
   position: absolute;
   top: 0%;
   right: 0%;
   margin-top: -35px;
 }
-.listBox > .detailBoxBtn > a{
+.listBox > .detailBoxBtn > a {
   display: flex;
-  color: var(--font)
+  color: var(--font);
 }
-.listBox > .detailBoxBtn > a > span{
+.listBox > .detailBoxBtn > a > span {
   margin-left: 8px;
 }
