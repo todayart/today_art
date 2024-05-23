@@ -2,10 +2,10 @@ import React from "react";
 
 import Logoimg from "./Logoimg";
 import MainSearch from "./MainSearch";
-import KategorieTag from "./KategorieTag";
-import KategorieList from "./KategorieList";
-import KategorieBtn from "./KategorieBtn";
-import KategorieBg from "../../assets/main/SemicircleBg.png";
+import CategorieTag from "./CategorieTag";
+import CategorieList from "./CategorieList";
+import CategorieBtn from "./CategorieBtn";
+import CategorieBg from "../../assets/main/SemicircleBg.png";
 
 export default function Main() {
   return (
@@ -23,21 +23,21 @@ export default function Main() {
           </div>
           {/* tagBox */}
           <div className="tagBox">
-            <KategorieTag/>
+            <CategorieTag/>
           </div>
         </div>
       </section>
-      {/* kategorie */}
-      <section className="kategorie">
-        {/* kategorieBox */}
-        <div class="kategorieBox">
+      {/* categorie */}
+      <section className="categorie">
+        {/* categorieBox */}
+        <div class="categorieBox">
           {/* listBox */}
-          <KategorieList/>
+          <CategorieList/>
           {/* buttonBox */}
-          <KategorieBtn/>
+          <CategorieBtn/>
         </div>
-        <div className="KategorieBg">
-          <img src={KategorieBg} alt="KategorieBg" />
+        <div className="categorieBg">
+          <img src={CategorieBg} alt="CategorieBg" />
         </div>
       </section>
     </main>

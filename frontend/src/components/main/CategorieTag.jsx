@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function KategorieTag() {
+export default function CategorieTag() {
   // TODO : METADATA 파일을 따로 분리하면 편하다.
   // 폴더 이름은 METADATA로 해도 좋고 검색해도 좋다.
   const metaData = [

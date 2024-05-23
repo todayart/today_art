@@ -4,7 +4,7 @@ import { ReactSVG } from "react-svg";
 import listCover from "../../assets/main/listCover.png";
 import PlusIcon from "../../assets/main/plusIcon.svg";
 
-export default function KategorieList(){
+export default function CategorieList(){
     return(
         <div className="listBox">
             {/* listBox */}

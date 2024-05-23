@@ -5,7 +5,7 @@ import PrevBtn from "../../assets/main/prevBtn.svg";
 import NextBtn from "../../assets/main/nextBtn.svg";
 
 
-export default function KategorieBtn(){
+export default function CategorieBtn(){
     return(
         <div className="buttonBox">
             {/* arrowPrev */}
