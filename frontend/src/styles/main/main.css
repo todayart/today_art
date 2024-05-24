@@ -179,6 +179,7 @@ section.categorie {
 }
 
 .categorieBox {
+  position: relative;
   max-width: 1440px;
   min-height: 440px;
   padding-right: 20px;
@@ -240,23 +241,23 @@ div.detailBox > ul > li.place {
 /********** Categorie list BTN Next / Prev **********/
 .buttonBox {
   top: 35%;
-  width: 75%;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   position: absolute;
 }
 
 /********** Categorie list BTN 자세히보기 **********/
-.listBox > .detailBoxBtn {
+.detailBoxBtn {
   position: absolute;
   top: 0%;
   right: 0%;
-  margin-top: -35px;
+  /* margin-top: -35px; */
 }
-.listBox > .detailBoxBtn > a {
+.detailBoxBtn > a {
   display: flex;
   color: var(--font);
 }
-.listBox > .detailBoxBtn > a > span {
+.detailBoxBtn > a > span {
   margin-left: 8px;
 }
