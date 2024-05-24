@@ -251,7 +251,7 @@ div.detailBox > ul > li.place {
 .detailBoxBtn {
   position: absolute;
   top: 0%;
-  right: 0%;
+  right: 20px;
   /* margin-top: -35px; */
 }
 .detailBoxBtn > a {
