@@ -90,3 +90,8 @@ nav > ul.navBox > li > a > svg {
   font-size: 12px;
   font-weight: bold;
 }
+
+/* root */
+#root {
+  overflow: hidden;
+}

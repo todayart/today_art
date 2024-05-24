@@ -1,5 +1,15 @@
 @charset "uft-8";
 
+:root {
+  /* 이미지 카드 가로 길이 */
+  --card-width: 210px;
+
+  /* 반응형 이미지카드 사이 간격 */
+  --dt-gap: 12px;
+  --tb-gap: 48px;
+  --mb-gap: 52px;
+}
+
 /********************* 반응형 *********************/
 /* 데스크탑 */
 @media (min-width: 1024px) {
@@ -8,27 +18,39 @@
   }
   section.title > .titleBox > .tagBox > ul {
     height: 100px;
+    column-gap: 10px;
   }
   .categorieBox > .listBox > ul {
     flex-wrap: wrap;
+    column-gap: var(--dt-gap);
   }
 }
 /* 테블릿 */
 @media all and (min-width: 769px) and (max-width: 1023px) {
+  .listBox {
+    min-width: calc(var(--card-width) * 3 + var(--tb-gap) * 2);
+    min-height: 400px;
+    overflow: hidden;
+  }
   .logoBox {
     margin-top: 130px;
   }
   section.title > .titleBox > .tagBox > ul {
     height: 100px;
+    column-gap: 10px;
   }
   .categorieBox > .listBox > ul {
     flex-wrap: nowrap;
+    column-gap: var(--tb-gap);
+    position: absolute;
+    top: 0;
+    left: 0;
   }
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
   .listBox {
-    width: 100%;
+    width: calc(var(--card-width) * 1 + var(--mb-gap) * 2);
     height: 470px;
     overflow: hidden;
   }
@@ -41,9 +63,11 @@
   section.title > .titleBox > .tagBox > ul {
     height: 80px;
     margin-bottom: 50px;
+    column-gap: 4px;
   }
   .categorieBox > .listBox > ul {
     flex-wrap: nowrap;
+    column-gap: var(--mb-gap);
   }
 }
 
@@ -113,7 +137,7 @@ section.title > .titleBox > .tagBox > ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  column-gap: 10px;
+  /* column-gap: 10px; */
   /* height: 100px; */
 }
 
@@ -169,12 +193,13 @@ section.categorie {
 .categorieBox > .listBox > ul {
   display: flex;
   justify-content: center;
+  /* gap: 12px; */
   /* flex-flow: wrap; */
 }
-.listBox > ul > li {
+/* .listBox > ul > li {
   margin-right: 11px;
   margin-left: 11px;
-}
+} */
 /* 이미지 */
 .listBox > ul > li > a > div.imgBox {
   width: 210px;
