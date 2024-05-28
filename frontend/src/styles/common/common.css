@@ -36,7 +36,7 @@
     background-color: aquamarine;
   }
 }
-/* 모바일 */
+/* 모바일 393x776 */
 @media (max-width: 768px) {
   body {
     background-color: pink;
@@ -80,13 +80,18 @@ nav > ul.navBox > li > a > svg {
   font-size: 16px;
   font-weight: normal;
 }
-.itemPlaceFont{
-  color: var(--font);
-  font-size: 12px;
-  font-weight:bold;
-}
-.itemDateFont{
+.itemPlaceFont {
   color: var(--font);
   font-size: 12px;
   font-weight: bold;
+}
+.itemDateFont {
+  color: var(--font);
+  font-size: 12px;
+  font-weight: bold;
+}
+
+/* root */
+#root {
+  overflow: hidden;
 }
