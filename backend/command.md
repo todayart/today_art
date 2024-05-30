@@ -1,5 +1,12 @@
 # 실행 커맨드
 
+- backend 서버 포트 : 8000
+
+```
+.\{가상환경 디렉토리 이름}\Scripts\activate
+python manage.py runserver
+```
+
 ---
 
 # virutal venv 환경 설정
@@ -15,7 +22,7 @@ pip install virtualenv
 virtualenv {가상환경 디렉토리 이름}
 
 # 가상환경 활성화
-.\venv\Scripts\activate
+.\{가상환경 디렉토리 이름}\Scripts\activate
 
 # 필요한 패키지 설치
 pip install -r requirements.txt
