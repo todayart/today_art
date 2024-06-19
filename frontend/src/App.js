@@ -1,7 +1,7 @@
-import MainPage from "./pages/MainPage";
+import TabContainer from "./tests/fetchTest";
 
 function App() {
-  return <MainPage />;
+  return <TabContainer />;
 }
 
 export default App;
