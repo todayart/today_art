@@ -1,3 +1,3 @@
-05/28 swiper css를 살펴보아야 한다.
-
-잘 작동은 되지만 css가 바르게 적용되지 않는 모습 관찰
+1. backend -> front 데이터 표시
+2. swiper 컴포넌트를 활용
+3. page router 구현 방안
