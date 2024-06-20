@@ -17,6 +17,5 @@ from .views import show_external_data_form, external_data
 
 urlpatterns = [
     path('external-data/', external_data, name='external_data'),
-    path('', show_external_data_form, name='show_external_data_form')
-    path('getData', views.getData, name='getData'),
+    path('', show_external_data_form, name='show_external_data_form'),
 ]
