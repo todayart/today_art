@@ -1,10 +1,11 @@
-import TestPage from "./components/test/TestPage";
+// import TestPage from "./components/test/TestPage";
+// * swiper
+import FetchTest from "./components/test/FetchTest";
+// * fetch test
 // import MainPage from "./pages/MainPage";
-import TabContainer from "./tests/fetchTest";
 
 function App() {
-  return <TabContainer />;
-  return <TestPage />;
+  return <FetchTest />;
 }
 
 export default App;

@@ -13,9 +13,10 @@
 
 
 from django.urls import path
-from .views import show_external_data_form, external_data
+from .views import show_external_data_form, external_data, getData
 
 urlpatterns = [
     path('external-data/', external_data, name='external_data'),
     path('', show_external_data_form, name='show_external_data_form'),
+    path('getData/', getData, name='getData')
 ]

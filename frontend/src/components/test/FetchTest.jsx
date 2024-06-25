@@ -1,6 +1,4 @@
-// App.js
-
-export default function TabContainer() {
+export default function FetchTest() {
   const handleApiRequest = () => {
     // 이 엔드포인트, 즉 url만 바꾸면 get 요청이 날라간다.
     fetch("http://127.0.0.1:8000/events/getData")
@@ -14,3 +12,4 @@ export default function TabContainer() {
 
   return <button onClick={handleApiRequest}>Send API Request</button>;
 }
+### 스켈레톤 완성하고 자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
