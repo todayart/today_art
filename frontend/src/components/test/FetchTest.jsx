@@ -12,4 +12,3 @@ export default function FetchTest() {
 
   return <button onClick={handleApiRequest}>Send API Request</button>;
 }
-### 스켈레톤 완성하고 자ㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏㅏ
