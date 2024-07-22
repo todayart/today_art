@@ -5,11 +5,12 @@ import { Swiper, SwiperSlide } from "swiper/react";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "../../styles/test/test.css";
 
 // import required modules
 import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
+
+import SliderNavBtn from "./SliderNavBtn";
 
 export default function TestPage() {
   return (
@@ -17,7 +18,7 @@ export default function TestPage() {
       <Swiper
         modules={[Navigation, Pagination, Scrollbar, A11y]}
         spaceBetween={50}
-        slidesPerView={1}
+        slidesPerView={5}
         navigation
         pagination={{ clickable: true }}
         scrollbar={{ draggable: true }}
@@ -34,6 +35,7 @@ export default function TestPage() {
         <SwiperSlide>Slide 7</SwiperSlide>
         <SwiperSlide>Slide 8</SwiperSlide>
         <SwiperSlide>Slide 9</SwiperSlide>
+        <SliderNavBtn />
       </Swiper>
     </>
   );

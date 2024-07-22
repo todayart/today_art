@@ -1,11 +1,8 @@
-// import TestPage from "./components/test/TestPage";
-// * swiper
-import FetchTest from "./components/test/FetchTest";
-// * fetch test
 // import MainPage from "./pages/MainPage";
+import TestPage from "./components/test/TestPage.jsx";
 
 function App() {
-  return <FetchTest />;
+  return <TestPage />;
 }
 
 export default App;
