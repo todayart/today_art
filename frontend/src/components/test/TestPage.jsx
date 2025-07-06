@@ -13,20 +13,6 @@ import { A11y, Navigation, Pagination, Scrollbar } from "swiper/modules";
 import SliderNavBtn from "./SliderNavBtn";
 
 export default function TestPage() {
-  useEffect(() => {
-    // 테스트용 axios 요청
-    import("axios").then(({ default: axios }) => {
-      axios
-        .get("http://127.0.0.1:8000/")
-        .then((response) => {
-          console.log("Django 응답:", response.data);
-        })
-        .catch((error) => {
-          console.error("Django 요청 에러:", error);
-        });
-    });
-  }, []);
-
   const [djangoMessage, setDjangoMessage] = React.useState("");
 
   const handleTestButtonClick = () => {
@@ -34,7 +20,13 @@ export default function TestPage() {
       axios
         .get("http://127.0.0.1:8000/react-test/")
         .then((response) => {
-          setDjangoMessage(response.data.message);
+          // API가 반환하는 데이터 구조에 따라 message를 추출
+          // 만약 response.data가 배열이나 객체라면 JSON 문자열로 변환해서 출력
+          if (typeof response.data === "object") {
+            setDjangoMessage(JSON.stringify(response.data, null, 2));
+          } else {
+            setDjangoMessage(response.data);
+          }
         })
         .catch((error) => {
           setDjangoMessage("에러 발생: " + error.message);
