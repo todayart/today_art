@@ -16,22 +16,18 @@ export default function TestPage() {
   const [djangoMessage, setDjangoMessage] = React.useState("");
 
   const handleTestButtonClick = () => {
-    import("axios").then(({ default: axios }) => {
-      axios
-        .get("http://127.0.0.1:8000/react-test/")
-        .then((response) => {
-          // API가 반환하는 데이터 구조에 따라 message를 추출
-          // 만약 response.data가 배열이나 객체라면 JSON 문자열로 변환해서 출력
-          if (typeof response.data === "object") {
-            setDjangoMessage(JSON.stringify(response.data, null, 2));
-          } else {
-            setDjangoMessage(response.data);
-          }
-        })
-        .catch((error) => {
-          setDjangoMessage("에러 발생: " + error.message);
-        });
-    });
+    fetch("http://127.0.0.1:8000/react-test/")
+      .then((res) => res.json())
+      .then((data) => {
+        if (typeof data === "object") {
+          setDjangoMessage(JSON.stringify(data, null, 2));
+        } else {
+          setDjangoMessage(data);
+        }
+      })
+      .catch((error) => {
+        setDjangoMessage("에러 발생: " + error.message);
+      });
   };
 
   return (
