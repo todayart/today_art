@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from django.http import JsonResponse
+from django.urls import include
+
+def react_test(request):
+    return JsonResponse({'message': 'Hello from Django!'})
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('react-test/', react_test),    # React 연동 테스트용 엔드포인트
 ]
