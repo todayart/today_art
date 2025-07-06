@@ -22,6 +22,7 @@ pip install virtualenv
 virtualenv {가상환경 디렉토리 이름}
 
 # 가상환경 활성화
+.\dj_vv\Scripts\activate.ps1
 .\{가상환경 디렉토리 이름}\Scripts\activate
 
 # 필요한 패키지 설치

@@ -7,3 +7,6 @@ db.sqlite3
 # virtualenv
 /djangoSkel
 /dj_vv
+
+# 백업
+/oldfiles
