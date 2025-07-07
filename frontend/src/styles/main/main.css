@@ -20,7 +20,7 @@
     height: 100px;
     column-gap: 10px;
   }
-  .categorieBox > .listBox > ul {
+  .categoryBox > .listBox > ul {
     flex-wrap: wrap;
     column-gap: var(--dt-gap);
   }
@@ -39,7 +39,7 @@
     height: 100px;
     column-gap: 10px;
   }
-  .categorieBox > .listBox > ul {
+  .categoryBox > .listBox > ul {
     flex-wrap: nowrap;
     column-gap: var(--tb-gap);
     position: absolute;
@@ -65,7 +65,7 @@
     margin-bottom: 50px;
     column-gap: 4px;
   }
-  .categorieBox > .listBox > ul {
+  .categoryBox > .listBox > ul {
     flex-wrap: nowrap;
     column-gap: var(--mb-gap);
   }
@@ -126,7 +126,7 @@ section.title > .titleBox > .searchBox > .searchGroup {
   cursor: pointer;
 }
 
-/********** Categorie Tag **********/
+/********** category Tag **********/
 section.title > .titleBox > .tagBox {
   width: 100%;
   display: flex;
@@ -160,8 +160,8 @@ section.title > .titleBox > .tagBox > ul > li {
   margin-right: 10px;
 } */
 
-/********** Categorie list **********/
-section.categorie {
+/********** category list **********/
+section.category {
   width: 100%;
   position: relative;
   display: flex;
@@ -170,7 +170,7 @@ section.categorie {
 }
 
 /*** 배경 ***/
-.categorieBg {
+.categoryBg {
   position: absolute;
   top: 90%;
   right: 0%;
@@ -178,7 +178,7 @@ section.categorie {
   z-index: -1;
 }
 
-.categorieBox {
+.categoryBox {
   position: relative;
   max-width: 1440px;
   min-height: 440px;
@@ -188,10 +188,10 @@ section.categorie {
   justify-content: center;
   align-items: center;
 }
-.categorieBox > .listBox {
+.categoryBox > .listBox {
   position: relative;
 }
-.categorieBox > .listBox > ul {
+.categoryBox > .listBox > ul {
   display: flex;
   justify-content: center;
   /* gap: 12px; */
@@ -238,7 +238,7 @@ div.detailBox > ul > li.place {
   margin-top: 10px;
 }
 
-/********** Categorie list BTN Next / Prev **********/
+/********** category list BTN Next / Prev **********/
 .buttonBox {
   top: 35%;
   width: 100%;
@@ -247,7 +247,7 @@ div.detailBox > ul > li.place {
   position: absolute;
 }
 
-/********** Categorie list BTN 자세히보기 **********/
+/********** category list BTN 자세히보기 **********/
 .detailBoxBtn {
   position: absolute;
   top: 0%;

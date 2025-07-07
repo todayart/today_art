@@ -1,7 +1,7 @@
 import React from "react";
 import listCover from "../../assets/main/listCover.png";
 
-export default function CategorieList() {
+export default function CategoryList() {
   return (
     <div className="listBox">
       {/* listBox */}
