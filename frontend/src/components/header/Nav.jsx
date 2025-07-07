@@ -1,23 +1,25 @@
 import React from "react";
-import { ReactComponent as HomeSvg } from "../../assets/common/home.svg";
-import { ReactComponent as CalendarSvg } from "../../assets/common/calendar.svg";
-import { ReactComponent as UserSvg } from "../../assets/common/user.svg";
-import { ReactComponent as WishSvg } from "../../assets/common/wish.svg";
-import { ReactComponent as QuestionSvg } from "../../assets/common/question.svg";
+import { ReactSVG } from "react-svg";
 import urlMeta from "../../contents/urlMeta.json";
 
-export default function Nav() {
-  // 컴포넌트 매핑
-  const icons = { HomeSvg, CalendarSvg, UserSvg, WishSvg, QuestionSvg };
+// Use require to import SVG file paths
+const icons = {
+  HomeSvg: require("../../assets/common/home.svg").default,
+  CalendarSvg: require("../../assets/common/calendar.svg").default,
+  UserSvg: require("../../assets/common/user.svg").default,
+  WishSvg: require("../../assets/common/wish.svg").default,
+  QuestionSvg: require("../../assets/common/question.svg").default,
+};
 
+export default function Nav() {
   return (
     <nav>
       <ul className="navBox">
         {urlMeta.navLinks.map((link) => {
-          const Icon = icons[link.icon];
+          const svgSrc = icons[link.icon];
           return (
             <li key={link.name}>
-              <a href={link.url}>{Icon && <Icon />}</a>
+              <a href={link.url}>{svgSrc && <ReactSVG src={svgSrc} />}</a>
             </li>
           );
         })}
