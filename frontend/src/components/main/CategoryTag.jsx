@@ -5,7 +5,7 @@ export default function CategoryTag() {
     metaData.headerLinks.find((link) => link.category)?.category || [];
 
   return (
-    <ul className="categoryBox">
+    <ul>
       {categoryData.slice(0, 6).map((data, index) => (
         <li key={index} className="categoryTag">
           {data}

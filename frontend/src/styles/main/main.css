@@ -8,6 +8,9 @@
   --dt-gap: 12px;
   --tb-gap: 48px;
   --mb-gap: 52px;
+
+  /* categoryBg 컬러 */
+  --categoryBg-Desktop: rgba(217, 217, 217, 0.3);
 }
 
 /********************* 반응형 *********************/
@@ -16,13 +19,33 @@
   .logoBox {
     margin-top: 130px;
   }
+  section.title > .titleBox {
+    margin-bottom: 100px;
+  }
   section.title > .titleBox > .tagBox > ul {
-    height: 100px;
+    height: 35px;
     column-gap: 10px;
+  }
+  .searchBox {
+    margin-bottom: 35px;
   }
   .categoryBox > .listBox > ul {
     flex-wrap: wrap;
     column-gap: var(--dt-gap);
+  }
+  .categoryBg {
+    width: 547px;
+    height: 549px;
+    background-color: var(--categoryBg-Desktop);
+    border-radius: 274.5px 0 0 274.5px;
+    top: 40%;
+    right: -16%;
+  }
+
+  .detailBtnOuterBox {
+    width: 74px;
+    height: 83px;
+    flex-shrink: 0;
   }
 }
 /* 테블릿 */
@@ -60,6 +83,11 @@
   .searchBox {
     margin-bottom: 30px;
   }
+
+  section.title > .titleBox {
+    margin-bottom: 48px;
+  }
+
   section.title > .titleBox > .tagBox > ul {
     height: 80px;
     margin-bottom: 50px;
@@ -71,6 +99,7 @@
   }
 }
 
+/********** title **********/
 section.title > .titleBox {
   display: flex;
   flex-direction: column;
@@ -79,7 +108,6 @@ section.title > .titleBox {
   padding-left: 20px;
 }
 
-/********** title **********/
 /* 로고 */
 section.title > .titleBox > .logoBox {
   width: 260px;
@@ -137,8 +165,6 @@ section.title > .titleBox > .tagBox > ul {
   flex-wrap: wrap;
   align-items: center;
   justify-content: space-evenly;
-  /* column-gap: 10px; */
-  /* height: 100px; */
 }
 
 section.title > .titleBox > .tagBox > ul > li {
@@ -172,18 +198,17 @@ section.category {
 /*** 배경 ***/
 .categoryBg {
   position: absolute;
-  top: 90%;
-  right: 0%;
-  transform: translate(0%, -90%);
   z-index: -1;
+  transition: all 0.5s ease-in-out;
+  transform: translate(0, -50%);
 }
 
 .categoryBox {
   position: relative;
   max-width: 1440px;
-  min-height: 440px;
-  padding-right: 20px;
-  padding-left: 20px;
+  min-height: 360px;
+  padding-right: 106px;
+  padding-left: 54px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -194,19 +219,24 @@ section.category {
 .categoryBox > .listBox > ul {
   display: flex;
   justify-content: center;
-  /* gap: 12px; */
-  /* flex-flow: wrap; */
+  gap: 22px;
+  flex-flow: wrap;
 }
-/* .listBox > ul > li {
-  margin-right: 11px;
-  margin-left: 11px;
-} */
+.categoryBox > .arrowPrev {
+  position: absolute;
+  left: 0;
+  top: 42%;
+  transform: translateY(-50%);
+  cursor: pointer;
+}
+
 /* 이미지 */
 .listBox > ul > li > a > div.imgBox {
   width: 210px;
   height: 300px;
   position: relative;
   overflow: hidden;
+  margin-bottom: 6px;
 }
 div.imgBox > img {
   width: 100%;
@@ -219,7 +249,7 @@ div.imgBox > img {
 /* 텍스트 */
 .listBox > ul > li > a > div.detailBox {
   width: 210px;
-  height: 65px;
+  height: 62px;
 }
 div.detailBox > ul {
   width: 100%;
@@ -248,40 +278,32 @@ div.detailBox > ul > li.place {
 }
 
 /********** category list BTN 자세히보기 **********/
-.detailBoxBtn {
+
+/* detail outerBox */
+.detailBtnOuterBox {
   position: absolute;
-  top: 0%;
-  right: 20px;
-  /* margin-top: -35px; */
-}
-.detailBoxBtn > a {
-  display: flex;
-  color: var(--font);
-}
-.detailBoxBtn > a > span {
-  margin-left: 8px;
+  right: -3%;
+  top: 46%;
+  transform: translate(-50%, -50%);
 }
 
-/* swiper --------------- */
-.swiper {
-  width: 100vw;
-  height: 100vh;
-}
-
-.swiper-slide {
-  text-align: center;
-  font-size: 18px;
-  background: #fff;
-
-  /* Center slide text vertically */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.swiper-slide img {
-  display: block;
+.detailBtnOuterBox .detailBoxBtn {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+}
+
+.detailBtnOuterBox .detailBoxBtn .detailIcon div {
+  width: 44px;
+  height: 44px;
+}
+
+/* detail innerText */
+.detailBtnOuterBox .detailBoxBtn > span {
+  display: block;
+  color: var(--font);
 }

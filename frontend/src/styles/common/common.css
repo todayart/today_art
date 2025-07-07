@@ -68,6 +68,10 @@ nav > ul.navBox > li > a > svg {
 }
 .mainBox {
   margin: 0 auto;
+  width: 100%;
+  max-width: 1440px;
+  height: calc(100% - 50px);
+  overflow: hidden;
 }
 
 /* 폰트 */
@@ -79,15 +83,35 @@ nav > ul.navBox > li > a > svg {
 .itemPlaceFont {
   color: var(--font);
   font-size: 12px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
 }
 .itemDateFont {
   color: var(--font);
   font-size: 12px;
-  font-weight: bold;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
 }
 
 /* root */
 #root {
   overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+
+/* 자주 사용하는 스타일 */
+.flexCenter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexColumn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }

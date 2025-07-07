@@ -1,14 +1,13 @@
-import React from "react";
 import Header from "../header/Header";
 import Main from "../main/Main";
-import Footer from "../footer/Footer";
+// main.css 작성
+import "../../../src/styles/main/main.css";
 
 export default function EntryPage() {
   return (
     <>
       <Header />
       <Main />
-      <Footer />
     </>
   );
 }

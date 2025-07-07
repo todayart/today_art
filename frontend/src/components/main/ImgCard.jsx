@@ -1,5 +1,3 @@
-import React from "react";
-
 // href 매개변수를 함수 시그니처에 추가하여 함수 본문에 포함시킵니다.
 /**
  * 이미지 카드 컴포넌트입니다.
@@ -16,8 +14,8 @@ import React from "react";
  */
 export default function ImgCard({ listCover, href = "#" }) {
   return (
-    <li>
-      <a href="href">
+    <li className="categoryListItem">
+      <a href={href}>
         <div className="imgBox">
           {/* 이미지 아니면 백그라운드로 넣기 */}
           <img src={listCover} alt="" />
