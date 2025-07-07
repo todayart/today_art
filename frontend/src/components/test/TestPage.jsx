@@ -1,6 +1,6 @@
 import React from "react";
-import Nav from "../header/Nav";
+import EntryPage from "../pages/EntryPage";
 
 export default function TestPage() {
-  return <Nav />;
+  return <EntryPage />;
 }
