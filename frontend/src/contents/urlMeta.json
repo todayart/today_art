@@ -1,0 +1,29 @@
+{
+  "navLinks": [
+    {
+      "name": "HOME",
+      "url": "#",
+      "icon": "HomeSvg"
+    },
+    {
+      "name": "CALENDAR",
+      "url": "#",
+      "icon": "CalendarSvg"
+    },
+    {
+      "name": "USER",
+      "url": "#",
+      "icon": "UserSvg"
+    },
+    {
+      "name": "WISH",
+      "url": "#",
+      "icon": "WishSvg"
+    },
+    {
+      "name": "INFO",
+      "url": "#",
+      "icon": "QuestionSvg"
+    }
+  ]
+}
