@@ -115,3 +115,17 @@ nav > ul.navBox > li > a > svg {
   align-items: center;
   justify-content: center;
 }
+
+.testLine {
+  outline: 1px solid red;
+}
+
+.commonTitleText {
+  color: var(--font);
+  text-align: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}

@@ -30,6 +30,7 @@ export default function Main() {
         {/* Category = postlists ------------- */}
         <section className="category">
           <div className="categoryBox">
+            {/* TODO : arrowPrev는 많이 쓸 거 같으니 컴포넌트로 */}
             {/* arrowPrev */}
             <div className="arrowPrev">
               <ReactSVG src={PrevBtn} />

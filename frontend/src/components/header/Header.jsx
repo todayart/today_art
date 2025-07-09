@@ -1,7 +1,9 @@
-import React from "react";
 import Nav from "./Nav";
 
-export default function Header(a, b) {
+/**
+ * 엔트리 페이지 전용 헤더 컴포넌트
+ */
+export default function Header() {
   return (
     <header>
       <Nav />
