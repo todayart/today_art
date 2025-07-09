@@ -1,6 +1,5 @@
-import React from "react";
-import EntryPage from "../pages/EntryPage";
+import ListPage from "../pages/ListPage";
 
 export default function TestPage() {
-  return <EntryPage />;
+  return <ListPage />;
 }
