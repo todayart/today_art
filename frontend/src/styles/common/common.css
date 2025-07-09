@@ -129,3 +129,9 @@ nav > ul.navBox > li > a > svg {
   font-weight: 700;
   line-height: normal;
 }
+
+.commonBorder {
+  border: 1px solid var(--selector-border); /* needs 테두리 색상 */
+  border-radius: 4px;
+  outline: none; /* needs 포커스 시 outline 제거 */
+}

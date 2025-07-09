@@ -352,8 +352,9 @@ div.detailBox > ul > li.place {
 }
 
 .exhibitionSelectWrapper .exhibitionLocationSelect {
+  /* 넓이 리터럴값 */
   width: 220px;
-  height: 34px;
+  height: 100%;
   border: 1px solid var(--selector-border);
   border-radius: 4px;
   font-size: 14px;
@@ -380,7 +381,6 @@ div.detailBox > ul > li.place {
   align-items: center;
   gap: 11px;
   border-radius: 4px;
-  padding: 0 0; /* needs 좌우 패딩 */
   box-sizing: border-box;
   background-color: transparent;
 }
@@ -416,4 +416,45 @@ div.detailBox > ul > li.place {
 
 .smallSearchWrapper .smallSearchButton .commonSearchIconSvg {
   pointer-events: none;
+}
+
+/* commonHeader > PeriodInput */
+.periodInputWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 483px; /* should width 483px */
+  height: 34px; /* should height 34px */
+  background-color: transparent;
+  box-sizing: border-box;
+}
+.periodInputWrapper > span.commonTitleText {
+  width: 83px;
+}
+.periodInputWrapper > .datePickerBox {
+  position: relative;
+  width: 180px;
+}
+.periodInputWrapper > .datePickerBox > .calendarIcon {
+  width: 18px;
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%); /* needs 세로 중앙 정렬 */
+  pointer-events: none; /* needs 클릭 이벤트 무시 */
+}
+
+.datepickerInputWrapper {
+  height: 100%;
+}
+.datepickerInputWrapper .periodInput {
+  width: 179px;
+  height: 34px; /* 컨테이너는 속성으로 조정할 수 없음 */
+  border: 1px solid var(--selector-border);
+  outline: none;
+  border-radius: 4px;
+  font-size: 14px;
+  flex-shrink: 0;
+  background-color: transparent;
+  padding: 0 8px; /* needs 좌우 padding 8px */
 }
