@@ -18,6 +18,7 @@
 :root {
   --background: #444444;
   --font: #444444;
+  --font-wh: #fff;
   --boxColor: #444444;
   --borderColor: #444444;
   --seachBox: #f1e6dd;
@@ -75,24 +76,25 @@ nav > ul.navBox > li > a > svg {
 }
 
 /* 폰트 */
-.itemTitleFont {
+.imgCardTitleFont {
   color: var(--font);
   font-size: 16px;
-  font-weight: normal;
-}
-.itemPlaceFont {
-  color: var(--font);
-  font-size: 12px;
-  font-style: normal;
   font-weight: 400;
-  line-height: normal;
 }
-.itemDateFont {
+.imgCardAddressFont {
   color: var(--font);
   font-size: 12px;
-  font-style: normal;
+  font-weight: 400;
+}
+.imgCardPeriodFont {
+  color: var(--font);
+  font-size: 14px;
   font-weight: 600;
-  line-height: normal;
+}
+.imgCardPlaceholderFont {
+  color: var(--font-wh);
+  font-size: 14px;
+  text-align: center;
 }
 
 /* root */
@@ -134,4 +136,18 @@ nav > ul.navBox > li > a > svg {
   border: 1px solid var(--selector-border); /* needs 테두리 색상 */
   border-radius: 4px;
   outline: none; /* needs 포커스 시 outline 제거 */
+}
+
+.commonSelect {
+  height: 100%;
+  font-size: 14px;
+  background-color: transparent;
+  appearance: none; /* needs 드롭다운 기본 스타일 제거 */
+  padding: 0 8px;
+}
+
+/* 생략 옵션 */
+.textOverflow {
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
