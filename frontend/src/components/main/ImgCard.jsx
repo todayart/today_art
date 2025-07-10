@@ -1,45 +1,68 @@
-// href 매개변수를 함수 시그니처에 추가하여 함수 본문에 포함시킵니다.
+import { ReactSVG } from "react-svg";
+import imgcardDetailIcon from "../../assets/common/imgcardDetailIcon.svg";
+
 /**
- * 이미지 카드 컴포넌트입니다.
- * @param {string} listCover - 이미지 URL
- * @param {string} [href="#"] - 링크 URL (기본값: "#")
- * @returns {JSX.Element} 이미지 카드 컴포넌트 JSX 요소
+ * 이미지와 제목·주소·기간 정보를 담은 카드 컴포넌트입니다.
+ * needs 전체 크기 width 232px, height 293px
  *
+ * @param {{
+ *   title: string;
+ *   address: string;
+ *   period: string;
+ *   imageUrl?: string;
+ * }} props
+ * @param {string} props.title 카드 상단에 보일 제목
+ * @param {string} props.address 주소 텍스트
+ * @param {string} props.period 기간 텍스트
+ * @param {string} [props.imageUrl] 상단 검정 박스 대신 들어갈 이미지 URL
  * @example
- * // 이미지 카드 컴포넌트 사용 예시
+ * ```jsx
  * <ImgCard
- *   listCover="https://example.com/image.jpg"
- *   href="https://example.com"
+ *   title="아트페어 2025"
+ *   address="서울시 강남구"
+ *   period="2025-07-01 ~ 2025-07-12"
+ *   imageUrl="https://example.com/art.jpg"
  * />
+ * ```
  */
-export default function ImgCard({ listCover, href = "#" }) {
+const ImgCard = ({ title, address, period, imageUrl }) => {
   return (
-    <li className="categoryListItem">
-      <a href={href}>
-        <div className="imgBox">
-          {/* 이미지 아니면 백그라운드로 넣기 */}
-          <img src={listCover} alt="" />
+    <div className="imgCard">
+      {imageUrl ? (
+        // 이미지 영역: imageUrl이 있는 경우
+        <div className="imgCardImage">
+          <img
+            src={imageUrl}
+            alt={`${title}의 포스트 사진입니다.`}
+            style={{ width: "100%", height: "100%", display: "block" }}
+          />
         </div>
-        <div className="detailBox">
-          <ul>
-            {/* titleName */}
-            <li className="titleName itemTitleFont">
-              <p>유키 구라모토 콘서트(제목)유키 구라모토 콘서트(제목)</p>
-            </li>
-            {/* /titleName */}
-            {/* place */}
-            <li className="place itemPlaceFont">
-              <p>서울시 예술의전당 (장소)서울시 예술의전당 (장소)</p>
-            </li>
-            {/* /place */}
-            {/* data */}
-            <li>
-              <p className="itemDateFont">2024.04.01 ~ 2024.10.30</p>
-            </li>
-            {/* /data */}
-          </ul>
+      ) : (
+        // 이미지 영역: imageUrl이 없는 경우
+        <div className="imgCardPlaceholder imgCardPlaceholderFont">
+          포스트가 존재하지 않습니다.
         </div>
-      </a>
-    </li>
+      )}
+      <div className="imgCardContent">
+        {/* 제목: 글자 수 초과 시 말줄임 */}
+        <h3 className="imgCardTitle imgCardTitleFont textOverflow">{title}</h3>
+
+        {/* 주소 */}
+        <p className="imgCardAddress imgCardAddressFont textOverflow">
+          {address}
+        </p>
+
+        {/* 기간 */}
+        <p className="imgCardPeriod imgCardPeriodFont textOverflow">{period}</p>
+
+        {/* 상세 버튼 아이콘 */}
+        {/* TODO 버튼 누를 때 일어날 이벤트를 추가해야함 */}
+        <button className="imgCardDetailButton flexCenter" type="button">
+          <ReactSVG src={imgcardDetailIcon} />
+        </button>
+      </div>
+    </div>
   );
-}
+};
+
+export default ImgCard;
