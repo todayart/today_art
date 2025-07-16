@@ -151,3 +151,18 @@ nav > ul.navBox > li > a > svg {
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+/* 이전으로 버튼 */
+.backButton {
+  width: 105px;
+  height: 34px;
+  padding: 8px 11px;
+  gap: 10px;
+  background: var(--background);
+  color: var(--font-wh);
+  font-weight: bold;
+  position: absolute;
+  right: 0;
+  top: -12px;
+  transform: translate(0, -100%);
+}
