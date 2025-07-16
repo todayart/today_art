@@ -26,18 +26,8 @@ export default function ListPage() {
         <SmallSearchInput />
         <PeriodInput onRangeChange={handleRangeChange} />
       </CommonHeader>
-      <main className="listContentsWrapper testLine">
-        <div
-          className="sortSelectArea"
-          style={{
-            width: "100%",
-            height: "64px",
-            display: "flex",
-            justifyContent: "flex-end",
-            alignItems: "center",
-            padding: "0 60px",
-          }}
-        >
+      <main className="contentsWrapper">
+        <div className="sortSelectArea">
           <CommonSelect
             labels={["정렬순", "최신순", "오래된순"]}
             selected="정렬순"
@@ -45,7 +35,7 @@ export default function ListPage() {
             selectStyle={{ width: "150px" }}
           />
         </div>
-        <div className="listContainer" style={{ padding: "0 200px" }}>
+        <div className="listContainer">
           {/* TODO : OPEN API 작동 후 리스트 아이템들을 렌더링 필요 데이터는 URL, TITLE, ADDRESS, PERIOD 등이 있다.*/}
           <ImgCard
             title="아트페어 2025"

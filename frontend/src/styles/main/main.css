@@ -433,23 +433,32 @@ div.imgBox > img {
 }
 
 /* ListPage ->  .listContainer */
-main.listContentsWrapper {
+main.contentsWrapper {
   width: 100%;
-  height: calc(100% - 294px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  /* 스크롤 기능을 허용하기 위해 수직 overflow와 높이 지정 */
+  overflow-y: auto;
+  height: calc(100vh - 294px);
+}
+.contentsWrapper .sortSelectArea {
+  width: 100%;
+  height: 64px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 15px 60px;
 }
 .listContainer {
   width: 100%;
   max-width: 1440px;
-  height: 100%;
-  overflow: hidden;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   row-gap: 50px; /* 수정: flex-wrap 시 생기는 행 간 간격 조정 */
+
+  padding: 0 200px; /* needs 좌우 패딩 200px */
 }
 
 /* imgCard */

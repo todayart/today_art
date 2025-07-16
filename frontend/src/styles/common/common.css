@@ -99,9 +99,9 @@ nav > ul.navBox > li > a > svg {
 
 /* root */
 #root {
-  overflow: hidden;
   width: 100vw;
   height: 100vh;
+  overflow: hidden;
 }
 
 /* 자주 사용하는 스타일 */
