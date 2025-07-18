@@ -694,4 +694,19 @@ span {
 .calenderWrapper {
   width: 100%;
   height: 700px;
+  /* 그리드 */
+  display: grid;
+  grid-template-columns: repeat(13, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+
+  /* 폰트 */
+  color: var(--calenderLogoFont);
+  font-family: Inter;
+  font-size: 16px;
+  font-weight: 700;
+}
+.calenderCell {
+  padding: 14px;
+  border-right: 1px solid;
+  border-bottom: 1px solid;
 }
