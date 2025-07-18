@@ -22,6 +22,8 @@
   --boxColor: #444444;
   --borderColor: #444444;
   --seachBox: #f1e6dd;
+  --calenderLogoFont: #222;
+  --calenderLogoFont-wh: #fff;
 }
 
 /********************* 반응형 *********************/

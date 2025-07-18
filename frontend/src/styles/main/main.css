@@ -308,7 +308,7 @@ div.imgBox > img {
   gap: 11px;
 }
 
-.commonHeader > .selectBox > .commonHeaderLogoImg {
+.commonHeader > .selectBox > h1 > .commonHeaderLogoImg {
   position: absolute;
   top: 0%;
   left: 50%;
@@ -624,4 +624,74 @@ span {
   left: 50%;
   /* 배경 */
   background-color: transparent;
+}
+
+/* ---------------CalenderPage ---------- */
+/* calenderPageLogo*/
+.calenderLogo {
+  position: absolute;
+  left: 30px;
+  top: -156px;
+}
+.calenderLogo > h1 {
+  display: block;
+}
+.currentYear {
+  color: var(--calenderLogoFont);
+  font-family: Inter;
+  font-size: 64px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+}
+.calenderLogo > .currentYear {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 50px;
+}
+/* calenderPage fixed Month grid */
+.monthGrid {
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.monthGrid > .monthCell {
+  width: calc(100% / 13);
+  height: 100%;
+  border: 1px solid var(--borderColor);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.monthGrid > .monthCell > span:first-child {
+  color: var(--font);
+  text-align: center;
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 700;
+
+  /* 크기 */
+  width: 84px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.monthGrid > .monthCell > span:last-child {
+  color: var(--font);
+  text-align: center;
+  font-family: Inter;
+  font-size: 32px;
+  font-weight: 700;
+
+  /* 크기 */
+  width: 56px;
+  height: 42px;
+  flex-shrink: 0;
+}
+/* calenderWrapper */
+.calenderWrapper {
+  width: 100%;
+  height: 700px;
 }
