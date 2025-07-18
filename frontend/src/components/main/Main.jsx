@@ -6,7 +6,7 @@ import CategoryTag from "./CategoryTag";
 import CategoryList from "./CategoryList";
 import DetailBtn from "./DetailBtn";
 
-import PrevBtn from "../../assets/main/prevBtn.svg";
+import PrevBtn from "assets/main/prevBtn.svg";
 
 export default function Main() {
   return (

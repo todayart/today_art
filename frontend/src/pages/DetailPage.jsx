@@ -1,12 +1,12 @@
-import "../../styles/main/main.css";
+import "styles/main/main.css";
 
-import CommonHeader from "../header/CommonHeader";
-import CommonSelect from "../Input/CommonSelect";
-import SmallSearchInput from "../Input/SmallSearchInput";
-import PeriodInput from "../Input/PeriodInput";
-import DetailCard from "../main/detail/DetailCard";
+import CommonHeader from "components/header/CommonHeader";
+import CommonSelect from "components/Input/CommonSelect";
+import SmallSearchInput from "components/Input/SmallSearchInput";
+import PeriodInput from "components/Input/PeriodInput";
+import DetailCard from "components/main/detail/DetailCard";
 
-import ListCover from "../../assets/main/listCover.png";
+import ListCover from "assets/main/listCover.png";
 
 export default function DetailPage() {
   const handleRangeChange = ({ startDate, endDate }) => {

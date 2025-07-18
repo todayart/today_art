@@ -1,10 +1,9 @@
-import CommonHeader from "../header/CommonHeader";
-import CommonSelect from "../Input/CommonSelect";
-import SmallSearchInput from "../Input/SmallSearchInput";
-import "../../styles/main/main.css";
-import PeriodInput from "../Input/PeriodInput";
-import ImgCard from "../main/ImgCard";
-import ListCover from "../../assets/main/listCover.png";
+import CommonHeader from "components/header/CommonHeader";
+import CommonSelect from "components/Input/CommonSelect";
+import PeriodInput from "components/Input/PeriodInput";
+import SmallSearchInput from "components/Input/SmallSearchInput";
+import ListCover from "assets/main/listCover.png"; // 임시 이미지
+import ImgCard from "components/main/ImgCard";
 
 export default function ListPage() {
   //TODO : PeriodInput에 사용될 OnRangeChange 함수를 생성해야함, 내용은 내용을 그대로 백앤드로 보내는 fetch함수이다.

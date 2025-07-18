@@ -1,5 +1,5 @@
-import DetailPage from "../pages/DetailPage";
+import CalenderPage from "pages/CalenderPage";
 
 export default function TestPage() {
-  return <DetailPage />;
+  return <CalenderPage />;
 }

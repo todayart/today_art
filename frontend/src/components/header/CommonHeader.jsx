@@ -3,10 +3,10 @@ import Header from "./Header";
 
 export default function CommonHeader({ children }) {
   return (
-    <div className="commonHeader testLine">
+    <div className="commonHeader">
       <Header />
-      <div className="selectBox flexCenter testLine">
-        <Logoimg className={"commonHeaderLogoImg"} />
+      <div className="selectBox flexCenter">
+        <Logoimg className="commonHeaderLogoImg" />
         {children}
       </div>
     </div>
