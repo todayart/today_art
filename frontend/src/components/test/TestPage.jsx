@@ -1,5 +1,10 @@
-import CalenderPage from "pages/CalenderPage";
+import { useEffect } from "react";
+import ExhibitionTag from "../calendar/ExhibitionTag";
 
 export default function TestPage() {
-  return <CalenderPage />;
+  useEffect(() => {
+    console.log("TestPage mounted");
+  }, []);
+  // return <CalendarPage />;
+  return <ExhibitionTag name={"hellowold"} />;
 }

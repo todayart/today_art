@@ -472,6 +472,7 @@ main.contentsWrapper {
   flex-direction: column;
   background-color: transparent;
   justify-content: flex-start;
+  flex-shrink: 0;
 }
 
 .imgCard .imgCardImage {
@@ -626,31 +627,31 @@ span {
   background-color: transparent;
 }
 
-/* ---------------CalenderPage ---------- */
-/* calenderPageLogo*/
-.calenderLogo {
+/* ---------------calendarPage ---------- */
+/* calendarPageLogo*/
+.calendarLogo {
   position: absolute;
   left: 30px;
   top: -156px;
 }
-.calenderLogo > h1 {
+.calendarLogo > h1 {
   display: block;
 }
 .currentYear {
-  color: var(--calenderLogoFont);
+  color: var(--calendarLogoFont);
   font-family: Inter;
   font-size: 64px;
   font-style: normal;
   font-weight: 700;
   line-height: normal;
 }
-.calenderLogo > .currentYear {
+.calendarLogo > .currentYear {
   display: block;
   position: absolute;
   left: 0;
   top: 50px;
 }
-/* calenderPage fixed Month grid */
+/* calendarPage fixed Month grid */
 .monthGrid {
   width: 100%;
   height: 100%;
@@ -690,8 +691,8 @@ span {
   height: 42px;
   flex-shrink: 0;
 }
-/* calenderWrapper */
-.calenderWrapper {
+/* calendarWrapper */
+.calendarWrapper {
   width: 100%;
   height: 700px;
   /* 그리드 */
@@ -700,13 +701,22 @@ span {
   grid-template-rows: repeat(2, 1fr);
 
   /* 폰트 */
-  color: var(--calenderLogoFont);
+  color: var(--calendarLogoFont);
   font-family: Inter;
   font-size: 16px;
   font-weight: 700;
 }
-.calenderCell {
+.calendarCell {
   padding: 14px;
   border-right: 1px solid;
   border-bottom: 1px solid;
+}
+.calendarCell > .exhibitionTag {
+  display: inline-flex;
+  padding: 4px 12px;
+  max-width: 200px;
+  background-color: transparent;
+  color: var(--font);
+  font-size: 14px;
+  overflow: hidden; /* needs 넘침 숨김 */
 }

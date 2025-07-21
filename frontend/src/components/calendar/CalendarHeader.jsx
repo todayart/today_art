@@ -1,16 +1,18 @@
 import React from "react";
-import Header from "components/calender/CalenderHeader";
-import Logoimg from "components/main/Logoimg";
+
 import { format } from "date-fns";
 
-export default function CalenderHeader() {
+import Logoimg from "components/main/Logoimg";
+import Header from "components/header/Header";
+
+export default function CalendarHeader() {
   return (
     <section className="commonHeader">
       <Header />
       <div className="selectBox">
         {/* 로고 파트 */}
-        <div className="calenderLogo">
-          <Logoimg className="calenderLogoImg" />
+        <div className="calendarLogo">
+          <Logoimg className="calendarLogoImg" />
           <span className="currentYear">{format(new Date(), "yyyy")}</span>
         </div>
         {/* 월 표시 그리드 파트 */}

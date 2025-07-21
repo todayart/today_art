@@ -1,12 +1,13 @@
-import "react-datepicker/dist/react-datepicker.css";
-
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
-import TestPage from "components/test/TestPage";
+import TestPage from "./components/test/TestPage.jsx";
 import EntryPage from "pages/EntryPage";
 import ListPage from "pages/ListPage";
 import DetailPage from "pages/DetailPage";
-import CalenderPage from "pages/CalenderPage";
+import CalendarPage from "pages/CalendarPage.jsx";
+
+// 스타일
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
@@ -17,7 +18,7 @@ function App() {
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/list" element={<ListPage />} />
         <Route path="/detail" element={<DetailPage />} />
-        <Route path="/calender" element={<CalenderPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
       </Routes>
     </Router>
   );
