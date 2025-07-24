@@ -1,13 +1,23 @@
+import { useContext, useEffect } from "react";
+
+import { EntryContext } from "contexts/EntryContext";
+
 import CommonHeader from "components/header/CommonHeader";
 import CommonSelect from "components/Input/CommonSelect";
 import PeriodInput from "components/Input/PeriodInput";
 import SmallSearchInput from "components/Input/SmallSearchInput";
-import ListCover from "assets/main/listCover.png"; // 임시 이미지
 import ImgCard from "components/main/ImgCard";
 
 export default function ListPage() {
-  //TODO : PeriodInput에 사용될 OnRangeChange 함수를 생성해야함, 내용은 내용을 그대로 백앤드로 보내는 fetch함수이다.
+  const entries = useContext(EntryContext);
+  useEffect(() => {
+    console.log("CategoryList Mounted");
+  }, []);
+  useEffect(() => {
+    console.log("entries:", entries);
+  }, [entries]);
 
+  //TODO : PeriodInput에 사용될 OnRangeChange 함수를 생성해야함, 내용은 내용을 그대로 백앤드로 보내는 fetch함수이다.
   const handleRangeChange = ({ startDate, endDate }) => {
     console.log("Selected dates:", { startDate, endDate });
   };
@@ -35,37 +45,17 @@ export default function ListPage() {
           />
         </div>
         <div className="listContainer">
-          {/* TODO : OPEN API 작동 후 리스트 아이템들을 렌더링 필요 데이터는 URL, TITLE, ADDRESS, PERIOD 등이 있다.*/}
-          <ImgCard
-            title="아트페어 2025"
-            address="서울시 강남구"
-            period="2025-07-01 ~ 2025-07-12"
-            imageUrl={ListCover}
-          />
-          <ImgCard
-            title="아트페어 2025"
-            address="서울시 강남구"
-            period="2025-07-01 ~ 2025-07-12"
-            imageUrl={ListCover}
-          />
-          <ImgCard
-            title="아트페어 2025"
-            address="서울시 강남구"
-            period="2025-07-01 ~ 2025-07-12"
-            imageUrl={ListCover}
-          />
-          <ImgCard
-            title="아트페어 2025"
-            address="서울시 강남구"
-            period="2025-07-01 ~ 2025-07-12"
-            imageUrl={ListCover}
-          />
-          <ImgCard
-            title="아트페어 2025"
-            address="서울시 강남구"
-            period="2025-07-01 ~ 2025-07-12"
-            imageUrl={ListCover}
-          />
+          {/* list는 imgcard 컴포넌트가 8개가 우선적으로 나온다. */}
+          {entries.slice(0, 8).map((entry) => (
+            <ImgCard
+              // key={entry.}
+              title={entry.TITLE}
+              address={entry.HOST_INST_NM}
+              sPeriod={entry.BEGIN_DE}
+              ePeriod={entry.END_DE}
+              imageUrl={entry.IMAGE_URL}
+            />
+          ))}
         </div>
       </main>
     </>

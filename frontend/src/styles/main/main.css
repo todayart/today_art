@@ -459,7 +459,9 @@ main.contentsWrapper {
   justify-content: space-between;
   row-gap: 50px; /* 수정: flex-wrap 시 생기는 행 간 간격 조정 */
 
+  /* 패딩 마진 */
   padding: 0 200px; /* needs 좌우 패딩 200px */
+  margin-bottom: 15px;
 }
 
 /* imgCard */
@@ -498,11 +500,13 @@ main.contentsWrapper {
   display: flex;
   flex-direction: column;
   border: 1px solid var(--borderColor);
+  margin-top: 2px;
 }
 .imgCard .imgCardContent .imgCardTitle {
   margin: 0;
   height: 20px;
   margin-bottom: 12px; /* gap 12px */
+  overflow: hidden;
 }
 .imgCard .imgCardContent .imgCardAddress {
   height: 15px;

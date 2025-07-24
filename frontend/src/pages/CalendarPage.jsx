@@ -2,7 +2,7 @@ import CalendarFixedCell from "components/calendar/CalendarFixedCell";
 import CalendarHeader from "components/calendar/CalendarHeader";
 import { useEffect } from "react";
 
-import "styles/main/main.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 /**
  * 이 컴포넌트는 calendar 페이지의 메인 컴포넌트입니다.

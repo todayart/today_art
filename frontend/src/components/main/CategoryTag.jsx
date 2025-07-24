@@ -1,8 +1,11 @@
-import metaData from "../../contents/urlMeta.json";
+import metaData from "contents/urlMeta.json";
+import { memo, useMemo } from "react";
 
-export default function CategoryTag() {
-  const categoryData =
-    metaData.headerLinks.find((link) => link.category)?.category || [];
+function CategoryTag() {
+  const categoryData = useMemo(() => {
+    const foundLink = metaData.headerLinks.find((link) => link.category);
+    return foundLink?.category || [];
+  }, []);
 
   return (
     <ul>
@@ -14,3 +17,5 @@ export default function CategoryTag() {
     </ul>
   );
 }
+
+export default memo(CategoryTag);
