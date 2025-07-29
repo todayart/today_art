@@ -18,9 +18,9 @@ export default function CategoryList() {
       {/* listBox */}
       <ul>
         {/* imgCard는 5개까지만 나온다 */}
-        {entries.slice(0, 5).map((entry) => (
+        {entries.slice(0, 5).map((entry, index) => (
           <ImgCard
-            // key={entry.}
+            key={index}
             title={entry.TITLE}
             address={entry.HOST_INST_NM}
             sPeriod={entry.BEGIN_DE}

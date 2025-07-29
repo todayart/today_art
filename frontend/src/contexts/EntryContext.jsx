@@ -15,6 +15,7 @@ export const EntryContext = createContext([]);
 export function EntryProvider({ children }) {
   const [entries, setEntries] = useState([]);
 
+  // ? 프로바이더 컴포넌트에 fetch를 넣는 것이 좋은지 고민해보자.
   useEffect(function fetchEntry() {
     console.log("EntryPage mounted");
     // API 호출, http://127.0.0.1:8000/api/entry/로 보낸다.

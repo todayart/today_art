@@ -101,6 +101,13 @@ DATABASES = {
     }
 }
 
+# 캐시(메모리) 설정
+# 모든 데이터를 저장하기 위한 설정, 간단히 locmem을 사용함
+CACHES = {
+    "default": {
+        "BACKEND": "django.core.cache.backends.locmem.LocMemCache",
+    }
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators

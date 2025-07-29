@@ -1,4 +1,4 @@
-import "styles/main/main.css";
+// import "styles/main/main.css";
 
 import CommonHeader from "components/header/CommonHeader";
 import CommonSelect from "components/Input/CommonSelect";
@@ -7,11 +7,22 @@ import PeriodInput from "components/Input/PeriodInput";
 import DetailCard from "components/main/detail/DetailCard";
 
 import ListCover from "assets/main/listCover.png";
+import { useParams } from "react-router-dom";
 
 export default function DetailPage() {
+  // URL 파라미터에서 title을 가져옵니다.
+  const { title } = useParams();
+  // decodeURIComponent로 원래 문자열 복원
+  const decodedTitle = decodeURIComponent(title);
+
   const handleRangeChange = ({ startDate, endDate }) => {
     console.log("Selected dates:", { startDate, endDate });
   };
+
+  // ? title로 백엔드의 엔드포인트로 보내 정보를 따온다. 즉, 백앤드 서버에서 모든 데이터를 가지고 있어야만 한다.
+  // ? 이것이 맞을까? 고민포인트이다.
+
+  // ? 만약 프론트엔드에서 브라우저에 데이터를 캐시에 저장시킨 후 이걸 활용하는 것이 유리할까?
 
   return (
     <>
@@ -28,7 +39,7 @@ export default function DetailPage() {
       </CommonHeader>
       <main className="contentsWrapper">
         <DetailCard
-          title="지역미술조명사업Ⅰ 《가고: 이동훈, 이남규, 이인영…zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz》"
+          title={decodedTitle}
           imageUrl={ListCover}
           details={[
             {

@@ -3,10 +3,10 @@
 from django.contrib import admin
 from django.urls import path
 from django.http import JsonResponse
-from django.urls import include
 import requests
 import os
 from dotenv import load_dotenv
+load_dotenv()
 
 # 테스트용 로직
 # def react_test(request):
@@ -14,7 +14,6 @@ from dotenv import load_dotenv
 
 def fetch_events(pSize):
     url = "https://openapi.gg.go.kr/GGCULTUREVENTSTUS"
-    load_dotenv()
     api_key = os.getenv("OPEN_API_KEY")
     params = {
         "KEY": api_key,
@@ -39,6 +38,7 @@ def fetch_events(pSize):
                 "BEGIN_DE": event.get("BEGIN_DE"),
                 "END_DE": event.get("END_DE"),
                 "HOST_INST_NM": event.get("HOST_INST_NM"),
+                "HMPG_URL" : event.get("HMPG_URL"),
             }
             clean_events.append(clean_event)
     except Exception as e:
