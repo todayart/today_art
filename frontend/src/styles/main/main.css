@@ -510,6 +510,8 @@ main.contentsWrapper {
 }
 .imgCard .imgCardContent .imgCardAddress {
   height: 15px;
+  width: 80%;
+  overflow: hidden;
 }
 .imgCard .imgCardContent .imgCardPeriod {
   margin: 0;

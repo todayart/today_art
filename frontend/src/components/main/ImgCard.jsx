@@ -1,5 +1,6 @@
 import { ReactSVG } from "react-svg";
-import imgcardDetailIcon from "../../assets/common/imgcardDetailIcon.svg";
+import { Link } from "react-router-dom";
+import imgcardDetailIcon from "assets/common/imgcardDetailIcon.svg";
 
 /**
  * 이미지와 제목·주소·기간 정보를 담은 카드 컴포넌트입니다.
@@ -33,7 +34,7 @@ const ImgCard = ({ title, address, sPeriod, ePeriod, imageUrl }) => {
     <div className="imgCard">
       {imageUrl ? (
         // 이미지 영역: imageUrl이 있는 경우
-        <div className="imgCardImage">
+        <Link className="imgCardImage" to={`/detail/${title}`}>
           <img
             src={imageUrl}
             alt={`${title}의 포스트 사진입니다.`}
@@ -44,7 +45,7 @@ const ImgCard = ({ title, address, sPeriod, ePeriod, imageUrl }) => {
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
             }}
           />
-        </div>
+        </Link>
       ) : (
         // 이미지 영역: imageUrl이 없는 경우
         <div className="imgCardPlaceholder imgCardPlaceholderFont">
