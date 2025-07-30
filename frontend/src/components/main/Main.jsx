@@ -38,7 +38,7 @@ export default function Main() {
             {/* /arrowPrev */}
             <CategoryList />
             {/* TODO : DetailBtn을 누르면 /detail로 이동한다. */}
-            <DetailBtn />
+            <DetailBtn href={"/list"} />
           </div>
           <div className="categoryBg"></div>
         </section>
