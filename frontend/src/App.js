@@ -34,7 +34,7 @@ function App() {
         <Route path="/entry" element={<EntryPage />} />
         <Route path="/list" element={<ListPage />} />
       </Route>
-      <Route path="/detail" element={<DetailPage />} />
+      <Route path="/detail/:title" element={<DetailPage />} />
       <Route path="/calendar" element={<CalendarPage />} />
     </Routes>
   );

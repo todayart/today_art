@@ -28,7 +28,11 @@ import { ReactSVG } from "react-svg";
  * />
  * ```
  */
-const DetailCard = ({ title, details, imageUrl }) => (
+const DetailCard = ({
+  title,
+  details = [{ label: "", value: "" }],
+  imageUrl,
+}) => (
   <div className="detailCard flexCenter">
     {/* 이미지와 콘텐츠 사이 간격 74px */}
     <div className="detailCardContent">
