@@ -7,17 +7,15 @@ import SmallSearchInput from "components/Input/SmallSearchInput";
 import PeriodInput from "components/Input/PeriodInput";
 import DetailCard from "components/main/detail/DetailCard";
 
-// console.log("DetailPage.jsx loaded");
 export default function DetailPage() {
-  // console.log("DetailPage mounted");
   // URL 파라미터에서 title을 가져옵니다.
   const { title } = useParams();
   // decodeURIComponent로 원래 문자열 복원
   const decodedTitle = decodeURIComponent(title);
-  // console.log("Decoded title:", decodedTitle);
 
   const [eventData, setEventData] = useState(null);
 
+  // TODO : 기간 선택 시 처리 함수
   const handleRangeChange = ({ startDate, endDate }) => {
     console.log("Selected dates:", { startDate, endDate });
   };
@@ -26,7 +24,6 @@ export default function DetailPage() {
 
   // * 한번만 api를 요구하는 데에서 유리하다고 생각되었고, 캐시를 활용하는 방면으로 활용됐다.
 
-  // 페이지가 마운트될 때마다 API를 호출하여 데이터를 가져옵니다.
   useEffect(() => {
     console.log("DetailPage mounted with title:", decodedTitle);
     fetch(
@@ -49,19 +46,11 @@ export default function DetailPage() {
       });
   }, []);
 
-  // useEffect(
-  //   function eventDataConsole() {
-  //     console.log("Event data updated:", eventData);
-  //   },
-  //   [eventData]
-  // );
-
   if (!eventData) {
     return <div>Loading...</div>;
   }
 
   // 매핑 전시 데이터
-  // 하이픈이 있으므로 대괄호를 써야 한다.
   const details = [
     {
       label: "전시기간",
