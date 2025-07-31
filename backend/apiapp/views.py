@@ -3,6 +3,7 @@ from django.conf import settings
 from django.core.cache import cache
 from django.http import JsonResponse
 from django.views.decorators.http import require_GET
+from datetime import date
 
 CACHE_KEY = "entries_all"
 def _load_all_entries():
@@ -74,10 +75,18 @@ def entries_api(request):
 
     # 2) 기간 필터
     # TODO : 나중에 날짜 라이브러리와 호환성 체크해야함
+    # * 날짜 방식은 type이 string으로 되어있음
+    # * YYYY-MM-dd 형태로 되어있음
+    
     if start:
         qs = [e for e in qs if e["BEGIN_DE"] >= start]
-    if end:
-        qs = [e for e in qs if e["END_DE"] <= end]
+    
+    if end: 
+        today = date.today().strftime("%Y-%m-%d")
+        qs = [e for e in qs if e["END_DE"] >= today]
+    
+    if start and end:
+        qs = [e for e in qs if start <= e["BEGIN_DE"] and e["END_DE"] <= end]
 
     # 4) 카테고리 필터
     if cate:
@@ -94,5 +103,8 @@ def entries_api(request):
         limit = int(limit)
         qs = qs[:limit]
 
+    # 응답
+    # * 리스트 형태로 보내기 위해 safe=False 설정
+    # * ensure_ascii=False로 설정하여 한글이 깨지지 않도록 함
     return JsonResponse(qs, safe=False, json_dumps_params={"ensure_ascii": False})
 

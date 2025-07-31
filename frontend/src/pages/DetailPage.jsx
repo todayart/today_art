@@ -44,7 +44,7 @@ export default function DetailPage() {
       .catch((error) => {
         console.error("Fetch error:", error);
       });
-  }, []);
+  }, [decodedTitle]);
 
   if (!eventData) {
     return <div>Loading...</div>;
@@ -52,18 +52,16 @@ export default function DetailPage() {
 
   // 매핑 전시 데이터
   const details = [
+    { label: "카테고리", value: eventData["CATEGORY_NM"] },
     {
       label: "전시기간",
       value: `${eventData["BEGIN_DE"]} ~ ${eventData["END_DE"]}`,
     },
-    { label: "카테고리", value: eventData["CATEGORY_NM"] },
     { label: "이벤트 시간", value: eventData["EVENT_TM_INFO"] },
-    { label: "홈페이지", value: eventData["HMPG_URL"] },
-    { label: "주최 기관", value: eventData["HOST_INST_NM"] },
-    { label: "기관명", value: eventData["INST_NM"] },
     { label: "참가비", value: eventData["PARTCPT_EXPN_INFO"] },
+    { label: "주최 기관", value: eventData["HOST_INST_NM"] },
     { label: "전화번호", value: eventData["TELNO_INFO"] },
-    { label: "등록일", value: eventData["WRITNG_DE"] },
+    { label: "홈페이지", value: eventData["HMPG_URL"] },
   ];
 
   return (
