@@ -1,7 +1,7 @@
 import { useState } from "react";
 import DatePicker from "react-datepicker";
 import { ReactSVG } from "react-svg";
-import CalendarIcon from "../../assets/common/calendar.svg";
+import CalendarIcon from "assets/common/calendar.svg";
 import { format } from "date-fns";
 
 /**
@@ -29,6 +29,8 @@ const PeriodInput = ({ onRangeChange }) => {
 
   const handleStartChange = (date) => {
     setStartDate(date);
+    // console.log("startDate data type:", typeof date, date); // object
+    // console.log("formated startDate:", typeof format(date, "yyyy-MM-dd")); // string
     const payload = {
       startDate: date ? format(date, "yyyy-MM-dd") : null,
       endDate: endDate ? format(endDate, "yyyy-MM-dd") : null,
