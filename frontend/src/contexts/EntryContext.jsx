@@ -8,27 +8,29 @@
  * @returns {JSX.Element} EntryContext.Provider로 감싸진 자식 컴포넌트를 반환합니다.
  */
 
-import { createContext, useState, useEffect } from "react";
+import { createContext, useState, useEffect, useCallback } from "react";
 
 export const EntryContext = createContext([]);
 
 export function EntryProvider({ children }) {
   const [entries, setEntries] = useState([]);
 
-  // ? 프로바이더 컴포넌트에 fetch를 넣는 것이 좋은지 고민해보자.
-  useEffect(function fetchEntry() {
+  const fetchEntry = useCallback(() => {
     console.log("EntryPage mounted");
-    // API 호출, http://127.0.0.1:8000/api/entries/로 보낸다.
     fetch("http://127.0.0.1:8000/api/entries/?limit=20")
       .then((response) => response.json())
-      .then(setEntries)
       .then((data) => {
+        setEntries(data);
         console.log("API 응답:", data);
       })
       .catch((error) => {
         console.error("API 호출 오류:", error);
       });
-  }, []);
+  }, []); // 빈 배열 → fetchEntries는 절대 바뀌지 않음
+
+  useEffect(() => {
+    fetchEntry();
+  }, [fetchEntry]);
 
   return (
     <EntryContext.Provider value={entries}>{children}</EntryContext.Provider>
