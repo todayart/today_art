@@ -69,7 +69,6 @@ def entries_api(request):
     # TODO : 카테고리 기본값 추가
     sort  = request.GET.get("sort")  # ex) "begin" or "-begin"
     cate = request.GET.get("cate", "").strip().lower()
-
     
     # 1) 검색(term)
     if term:
@@ -89,6 +88,7 @@ def entries_api(request):
         qs = [e for e in qs if start >= e["BEGIN_DE"] and e["END_DE"] <= end]
 
     # 4) 카테고리 필터
+    # 공연, 행사, 교육, 전시
     if cate:
         qs = [e for e in qs if cate in e.get("CATEGORY_NM", "").lower()]
         

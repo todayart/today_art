@@ -21,7 +21,12 @@ import CommonSearchIcon from "assets/common/commonSearch.svg";
  * />
  * ```
  */
-const SmallSearchInput = ({ value, onChange, onSearch, placeholder = "" }) => {
+const SmallSearchInput = ({
+  value,
+  onChange = () => {},
+  onSearch,
+  placeholder = "",
+}) => {
   return (
     <div className="smallSearchWrapper">
       {/* 라벨링 + 텍스트 */}
@@ -35,11 +40,10 @@ const SmallSearchInput = ({ value, onChange, onSearch, placeholder = "" }) => {
         className="smallSearchInput"
         type="text"
         value={value}
-        // TODO : 입력값 변경 핸들러 추가, 디바운스 필요
-        // onChange={(e) => onChange(e.target.value)}
+        // TODO : 입력값 변경 핸들러 추가, 디바운스 구현할 때 완성
+        onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
-        // TODO : Enter 키로 검색 실행 핸들러 추가
-        // onKeyDown={(e) => e.key === "Enter" && onSearch()}
+        onKeyDown={(e) => e.key === "Enter" && onSearch()}
       />
 
       {/* 검색 버튼 */}

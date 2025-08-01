@@ -1,92 +1,102 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 import { EntryContext } from "contexts/EntryContext";
+import { fetchData } from "utils/fetchData";
 
 import CommonHeader from "components/header/CommonHeader";
 import CommonSelect from "components/Input/CommonSelect";
 import PeriodInput from "components/Input/PeriodInput";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import ImgCard from "components/main/ImgCard";
-import { fetchData } from "utils/fetchData";
 
 export default function ListPage() {
   const entries = useContext(EntryContext);
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  // 콘솔 로그로 entries 확인
-  useEffect(() => {
-    console.log("CategoryList Mounted");
-  }, []);
+  const [fetched, setFetched] = useState([]); // 필터된 결과
+  const [loading, setLoading] = useState(false);
 
-  useEffect(() => {
-    console.log("entries:", entries);
-  }, [entries]);
+  // 검색어 상태
+  const [term, setTerm] = useState(searchParams.get("term") || "");
+  // URL 파라미터 꺼내기
+  const startDate = searchParams.get("startDate") || "";
+  const endDate = searchParams.get("endDate") || "";
+  const cate = searchParams.get("cate") || "";
 
-  const handleRangeChange = async (payload) => {
-    const { startDate, endDate } = payload;
+  const displayed = term || startDate || endDate || cate ? fetched : entries;
 
-    // 테스트용 콘솔로그
-    console.log("payload:", payload);
-    // console.log("Selected dates:", { startDate, endDate });
-    // console.log(typeof startDate, typeof endDate);
-
-    // 날짜가 모두 선택된 경우
-    if (startDate !== null && endDate !== null) {
-      const url = `http://localhost:8000/api/entries/?startDate=${startDate}&endDate=${endDate}`;
-      console.log("Fetching data with range:", url);
-      const data = await fetchData(url);
-      // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
-      console.log("Fetched data st,end:", data);
-    } else if (startDate || endDate) {
-      console.log("elseIf 2 : Fetching single data :", startDate, endDate);
-      const queryParam = startDate
-        ? `startDate=${startDate}`
-        : `endDate=${endDate}`;
-      const url = `http://localhost:8000/api/entries/?${queryParam}`;
-      console.log("single date url:", url);
-      const data = await fetchData(url);
-      // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
-      console.log("Fetched data:", data);
-    } else {
-      console.log("else 발동");
-    }
+  // 검색 버튼 클릭 시 URL 갱신 함수
+  const onSearchClick = () => {
+    const params = new URLSearchParams(searchParams);
+    if (term) params.set("term", term);
+    else params.delete("term");
+    params.set("pIndex", "1");
+    setSearchParams(params);
   };
+
+  useEffect(() => {
+    console.log("searchParams:", searchParams);
+    // URL에 term/startDate/endDate/category 중 하나라도 있으면 fetch
+    if (term || startDate || endDate || cate) {
+      const qs = searchParams.toString();
+      setLoading(true);
+      fetchData(`http://localhost:8000/api/entries/?${qs}`)
+        .then((data) => {
+          setFetched(data);
+          console.log("Fetched data:", data);
+        })
+        .finally(() => setLoading(false));
+    }
+  }, [searchParams]);
+
   return (
     <>
       <CommonHeader>
         <CommonSelect
-          labelContents="전시장소"
-          labels={["전체", "서울", "부산", "대구"]}
-          selected="전체"
-          id="exhibitionLocationSelect"
+          labelContents="카테고리"
+          labels={["전체", "공연", "행사", "교육", "전시"]}
+          selected={cate || "전체"}
+          id="cateSelect"
           selectStyle={{ width: "220px" }}
         />
-        <SmallSearchInput />
-        <PeriodInput onRangeChange={handleRangeChange} />
+
+        <SmallSearchInput
+          value={term}
+          onChange={setTerm}
+          onSearch={onSearchClick}
+          placeholder="검색어를 입력하세요"
+        />
+        {/* 기간 선택 */}
+        <PeriodInput onRangeChange={() => {}} />
       </CommonHeader>
-      <main className="contentsWrapper">
-        <div className="sortSelectArea">
-          <CommonSelect
-            labels={["정렬순", "최신순", "오래된순"]}
-            selected="정렬순"
-            id="sortSelect"
-            selectStyle={{ width: "150px" }}
-          />
-        </div>
-        <div className="listContainer">
-          {/* TODO : 무한 스크롤 기능으로 구현하면 좋을 거 같다. */}
-          {/* list는 imgcard 컴포넌트가 8개가 우선적으로 나온다. */}
-          {entries.slice(0, 8).map((entry, index) => (
-            <ImgCard
-              key={index}
-              title={entry.TITLE}
-              address={entry.HOST_INST_NM}
-              sPeriod={entry.BEGIN_DE}
-              ePeriod={entry.END_DE}
-              imageUrl={entry.IMAGE_URL}
+
+      {loading ? (
+        <p>로딩 중...</p>
+      ) : (
+        <main className="contentsWrapper">
+          <div className="sortSelectArea">
+            <CommonSelect
+              labels={["정렬순", "최신순", "오래된순"]}
+              selected="정렬순"
+              id="sortSelect"
+              selectStyle={{ width: "150px" }}
             />
-          ))}
-        </div>
-      </main>
+          </div>
+          <div className="listContainer">
+            {displayed.slice(0, 8).map((entry, index) => (
+              <ImgCard
+                key={index || entry.URL}
+                title={entry.TITLE}
+                address={entry.HOST_INST_NM}
+                sPeriod={entry.BEGIN_DE}
+                ePeriod={entry.END_DE}
+                imageUrl={entry.IMAGE_URL}
+              />
+            ))}
+          </div>
+        </main>
+      )}
     </>
   );
 }
