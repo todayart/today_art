@@ -1,5 +1,5 @@
 import { ReactSVG } from "react-svg";
-import CommonSearchIcon from "../../assets/common/commonSearch.svg";
+import CommonSearchIcon from "assets/common/commonSearch.svg";
 
 /**
  * 검색 입력창과 버튼이 결합된 컴포넌트입니다.
