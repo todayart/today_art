@@ -7,6 +7,7 @@ import CommonSelect from "components/Input/CommonSelect";
 import PeriodInput from "components/Input/PeriodInput";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import ImgCard from "components/main/ImgCard";
+import { fetchData } from "utils/fetchData";
 
 export default function ListPage() {
   const entries = useContext(EntryContext);
@@ -15,52 +16,38 @@ export default function ListPage() {
   useEffect(() => {
     console.log("CategoryList Mounted");
   }, []);
+
   useEffect(() => {
     console.log("entries:", entries);
   }, [entries]);
 
-  //TODO : PeriodInput에 사용될 OnRangeChange 함수를 생성해야함, 내용은 내용을 그대로 백앤드로 보내는 fetch함수이다.
   const handleRangeChange = async (payload) => {
     const { startDate, endDate } = payload;
 
     // 테스트용 콘솔로그
     console.log("payload:", payload);
-    console.log("Selected dates:", { startDate, endDate });
-    console.log(typeof startDate, typeof endDate);
+    // console.log("Selected dates:", { startDate, endDate });
+    // console.log(typeof startDate, typeof endDate);
 
-    // 재사용 가능한 fetch 함수
-    const fetchData = async (url) => {
-      const response = await fetch(url);
-      if (!response.ok) {
-        console.error("Fetch error:", response.statusText);
-        // throw new Error("Network response was not ok");
-      }
-      return response.json();
-    };
-
-    try {
-      // 날짜가 모두 선택된 경우
-      if (startDate !== null && endDate !== null) {
-        const url = `http://localhost:8000/api/entries/?startDate=${startDate}&endDate=${endDate}`;
-        console.log("Fetching data with range:", url);
-        const data = await fetchData(url);
-        // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
-        console.log("Fetched data st,end:", data);
-      } else if (startDate || endDate) {
-        console.log("elseIf 2 : Fetching single data :", startDate, endDate);
-        const queryParam = startDate
-          ? `startDate=${startDate}`
-          : `endDate=${endDate}`;
-        const url = `http://localhost:8000/api/entries/?${queryParam}`;
-        console.log("single date url:", url);
-        const data = await fetchData(url);
-        // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
-        console.log("Fetched data:", data);
-      } else {
-        console.log("else 발동");
-      }
-    } catch (error) {
-      console.error("Fetching error:", error);
+    // 날짜가 모두 선택된 경우
+    if (startDate !== null && endDate !== null) {
+      const url = `http://localhost:8000/api/entries/?startDate=${startDate}&endDate=${endDate}`;
+      console.log("Fetching data with range:", url);
+      const data = await fetchData(url);
+      // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
+      console.log("Fetched data st,end:", data);
+    } else if (startDate || endDate) {
+      console.log("elseIf 2 : Fetching single data :", startDate, endDate);
+      const queryParam = startDate
+        ? `startDate=${startDate}`
+        : `endDate=${endDate}`;
+      const url = `http://localhost:8000/api/entries/?${queryParam}`;
+      console.log("single date url:", url);
+      const data = await fetchData(url);
+      // TODO: 리렌더링을 위한 상태 업데이트 로직 추가 (예, setEntries(data))
+      console.log("Fetched data:", data);
+    } else {
+      console.log("else 발동");
     }
   };
   return (
@@ -86,6 +73,7 @@ export default function ListPage() {
           />
         </div>
         <div className="listContainer">
+          {/* TODO : 무한 스크롤 기능으로 구현하면 좋을 거 같다. */}
           {/* list는 imgcard 컴포넌트가 8개가 우선적으로 나온다. */}
           {entries.slice(0, 8).map((entry, index) => (
             <ImgCard

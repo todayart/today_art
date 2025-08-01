@@ -76,7 +76,6 @@ def entries_api(request):
         qs = [e for e in qs if term in e["TITLE"].lower()]
 
     # 2) 기간 필터
-    # TODO : 나중에 날짜 라이브러리와 호환성 체크해야함
     # * 날짜 방식은 type이 string으로 되어있음
     # * YYYY-MM-dd 형태로 되어있음
     

@@ -1,5 +1,5 @@
 import { ReactSVG } from "react-svg";
-import CommonSearchIcon from "../../assets/common/commonSearch.svg";
+import CommonSearchIcon from "assets/common/commonSearch.svg";
 
 /**
  * 검색 입력창과 버튼이 결합된 컴포넌트입니다.
@@ -35,7 +35,7 @@ const SmallSearchInput = ({ value, onChange, onSearch, placeholder = "" }) => {
         className="smallSearchInput"
         type="text"
         value={value}
-        // TODO : 입력값 변경 핸들러 추가
+        // TODO : 입력값 변경 핸들러 추가, 디바운스 필요
         // onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         // TODO : Enter 키로 검색 실행 핸들러 추가
