@@ -23,14 +23,12 @@ import { format } from "date-fns";
  * ```
  */
 
-const PeriodInput = ({ onRangeChange }) => {
+const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
   const handleStartChange = (date) => {
     setStartDate(date);
-    // console.log("startDate data type:", typeof date, date); // object
-    // console.log("formated startDate:", typeof format(date, "yyyy-MM-dd")); // string
     const payload = {
       startDate: date ? format(date, "yyyy-MM-dd") : null,
       endDate: endDate ? format(endDate, "yyyy-MM-dd") : null,
@@ -53,7 +51,7 @@ const PeriodInput = ({ onRangeChange }) => {
       {/* 시작일 선택 */}
       <div className="datePickerBox">
         <DatePicker
-          selected={startDate}
+          selected={sValue || startDate}
           onChange={handleStartChange}
           placeholderText="시작 날짜"
           dateFormat="yyyy-MM-dd"
@@ -69,7 +67,7 @@ const PeriodInput = ({ onRangeChange }) => {
       {/* 종료일 선택 */}
       <div className="datePickerBox">
         <DatePicker
-          selected={endDate}
+          selected={eValue || endDate}
           onChange={handleEndChange}
           placeholderText="종료 날짜"
           dateFormat="yyyy-MM-dd"

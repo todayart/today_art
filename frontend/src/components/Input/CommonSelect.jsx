@@ -29,6 +29,7 @@ const CommonSelect = ({
   selected,
   id,
   selectStyle = "",
+  onChange = () => {}, // 선택 변경 핸들러, 기본값은 빈 함수
 }) => {
   return (
     <div className="selectWrapper">
@@ -38,8 +39,7 @@ const CommonSelect = ({
         className="commonSelect commonBorder"
         value={selected}
         style={selectStyle}
-        // TODO : 전시 장소 onChange 핸들러 추가
-        // onChange={(e) => onChange(e.target.value)}
+        onChange={(e) => onChange && onChange(e.target.value)}
       >
         {labels.map((label) => (
           <option key={label} value={label}>

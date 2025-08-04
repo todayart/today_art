@@ -10,6 +10,24 @@ import PeriodInput from "components/Input/PeriodInput";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import ImgCard from "components/main/ImgCard";
 
+// ! TODO 리펙토리 필요
+
+// 정렬 상태 관리
+// * TODO 객체로 관리해야하므로 useState/switch로 생성해보자.
+// * 성능적으로 더 좋은 방법은 뭘까? 결국  매핑 테이블이 가장 가성비가 좋다.
+// 정렬순 => sort 파라미터 삭제
+// 최신순 => -begin_de
+// 임박순 => end_de
+// 제목 오름차순 => title
+// 제목 내림차순 => -title
+const SORT_MAP = {
+  정렬순: "",
+  최신순: "-begin_de",
+  임박순: "end_de",
+  "제목 오름차순": "title",
+  "제목 내림차순": "-title",
+};
+
 export default function ListPage() {
   const entries = useContext(EntryContext);
   const [searchParams, setSearchParams] = useSearchParams();
@@ -17,14 +35,26 @@ export default function ListPage() {
   const [fetched, setFetched] = useState([]); // 필터된 결과
   const [loading, setLoading] = useState(false);
 
-  // 검색어 상태
+  // 상태 관리
   const [term, setTerm] = useState(searchParams.get("term") || "");
-  // URL 파라미터 꺼내기
+  const [sort, setSort] = useState(searchParams.get("sort") || "정렬순");
+
   const startDate = searchParams.get("startDate") || "";
   const endDate = searchParams.get("endDate") || "";
   const cate = searchParams.get("cate") || "";
 
   const displayed = term || startDate || endDate || cate ? fetched : entries;
+
+  const onSortChange = (newSort) => {
+    const params = new URLSearchParams(searchParams);
+    const sortValue = SORT_MAP[newSort] || "";
+    setSort(newSort);
+    // 정렬 순서에 따라 URL 파라미터 설정
+    if (sortValue) params.set("sort", sortValue);
+    else params.delete("sort");
+    params.set("pIndex", "1");
+    setSearchParams(params);
+  };
 
   // 검색 버튼 클릭 시 URL 갱신 함수
   const onSearchClick = () => {
@@ -35,6 +65,27 @@ export default function ListPage() {
     setSearchParams(params);
   };
 
+  // 날짜·분류 변경 시에도 URL 갱신
+  const onDateRangeChange = ({ startDate, endDate }) => {
+    const params = new URLSearchParams(searchParams);
+    if (startDate) params.set("startDate", startDate);
+    else params.delete("startDate");
+    if (endDate) params.set("endDate", endDate);
+    else params.delete("endDate");
+    params.set("pIndex", "1");
+    setSearchParams(params);
+  };
+
+  // 카테고리 변경 시에도 URL 갱신
+  const onCategoryChange = (newCat) => {
+    const params = new URLSearchParams(searchParams);
+    if (newCat && newCat !== "전체") params.set("cate", newCat);
+    else params.delete("cate");
+    params.set("pIndex", "1");
+    setSearchParams(params);
+  };
+
+  // 컴포넌트가 마운트되거나 URL 파라미터가 변경될 때마다 데이터 fetch
   useEffect(() => {
     console.log("searchParams:", searchParams);
     // URL에 term/startDate/endDate/category 중 하나라도 있으면 fetch
@@ -44,6 +95,7 @@ export default function ListPage() {
       fetchData(`http://localhost:8000/api/entries/?${qs}`)
         .then((data) => {
           setFetched(data);
+          console.log(`http://localhost:8000/api/entries/?${qs}`);
           console.log("Fetched data:", data);
         })
         .finally(() => setLoading(false));
@@ -59,6 +111,7 @@ export default function ListPage() {
           selected={cate || "전체"}
           id="cateSelect"
           selectStyle={{ width: "220px" }}
+          onChange={onCategoryChange}
         />
 
         <SmallSearchInput
@@ -68,7 +121,11 @@ export default function ListPage() {
           placeholder="검색어를 입력하세요"
         />
         {/* 기간 선택 */}
-        <PeriodInput onRangeChange={() => {}} />
+        <PeriodInput
+          sValue={startDate}
+          eValue={endDate}
+          onRangeChange={onDateRangeChange}
+        />
       </CommonHeader>
 
       {loading ? (
@@ -76,11 +133,19 @@ export default function ListPage() {
       ) : (
         <main className="contentsWrapper">
           <div className="sortSelectArea">
+            {/* TODO : 현재 운영 중인 항목 필터하는 CHECKOUT UI를 추가, active를 true/false로 보내면 된다. */}
             <CommonSelect
-              labels={["정렬순", "최신순", "오래된순"]}
-              selected="정렬순"
+              labels={[
+                "정렬순",
+                "최신순",
+                "임박순",
+                "제목 오름차순",
+                "제목 내림차순",
+              ]}
+              selected={sort || "정렬순"}
               id="sortSelect"
               selectStyle={{ width: "150px" }}
+              onChange={onSortChange}
             />
           </div>
           <div className="listContainer">
