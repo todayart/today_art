@@ -13,8 +13,6 @@ import ImgCard from "components/main/ImgCard";
 import { SORT_MAP } from "contents/sortOption";
 import { REVERSE_SORT_MAP } from "contents/sortOption";
 
-// ! TODO 리펙토리 필요
-
 export default function ListPage() {
   const entries = useContext(EntryContext);
   const [searchParams, setSearchParams] = useSearchParams();

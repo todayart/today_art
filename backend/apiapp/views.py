@@ -13,6 +13,8 @@ def _load_all_entries():
     2) 없으면 외부 공공 API를 호출해 데이터를 가져오고,
        필요한 필드만 뽑아서 리스트로 정리한 뒤 캐시에 1시간 동안 저장합니다.
     3) 최종적으로 파이썬 리스트를 반환합니다.
+    
+    return의 형태는 배열 객체입니다.
     """
     entries = cache.get(CACHE_KEY)
     if entries is None:
@@ -144,3 +146,36 @@ def entries_api(request):
     # * ensure_ascii=False로 설정하여 한글이 깨지지 않도록 함
     return JsonResponse(qs, safe=False, json_dumps_params={"ensure_ascii": False})
 
+@require_GET
+def calendar_api(request):
+    qs = _load_all_entries()  # 리턴은 배열객체
+    result = {}
+    
+    for entry in qs:
+        title = entry.get("TITLE", "")
+        
+        # 처리: 시작일자 (BEGIN_DE)
+        begin_str = entry.get("BEGIN_DE", "")
+        if begin_str:
+            try:
+                begin_date = datetime.strptime(begin_str, "%Y-%m-%d")
+                key = f"{begin_date.month}m-start"
+                if key not in result:
+                    result[key] = []
+                result[key].append(title)
+            except ValueError:
+                pass  # 날짜 형식이 아니면 무시
+        
+        # 처리: 종료일자 (END_DE)
+        end_str = entry.get("END_DE", "")
+        if end_str:
+            try:
+                end_date = datetime.strptime(end_str, "%Y-%m-%d")
+                key = f"{end_date.month}m-end"
+                if key not in result:
+                    result[key] = []
+                result[key].append(title)
+            except ValueError:
+                pass  # 날짜 형식이 아니면 무시
+                    
+    return JsonResponse(result, safe=False, json_dumps_params={"ensure_ascii": False})

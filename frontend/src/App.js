@@ -17,6 +17,7 @@ import CalendarPage from "pages/CalendarPage.jsx";
 
 // 스타일
 import "styles/main/main.css";
+import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
