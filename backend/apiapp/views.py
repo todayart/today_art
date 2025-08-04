@@ -50,14 +50,15 @@ def _load_all_entries():
 @require_GET
 def entries_api(request):
     """
-    GET /api/entries/?term=...&startDate=...&endDate=...&sort=...
+    GET /api/entries/?term=...&startDate=...&endDate=...&sort=...&active=...
     
     1) _load_all_entries로 전체 리스트 확보
-    2) 쿼리 파라미터(term, startDate, endDate, sort) 읽어옴
+    2) 쿼리 파라미터(term, startDate, endDate, sort, active) 읽어옴
     3) term: title에 포함된 항목으로 필터
     4) startDate/endDate: 날짜 비교로 필터
-    5) sort: 'begin' 또는 '-begin' 형태로 오름/내림차순 정렬
-    6) {[...filtered & sorted...] } 형태로 JSON 응답
+    5) active=true: 오늘을 기준으로 현재 운영 중인 데이터만 필터 (BEGIN_DE <= today <= END_DE)
+    6) sort: 'begin' 또는 '-begin' 형태로 오름/내림차순 정렬
+    7) {[...filtered & sorted...] } 형태로 JSON 응답
     """
     qs = _load_all_entries()
     
@@ -66,15 +67,20 @@ def entries_api(request):
     term  = request.GET.get("term", "").strip().lower()
     start = request.GET.get("startDate")
     end   = request.GET.get("endDate")
-    # TODO : 카테고리 기본값 추가
-    sort  = request.GET.get("sort")  # ex) "begin" or "-begin"
-    cate = request.GET.get("cate", "").strip().lower()
+    sort  = request.GET.get("sort", "begin_de")  # ex) "begin" or "-begin"
+    cate  = request.GET.get("cate", "").strip().lower()
+    active = request.GET.get("active", "").strip().lower()  # ex) "true" or "false"
     
     # 1) 검색(term)
     if term:
         qs = [e for e in qs if term in e["TITLE"].lower()]
+        
+    # 2) 운영중(active) : 오늘 날짜를 기준으로 운영 중인 항목 (BEGIN_DE <= today <= END_DE)
+    if active in ("true", "1"):
+        today = date.today().strftime("%Y-%m-%d")
+        qs = [e for e in qs if e.get("BEGIN_DE", "") <= today <= e.get("END_DE", "")]  
 
-    # 2) 기간 필터
+    # 3) 기간 필터
     # * 날짜 방식은 type이 string으로 되어있음
     # * YYYY-MM-dd 형태로 되어있음
     
@@ -101,22 +107,34 @@ def entries_api(request):
     #    - 그렇지 않으면 기본 값(문자열)으로 정렬합니다.
     # TODO : 날짜 형식 정렬 기능 검토
     if sort:
-        reverse = sort.startswith("-")
-        key = sort.lstrip("-")
+        # 정렬 옵션이 설정된 경우
+        # 사용 예시:
+        # sort="begin"    => 'begin' 키를 기준으로 오름차순 정렬 (예: BEGIN_DE 필드의 날짜가 빠른 순서)
+        # sort="-begin"   => 'begin' 키를 기준으로 내림차순 정렬 (예: BEGIN_DE 필드의 날짜가 느린 순서)
+        # sort="TITLE"    => 'TITLE' 키를 기준으로 오름차순 정렬 (예: 제목 알파벳 순)
+        
+        reverse = sort.startswith("-")  # 정렬 기준이 '-'로 시작하면 내림차순 정렬
+        key = sort.lstrip("-")  # '-' 문자를 제거하여 정렬에 사용할 키를 결정
 
         def sort_key(e):
-            value = e.get(key, "")
+            # 각 항목에서 지정한 키에 해당하는 값을 가져옴. 없으면 빈 문자열 반환
+            # 변환: 쿼리 파라미터가 소문자인 경우 대문자로 변환하여 조회합니다.
+            value = e.get(key.upper(), "")
+            # 값이 문자열이고 길이가 10이면 날짜 형식일 가능성이 있으므로 시도
             if isinstance(value, str) and len(value) == 10:
                 try:
-                    # 날짜 형식이면 날짜 객체로 변환
+                    # 날짜 형식("YYYY-MM-DD")이면 datetime 객체로 변환하여 반환
                     return datetime.strptime(value, "%Y-%m-%d")
                 except ValueError:
+                    # 날짜 형식이 아니면 예외 발생하므로 그냥 넘어감
                     pass
+            # 위 조건에 해당하지 않으면 원래 값을 그대로 반환
             return value
 
+        # 리스트 qs를 sort_key 함수를 기준으로 정렬하며, 정렬 순서는 reverse 값에 따라 결정됨
         qs.sort(key=sort_key, reverse=reverse)
         
-    # limit 적용
+    # 5) limit 적용
     if limit:
         limit = int(limit)
         qs = qs[:limit]
