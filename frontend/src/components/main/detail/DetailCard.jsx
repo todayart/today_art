@@ -1,5 +1,5 @@
 // components/DetailCard.jsx
-import ArrowSvg from "../../../assets/main/prevBtn.svg";
+import ArrowSvg from "assets/main/prevBtn.svg";
 import { ReactSVG } from "react-svg";
 
 /**
@@ -45,13 +45,15 @@ const DetailCard = ({
         <h2>{title}</h2>
 
         <ul>
-          {details.map(({ label, value }) => (
-            <li key={label}>
-              {/* 왼쪽 칸 110×20, 우측 border 1px */}
-              <span>{label}</span>
-              <span>{value}</span>
-            </li>
-          ))}
+          {details
+            .filter(({ value }) => value !== null && value !== "")
+            .map(({ label, value }) => (
+              <li key={label}>
+                {/* 왼쪽 칸 110×20, 우측 border 1px */}
+                <span>{label}</span>
+                <span>{value}</span>
+              </li>
+            ))}
         </ul>
       </div>
     </div>

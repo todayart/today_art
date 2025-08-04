@@ -10,23 +10,10 @@ import PeriodInput from "components/Input/PeriodInput";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import ImgCard from "components/main/ImgCard";
 
-// ! TODO 리펙토리 필요
+import { SORT_MAP } from "contents/sortOption";
+import { REVERSE_SORT_MAP } from "contents/sortOption";
 
-// 정렬 상태 관리
-// * TODO 객체로 관리해야하므로 useState/switch로 생성해보자.
-// * 성능적으로 더 좋은 방법은 뭘까? 결국  매핑 테이블이 가장 가성비가 좋다.
-// 정렬순 => sort 파라미터 삭제
-// 최신순 => -begin_de
-// 임박순 => end_de
-// 제목 오름차순 => title
-// 제목 내림차순 => -title
-const SORT_MAP = {
-  정렬순: "",
-  최신순: "-begin_de",
-  임박순: "end_de",
-  "제목 오름차순": "title",
-  "제목 내림차순": "-title",
-};
+// ! TODO 리펙토리 필요
 
 export default function ListPage() {
   const entries = useContext(EntryContext);
@@ -37,59 +24,58 @@ export default function ListPage() {
 
   // 상태 관리
   const [term, setTerm] = useState(searchParams.get("term") || "");
-  const [sort, setSort] = useState(searchParams.get("sort") || "정렬순");
 
+  // 정렬 상태 관리 , UI 초기 선택값으로 매핑
+  const sorUrlParam = searchParams.get("sort");
+  const initialOption = REVERSE_SORT_MAP[sorUrlParam] || "정렬순";
+  const [sortOption, setSortOption] = useState(initialOption);
+
+  // url 파라미터 가져오기
   const startDate = searchParams.get("startDate") || "";
   const endDate = searchParams.get("endDate") || "";
   const cate = searchParams.get("cate") || "";
 
-  const displayed = term || startDate || endDate || cate ? fetched : entries;
+  const hasFilter = Boolean(
+    term || startDate || endDate || cate || SORT_MAP[sortOption]
+  );
+  const displayed = hasFilter ? fetched : entries;
 
-  const onSortChange = (newSort) => {
+  function updateParams(updates) {
     const params = new URLSearchParams(searchParams);
-    const sortValue = SORT_MAP[newSort] || "";
-    setSort(newSort);
-    // 정렬 순서에 따라 URL 파라미터 설정
-    if (sortValue) params.set("sort", sortValue);
-    else params.delete("sort");
+    Object.entries(updates).forEach(([key, val]) => {
+      if (val != null && val !== "") params.set(key, val);
+      else params.delete(key);
+    });
     params.set("pIndex", "1");
     setSearchParams(params);
+  }
+
+  const onSortChange = (newSort) => {
+    const sortValue = SORT_MAP[newSort] || "";
+    setSortOption(newSort);
+    updateParams({ sort: sortValue });
   };
 
   // 검색 버튼 클릭 시 URL 갱신 함수
   const onSearchClick = () => {
-    const params = new URLSearchParams(searchParams);
-    if (term) params.set("term", term);
-    else params.delete("term");
-    params.set("pIndex", "1");
-    setSearchParams(params);
+    updateParams({ term });
   };
 
   // 날짜·분류 변경 시에도 URL 갱신
   const onDateRangeChange = ({ startDate, endDate }) => {
-    const params = new URLSearchParams(searchParams);
-    if (startDate) params.set("startDate", startDate);
-    else params.delete("startDate");
-    if (endDate) params.set("endDate", endDate);
-    else params.delete("endDate");
-    params.set("pIndex", "1");
-    setSearchParams(params);
+    updateParams({ startDate, endDate });
   };
 
   // 카테고리 변경 시에도 URL 갱신
   const onCategoryChange = (newCat) => {
-    const params = new URLSearchParams(searchParams);
-    if (newCat && newCat !== "전체") params.set("cate", newCat);
-    else params.delete("cate");
-    params.set("pIndex", "1");
-    setSearchParams(params);
+    updateParams({ cate: newCat && newCat !== "전체" ? newCat : "" });
   };
 
   // 컴포넌트가 마운트되거나 URL 파라미터가 변경될 때마다 데이터 fetch
   useEffect(() => {
     console.log("searchParams:", searchParams);
-    // URL에 term/startDate/endDate/category 중 하나라도 있으면 fetch
-    if (term || startDate || endDate || cate) {
+    // URL에 term/startDate/endDate/category/sort 중 하나라도 있으면 fetch
+    if (term || startDate || endDate || cate || SORT_MAP[sortOption]) {
       const qs = searchParams.toString();
       setLoading(true);
       fetchData(`http://localhost:8000/api/entries/?${qs}`)
@@ -142,7 +128,7 @@ export default function ListPage() {
                 "제목 오름차순",
                 "제목 내림차순",
               ]}
-              selected={sort || "정렬순"}
+              selected={sortOption || "정렬순"}
               id="sortSelect"
               selectStyle={{ width: "150px" }}
               onChange={onSortChange}

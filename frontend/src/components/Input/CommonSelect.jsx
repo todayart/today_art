@@ -1,5 +1,5 @@
 import { ReactSVG } from "react-svg";
-import SelectIcon from "../../assets/common/selectIcon.svg";
+import SelectIcon from "assets/common/selectIcon.svg";
 
 /**
  * 전시장소를 선택하는 드롭다운 컴포넌트입니다.

@@ -1,5 +1,5 @@
 import { ReactSVG } from "react-svg";
-import DetailIcon from "../../assets/main/detailIcon.svg";
+import DetailIcon from "assets/main/detailIcon.svg";
 /**
  *  *엔트리 페이지의 자세히보기 버튼입니다.
  */

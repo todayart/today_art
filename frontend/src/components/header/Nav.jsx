@@ -1,7 +1,6 @@
 import { ReactSVG } from "react-svg";
-import urlMeta from "../../contents/urlMeta.json";
+import urlMeta from "contents/urlMeta.json";
 
-// Use require to import SVG file paths
 const icons = {
   HomeSvg: require("../../assets/common/home.svg").default,
   CalendarSvg: require("../../assets/common/calendar.svg").default,
