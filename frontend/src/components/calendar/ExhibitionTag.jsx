@@ -14,7 +14,7 @@
 const ExhibitionTag = ({ name }) => {
   return (
     <div
-      className="exhibitionTag commonBorder flexCenter textOverflow"
+      className="exhibitionTag commonBorder flexCenter textOverflow overflowHidden shadow"
       title={`${name}의 태그`} // 전체 이름을 툴팁으로 보여줌
     >
       {name}

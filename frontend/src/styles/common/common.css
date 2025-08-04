@@ -17,6 +17,14 @@
 } */
 :root {
   --background: #444444;
+  --thema: #f1e6dd;
+  --thema-tablet: aquamarine;
+  --thema-mobile: pink;
+
+  /* 선택시 투명도 */
+  --selected-rgb: 0, 0, 0;
+  --selected-opacity: 0.1;
+
   --font: #444444;
   --font-wh: #fff;
   --boxColor: #444444;
@@ -30,19 +38,19 @@
 /* 데스크탑 */
 @media (min-width: 1024px) {
   body {
-    background-color: #f1e6dd;
+    background-color: var(--thema);
   }
 }
 /* 테블릿 */
 @media all and (min-width: 769px) and (max-width: 1023px) {
   body {
-    background-color: aquamarine;
+    background-color: var(--thema-tablet);
   }
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
   body {
-    background-color: pink;
+    background-color: var(--thema-mobile);
   }
 }
 
@@ -167,4 +175,9 @@ nav > ul.navBox > li > a > svg {
   right: 0;
   top: -12px;
   transform: translate(0, -100%);
+}
+
+/* shadow */
+.shadow {
+  box-shadow: "0px 4px 6px rgba(0, 0, 0, 0.1)";
 }
