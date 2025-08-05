@@ -1,21 +1,20 @@
 import { useContext, useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 
 import { EntryContext } from "contexts/EntryContext";
+import { useFilterParams } from "hooks/useFilterParams";
 import { fetchData } from "utils/fetchData";
 
-import CommonHeader from "components/header/CommonHeader";
+import FilterUiHeader from "components/header/FilterUiHeader";
 import CommonSelect from "components/Input/CommonSelect";
-import PeriodInput from "components/Input/PeriodInput";
-import SmallSearchInput from "components/Input/SmallSearchInput";
 import ImgCard from "components/main/ImgCard";
 
 import { SORT_MAP } from "contents/sortOption";
 import { REVERSE_SORT_MAP } from "contents/sortOption";
+import FilterUiHeader from "components/header/FilterUiHeader";
 
 export default function ListPage() {
   const entries = useContext(EntryContext);
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, updateFilterParams] = useFilterParams();
 
   const [fetched, setFetched] = useState([]); // 필터된 결과
   const [loading, setLoading] = useState(false);
@@ -38,35 +37,29 @@ export default function ListPage() {
   );
   const displayed = hasFilter ? fetched : entries;
 
-  function updateParams(updates) {
-    const params = new URLSearchParams(searchParams);
-    Object.entries(updates).forEach(([key, val]) => {
-      if (val != null && val !== "") params.set(key, val);
-      else params.delete(key);
-    });
-    params.set("pIndex", "1");
-    setSearchParams(params);
-  }
-
   const onSortChange = (newSort) => {
     const sortValue = SORT_MAP[newSort] || "";
     setSortOption(newSort);
-    updateParams({ sort: sortValue });
+    updateFilterParams({ sort: sortValue });
+    window.location.href = `/list?${searchParams.toString()}`;
   };
 
   // 검색 버튼 클릭 시 URL 갱신 함수
   const onSearchClick = () => {
-    updateParams({ term });
+    updateFilterParams({ term });
+    window.location.href = `/list?${searchParams.toString()}`;
   };
 
   // 날짜·분류 변경 시에도 URL 갱신
   const onDateRangeChange = ({ startDate, endDate }) => {
-    updateParams({ startDate, endDate });
+    updateFilterParams({ startDate, endDate });
+    window.location.href = `/list?${searchParams.toString()}`;
   };
 
   // 카테고리 변경 시에도 URL 갱신
   const onCategoryChange = (newCat) => {
-    updateParams({ cate: newCat && newCat !== "전체" ? newCat : "" });
+    updateFilterParams({ cate: newCat && newCat !== "전체" ? newCat : "" });
+    window.location.href = `/list?${searchParams.toString()}`;
   };
 
   // 컴포넌트가 마운트되거나 URL 파라미터가 변경될 때마다 데이터 fetch
@@ -88,29 +81,16 @@ export default function ListPage() {
 
   return (
     <>
-      <CommonHeader>
-        <CommonSelect
-          labelContents="카테고리"
-          labels={["전체", "공연", "행사", "교육", "전시"]}
-          selected={cate || "전체"}
-          id="cateSelect"
-          selectStyle={{ width: "220px" }}
-          onChange={onCategoryChange}
-        />
-
-        <SmallSearchInput
-          value={term}
-          onChange={setTerm}
-          onSearch={onSearchClick}
-          placeholder="검색어를 입력하세요"
-        />
-        {/* 기간 선택 */}
-        <PeriodInput
-          sValue={startDate}
-          eValue={endDate}
-          onRangeChange={onDateRangeChange}
-        />
-      </CommonHeader>
+      <FilterUiHeader
+        term={term}
+        setTerm={setTerm}
+        onSearch={onSearchClick}
+        cate={cate}
+        onCategoryChange={onCategoryChange}
+        startDate={startDate}
+        endDate={endDate}
+        onDateRangeChange={onDateRangeChange}
+      />
 
       {loading ? (
         <p>로딩 중...</p>
@@ -132,18 +112,22 @@ export default function ListPage() {
               onChange={onSortChange}
             />
           </div>
-          <div className="listContainer">
-            {displayed.slice(0, 8).map((entry, index) => (
-              <ImgCard
-                key={index || entry.URL}
-                title={entry.TITLE}
-                address={entry.HOST_INST_NM}
-                sPeriod={entry.BEGIN_DE}
-                ePeriod={entry.END_DE}
-                imageUrl={entry.IMAGE_URL}
-              />
-            ))}
-          </div>
+          {displayed.length === 0 ? (
+            <p>결과가 없습니다.</p>
+          ) : (
+            <div className="listContainer">
+              {displayed.slice(0, 8).map((entry, index) => (
+                <ImgCard
+                  key={index || entry.URL}
+                  title={entry.TITLE}
+                  address={entry.HOST_INST_NM}
+                  sPeriod={entry.BEGIN_DE}
+                  ePeriod={entry.END_DE}
+                  imageUrl={entry.IMAGE_URL}
+                />
+              ))}
+            </div>
+          )}
         </main>
       )}
     </>
