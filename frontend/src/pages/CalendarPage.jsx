@@ -1,5 +1,5 @@
-import CalendarFixedCell from "components/calendar/CalendarFixedCell";
-import CalendarHeader from "components/calendar/CalendarHeader";
+import CalendarHeader from "components/main/calendar/CalendarHeader";
+import CalendarFixedCell from "components/main/calendar/CalendarFixedCell";
 import { useEffect, useState } from "react";
 
 import { fetchData } from "utils/fetchData";

@@ -1,5 +1,5 @@
-import CalendarCell from "components/calendar/CalendarCell";
-import ExhibitionTag from "components/calendar/ExhibitionTag";
+import CalendarCell from "components/main/calendar/CalendarCell";
+import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
 export default function CalendarFixedCell({ exhibitions }) {
   // TODO : exhibitions 데이터를 받아서 각 셀에 전시 이름을 표시하도록 구현

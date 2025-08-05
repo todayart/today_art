@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import ExhibitionTag from "../calendar/ExhibitionTag";
+import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
 export default function TestPage() {
   useEffect(() => {
