@@ -1,10 +1,10 @@
 import { useEffect } from "react";
-import ExhibitionTag from "components/main/calendar/ExhibitionTag";
+import CommonHeader from "../header/CommonHeader";
 
 export default function TestPage() {
   useEffect(() => {
     console.log("TestPage mounted");
   }, []);
   // return <CalendarPage />;
-  return <ExhibitionTag name={"hellowold"} />;
+  return <CommonHeader />;
 }

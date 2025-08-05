@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useSearchParams } from "react-router-dom";
 
-import CommonHeader from "components/header/CommonHeader";
-import CommonSelect from "components/Input/CommonSelect";
-import SmallSearchInput from "components/Input/SmallSearchInput";
-import PeriodInput from "components/Input/PeriodInput";
 import DetailCard from "components/main/detail/DetailCard";
+import CommonHeader from "components/header/CommonHeader";
 
 export default function DetailPage() {
   // URL 파라미터에서 title을 가져옵니다.
@@ -15,14 +12,7 @@ export default function DetailPage() {
 
   const [eventData, setEventData] = useState(null);
 
-  // TODO : 기간 선택 시 처리 함수
-  const handleRangeChange = ({ startDate, endDate }) => {
-    console.log("Selected dates:", { startDate, endDate });
-  };
-
-  // ? 만약 프론트엔드에서 브라우저에 데이터를 캐시에 저장시킨 후 이걸 활용하는 것이 유리할까?
-
-  // * 한번만 api를 요구하는 데에서 유리하다고 생각되었고, 캐시를 활용하는 방면으로 활용됐다.
+  const [searchParams, setSearchParams] = useSearchParams();
 
   useEffect(() => {
     console.log("DetailPage mounted with title:", decodedTitle);
@@ -66,17 +56,10 @@ export default function DetailPage() {
 
   return (
     <>
-      <CommonHeader>
-        <CommonSelect
-          labelContents="전시장소"
-          labels={["전체", "서울", "부산", "대구"]}
-          selected="전체"
-          id="exhibitionLocationSelect"
-          selectStyle={{ width: "220px" }}
-        />
-        <SmallSearchInput />
-        <PeriodInput onRangeChange={handleRangeChange} />
-      </CommonHeader>
+      <CommonHeader
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+      />
       <main className="contentsWrapper">
         <DetailCard
           title={eventData.TITLE}
