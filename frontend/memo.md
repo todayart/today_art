@@ -1,12 +1,19 @@
 # 할 일 (이거보고 일하자)
 
+!! DetailPage 적용해보기
+
 1. 무한 스크롤 구현 (list page 기능 구현 파트)
 2. 기능 완성 - nav, 이전버튼
+
+3. sort가 바뀌어도 list가 갱신되지 않는 오류가 발생
+4. 백앤드 : 최신순이 today 기준으로 절대값으로 차이가 적은 순이면 좋겠음
 
 ## 연구 필요
 
 2. map을 누르면 네이버 지도 api로 연결
 3. 지금은 LocMemCache를 이용해 개발에 용이하고, 프로덕트 환경에선 redis를 이용할 것을 추천한다고함.
+4. 캐시 무효화 패턴에 대해 필요한가 고민 필요(데이터 무효화 sessionStorage.removeItem(CACHE_KEY)
+5. fetch 실패 시 새로 고침 말고 재시도 로직에 대해 고민(retryCount로 fetch 실패 시 재시도 로직)
 
 ## 필요한 객체명
 
