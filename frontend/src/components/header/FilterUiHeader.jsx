@@ -23,18 +23,16 @@ export default function FilterUiHeader({
         selectStyle={{ width: "220px" }}
         onChange={onCategoryChange}
       />
-
+      <PeriodInput
+        sValue={startDate}
+        eValue={endDate}
+        onRangeChange={onDateRangeChange}
+      />
       <SmallSearchInput
         value={term}
         onChange={setTerm}
         onSearch={onSearch}
         placeholder="검색어를 입력하세요"
-      />
-      {/* 기간 선택 */}
-      <PeriodInput
-        sValue={startDate}
-        eValue={endDate}
-        onRangeChange={onDateRangeChange}
       />
     </CommonHeader>
   );

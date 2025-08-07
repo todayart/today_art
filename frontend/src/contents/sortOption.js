@@ -9,10 +9,10 @@
 // 정렬 상태 관리
 export const SORT_MAP = {
   정렬순: "",
-  최신순: "-begin_de",
+  최신순: "begin_de",
   임박순: "end_de",
-  "제목 오름차순": "title",
-  "제목 내림차순": "-title",
+  // "제목 오름차순": "title",
+  // "제목 내림차순": "-title",
 };
 
 export const REVERSE_SORT_MAP = Object.fromEntries(
