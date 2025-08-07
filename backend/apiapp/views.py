@@ -69,7 +69,7 @@ def entries_api(request):
     term  = request.GET.get("term", "").strip().lower()
     start = request.GET.get("startDate")
     end   = request.GET.get("endDate")
-    sort  = request.GET.get("sort", "begin_de")  # ex) "begin" or "-begin"
+    sort  = request.GET.get("sort")  # ex) "begin" or "-begin"
     cate  = request.GET.get("cate", "").strip().lower()
     active = request.GET.get("active", "").strip().lower()  # ex) "true" or "false"
     
