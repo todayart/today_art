@@ -1,7 +1,7 @@
 import metaData from "contents/urlMeta.json";
 import { memo, useMemo } from "react";
 
-function CategoryTag() {
+function CategoryTag({ handleCategoryClick = () => {} }) {
   const categoryData = useMemo(() => {
     const foundLink = metaData.headerLinks.find((link) => link.category);
     return foundLink?.category || [];
@@ -10,7 +10,11 @@ function CategoryTag() {
   return (
     <ul>
       {categoryData.slice(0, 6).map((data, index) => (
-        <li key={index} className="categoryTag">
+        <li
+          key={index}
+          className="categoryTag"
+          onClick={() => handleCategoryClick(data)}
+        >
           {data}
         </li>
       ))}

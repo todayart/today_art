@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 
 import Header from "components/header/Header";
-import Main from "components/main/Main";
+import EntryMain from "components/main/EntryMain";
 
 // import "styles/main/main.css";
 
@@ -12,7 +12,7 @@ export default function EntryPage() {
   return (
     <>
       <Header />
-      <Main />
+      <EntryMain />
     </>
   );
 }
