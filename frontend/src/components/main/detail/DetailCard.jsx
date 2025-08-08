@@ -1,6 +1,4 @@
 // components/DetailCard.jsx
-import { useNavigate } from "react-router-dom";
-
 import ArrowSvg from "assets/main/prevBtn.svg";
 import { ReactSVG } from "react-svg";
 
@@ -27,6 +25,7 @@ import { ReactSVG } from "react-svg";
  *     { label: "출품작가", value: "이동훈, 이남규, 이인영, 임봉재, 이종수" },
  *     { label: "전시장소", value: "1전시실,2전시실,3전시실,4전시실" },
  *   ]}
+ *   handleGoBack={handleGoBack} // 뒤로가기 버튼 클릭 시 이전 페이지로 이동
  * />
  * ```
  */
@@ -34,9 +33,8 @@ export default function DetailCard({
   title,
   details = [{ label: "", value: "" }],
   imageUrl,
+  handleGoBack = () => {},
 }) {
-  const navigate = useNavigate();
-
   return (
     <div className="detailCard flexCenter">
       {/* 이미지와 콘텐츠 사이 간격 74px */}
@@ -65,7 +63,7 @@ export default function DetailCard({
       {/* TODO : 이전 페이지로 이동하는 기능을 추가해야함 */}
       <button
         className="backButton flexCenter commonBorder"
-        onClick={() => navigate(-1)}
+        onClick={handleGoBack}
       >
         이전으로
       </button>

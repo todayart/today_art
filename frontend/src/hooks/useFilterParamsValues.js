@@ -12,6 +12,7 @@ import { useFilterParams } from "./useFilterParams";
  *   - endDate: 종료 날짜 (string)
  *   - cate: 카테고리 (string)
  *   - sort: 정렬 기준 (string)
+ *   - title: 상세 페이지에서 사용할 제목 (string)
  *   - searchParams: 원본 URLSearchParams 객체 (URLSearchParams)
  *
  * @returns {object} 파라미터 값을 포함하는 객체
@@ -28,6 +29,8 @@ import { useFilterParams } from "./useFilterParams";
  *   console.log('종료 날짜:', endDate);
  *   console.log('카테고리:', cate);
  *   console.log('정렬 기준:', sort);
+ *   console.log('제목:', title);
+ *   console.log('원본 URLSearchParams:', searchParams);
  *
  *   // 추가 로직...
  * }
@@ -41,6 +44,7 @@ export function useFilterParamsValues() {
     endDate: searchParams.get("endDate") || "",
     cate: searchParams.get("cate") || "",
     sort: searchParams.get("sort") || "",
+    title: searchParams.get("title") || "",
     searchParams,
   };
 }

@@ -1,5 +1,4 @@
 import { ReactSVG } from "react-svg";
-import { Link } from "react-router-dom";
 import imgcardDetailIcon from "assets/common/imgcardDetailIcon.svg";
 
 /**
@@ -26,15 +25,23 @@ import imgcardDetailIcon from "assets/common/imgcardDetailIcon.svg";
  *   sPeriod="2025-01-01"
  *   ePeriod="2025-12-31"
  *   imageUrl="https://example.com/art.jpg"
+ *  onClick={() => console.log('Card clicked')}
  * />
  * ```
  */
-const ImgCard = ({ title, address, sPeriod, ePeriod, imageUrl }) => {
+const ImgCard = ({
+  title,
+  address,
+  sPeriod,
+  ePeriod,
+  imageUrl,
+  onClick = () => {},
+}) => {
   return (
     <div className="imgCard">
       {imageUrl ? (
         // 이미지 영역: imageUrl이 있는 경우
-        <Link className="imgCardImage" to={`/detail/${title}`}>
+        <div className="imgCardImage" onClick={onClick}>
           <img
             src={imageUrl}
             alt={`${title}의 포스트 사진입니다.`}
@@ -45,7 +52,7 @@ const ImgCard = ({ title, address, sPeriod, ePeriod, imageUrl }) => {
               boxShadow: "0px 4px 6px rgba(0, 0, 0, 0.1)",
             }}
           />
-        </Link>
+        </div>
       ) : (
         // 이미지 영역: imageUrl이 없는 경우
         <div className="imgCardPlaceholder imgCardPlaceholderFont">
