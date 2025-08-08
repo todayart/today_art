@@ -101,23 +101,25 @@ export default function ListPage() {
           <div className="sortSelectArea">
             <SortSelect sortOption={sortOption} onSortChange={onSortChange} />
           </div>
-          {entries.length === 0 ? (
-            <p>결과가 없습니다.</p>
-          ) : (
-            <div className="listContainer">
-              {entries.slice(0, 8).map((entry, index) => (
-                <ImgCard
-                  key={entry.URL || index}
-                  title={entry.TITLE}
-                  address={entry.HOST_INST_NM}
-                  sPeriod={entry.BEGIN_DE}
-                  ePeriod={entry.END_DE}
-                  imageUrl={entry.IMAGE_URL}
-                  onClick={() => onCardClick(entry.TITLE)}
-                />
-              ))}
-            </div>
-          )}
+          <div className="listContainer">
+            {entries.length === 0 ? (
+              <p>결과가 없습니다.</p>
+            ) : (
+              entries
+                .slice(0, 8)
+                .map((entry, index) => (
+                  <ImgCard
+                    key={entry.URL || index}
+                    title={entry.TITLE}
+                    address={entry.HOST_INST_NM}
+                    sPeriod={entry.BEGIN_DE}
+                    ePeriod={entry.END_DE}
+                    imageUrl={entry.IMAGE_URL}
+                    onClick={() => onCardClick(entry.TITLE)}
+                  />
+                ))
+            )}
+          </div>
         </main>
       )}
     </>

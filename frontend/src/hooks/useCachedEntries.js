@@ -13,8 +13,7 @@ export function useCachedEntries(queryString) {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  // ! drop 이유 : useCachedEntries는 queryString이 변경될 때마다 새로 fetch를 시도하기 때문에 이전 쿼리와 비교할 필요가 없다.
-  // const [beforeQuery, setBeforeQuery] = useState(null);
+  // TODO : queryString 말고, url 전체를 검사하여 이전 url과 같으면 캐시를 이용하도록 한다.
 
   useEffect(() => {
     const cacheRaw = sessionStorage.getItem(CACHE_KEY);
