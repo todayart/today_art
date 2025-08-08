@@ -1,20 +1,33 @@
 // pages/DetailPage.jsx
+import { useState } from "react";
 import { useParams } from "react-router-dom";
-import { useCachedEntry } from "hooks/useCachedEntry";
 
-import CommonHeader from "components/header/CommonHeader";
-import CommonSelect from "components/Input/CommonSelect";
-import SmallSearchInput from "components/Input/SmallSearchInput";
-import PeriodInput from "components/Input/PeriodInput";
+import { useCachedEntry } from "hooks/useCachedEntry";
+import { useFilterParamsValues } from "hooks/useFilterParamsValues";
+import { useFilterParams } from "hooks/useFilterParams";
+
 import DetailCard from "components/main/detail/DetailCard";
+import FilterUiHeader from "components/header/FilterUiHeader";
 
 export default function DetailPage() {
   const { title } = useParams();
   const decodedTitle = decodeURIComponent(title);
   const eventData = useCachedEntry(decodedTitle);
 
-  const handleRangeChange = ({ startDate, endDate }) => {
-    console.log("Selected dates:", { startDate, endDate });
+  const { term, startDate, endDate, cate } = useFilterParamsValues();
+  const [_, updateFilterParams] = useFilterParams();
+  const [searchTerm, setSearchTerm] = useState(term);
+
+  const onSearchClick = () => {
+    updateFilterParams({ term: searchTerm });
+  };
+
+  const onDateRangeChange = ({ startDate, endDate }) => {
+    updateFilterParams({ startDate, endDate });
+  };
+
+  const onCategoryChange = (newCat) => {
+    updateFilterParams({ cate: newCat && newCat !== "전체" ? newCat : "" });
   };
 
   if (!eventData) return <div>Loading...</div>;
@@ -34,17 +47,16 @@ export default function DetailPage() {
 
   return (
     <>
-      <CommonHeader>
-        <CommonSelect
-          labelContents="전시장소"
-          labels={["전체", "서울", "부산", "대구"]}
-          selected="전체"
-          id="exhibitionLocationSelect"
-          selectStyle={{ width: "220px" }}
-        />
-        <SmallSearchInput />
-        <PeriodInput onRangeChange={handleRangeChange} />
-      </CommonHeader>
+      <FilterUiHeader
+        term={searchTerm}
+        setTerm={setSearchTerm}
+        onSearch={onSearchClick}
+        cate={cate}
+        onCategoryChange={onCategoryChange}
+        startDate={startDate}
+        endDate={endDate}
+        onDateRangeChange={onDateRangeChange}
+      />
       <main className="contentsWrapper">
         <DetailCard
           title={eventData.TITLE}
