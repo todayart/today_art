@@ -46,7 +46,7 @@ export default function ListPage() {
         endDate={endDate}
         onDateRangeChange={onDateRangeChange}
       />
-
+      {/* 로딩 상태 */}
       {loading ? (
         <p>로딩 중...</p>
       ) : (
@@ -55,8 +55,10 @@ export default function ListPage() {
             <SortSelect sortOption={sortOption} onSortChange={onSortChange} />
           </div>
           {entries.length === 0 ? (
+            // 결과가 없을 때
             <p>결과가 없습니다.</p>
           ) : (
+            // 결과가 있을 때, 리스트 카드가 나온다.
             <div className="listContainer">
               {entries.slice(0, 8).map((entry, index) => (
                 <ImgCard

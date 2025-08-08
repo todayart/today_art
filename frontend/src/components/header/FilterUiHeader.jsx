@@ -3,6 +3,8 @@ import CommonSelect from "components/Input/CommonSelect";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import PeriodInput from "components/Input/PeriodInput";
 
+import urlMeta from "contents/urlMeta.json";
+
 export default function FilterUiHeader({
   term,
   setTerm,
@@ -17,7 +19,7 @@ export default function FilterUiHeader({
     <CommonHeader>
       <CommonSelect
         labelContents="카테고리"
-        labels={["전체", "공연", "행사", "교육", "전시"]}
+        labels={urlMeta.headerLinks[1].category}
         selected={cate || "전체"}
         id="cateSelect"
         selectStyle={{ width: "220px" }}

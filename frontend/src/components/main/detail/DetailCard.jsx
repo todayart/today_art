@@ -1,4 +1,6 @@
 // components/DetailCard.jsx
+import { useNavigate } from "react-router-dom";
+
 import ArrowSvg from "assets/main/prevBtn.svg";
 import { ReactSVG } from "react-svg";
 
@@ -28,56 +30,63 @@ import { ReactSVG } from "react-svg";
  * />
  * ```
  */
-const DetailCard = ({
+export default function DetailCard({
   title,
   details = [{ label: "", value: "" }],
   imageUrl,
-}) => (
-  <div className="detailCard flexCenter">
-    {/* 이미지와 콘텐츠 사이 간격 74px */}
-    <div className="detailCardContent">
-      {/* 좌측 이미지 카드 */}
-      <img src={imageUrl} alt={title} />
+}) {
+  const navigate = useNavigate();
 
-      {/* 우측 콘텐츠: 제목과 리스트 */}
-      <div className="detailCardText">
-        {/* 제목과 리스트 사이 31px */}
-        <h2>{title}</h2>
+  return (
+    <div className="detailCard flexCenter">
+      {/* 이미지와 콘텐츠 사이 간격 74px */}
+      <div className="detailCardContent">
+        {/* 좌측 이미지 카드 */}
+        <img src={imageUrl} alt={title} />
 
-        <ul>
-          {details
-            .filter(({ value }) => value !== null && value !== "")
-            .map(({ label, value }) => (
-              <li key={label}>
-                {/* 왼쪽 칸 110×20, 우측 border 1px */}
-                <span>{label}</span>
-                <span>{value}</span>
-              </li>
-            ))}
-        </ul>
+        {/* 우측 콘텐츠: 제목과 리스트 */}
+        <div className="detailCardText">
+          {/* 제목과 리스트 사이 31px */}
+          <h2>{title}</h2>
+
+          <ul>
+            {details
+              .filter(({ value }) => value !== null && value !== "")
+              .map(({ label, value }) => (
+                <li key={label}>
+                  {/* 왼쪽 칸 110×20, 우측 border 1px */}
+                  <span>{label}</span>
+                  <span>{value}</span>
+                </li>
+              ))}
+          </ul>
+        </div>
       </div>
+      {/* TODO : 이전 페이지로 이동하는 기능을 추가해야함 */}
+      <button
+        className="backButton flexCenter commonBorder"
+        onClick={() => navigate(-1)}
+      >
+        이전으로
+      </button>
+      {/* 지도 버튼 */}
+      {/* TODO : 외부 지도 api 페이지로 이동하는 기능을 추가해야함 */}
+      {/* TODO : 모바일 일땐, 다른 모습의 컴포넌트로 나와야함 */}
+
+      <button className="mapBtn">
+        MAP
+        <ReactSVG
+          src={ArrowSvg}
+          style={{
+            right: "44%",
+            bottom: "-14px",
+            position: "absolute",
+            width: "14px",
+            height: "44px",
+            rotate: "-90deg",
+          }}
+        />
+      </button>
     </div>
-    {/* TODO : 이전 페이지로 이동하는 기능을 추가해야함 */}
-    <button className="backButton flexCenter commonBorder">이전으로</button>
-    {/* 지도 버튼 */}
-    {/* TODO : 외부 지도 api 페이지로 이동하는 기능을 추가해야함 */}
-    {/* TODO : 모바일 일땐, 다른 모습의 컴포넌트로 나와야함 */}
-
-    <button className="mapBtn">
-      MAP
-      <ReactSVG
-        src={ArrowSvg}
-        style={{
-          right: "44%",
-          bottom: "-14px",
-          position: "absolute",
-          width: "14px",
-          height: "44px",
-          rotate: "-90deg",
-        }}
-      />
-    </button>
-  </div>
-);
-
-export default DetailCard;
+  );
+}
