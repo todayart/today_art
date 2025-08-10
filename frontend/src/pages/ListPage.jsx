@@ -1,10 +1,9 @@
-// pages/ListPage.jsx
-import { useState } from "react";
-
+// src/pages/ListPage.jsx
+import { useEffect, useState } from "react";
 import { useFilterParams } from "hooks/useFilterParams";
 import { useSortParam } from "hooks/useSortParams";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
-import { useCachedEntries } from "hooks/useCachedEntries";
+import { useInfiniteEntries } from "hooks/useInfiniteEntries"; // ★ 새 훅
 import { useCachedEntry } from "hooks/useCachedEntry";
 
 import FilterUiHeader from "components/header/FilterUiHeader";
@@ -13,68 +12,66 @@ import ImgCard from "components/main/ImgCard";
 import DetailCard from "components/main/detail/DetailCard";
 
 export default function ListPage() {
-  const { term, startDate, endDate, cate, title, searchParams } =
-    useFilterParamsValues();
-
+  /* 1. 필터‧정렬 파라미터 ------------------------------------ */
+  const [searchParams, updateFilterParams] = useFilterParams();
+  const { term, startDate, endDate, cate, title } = useFilterParamsValues();
   const [searchTerm, setSearchTerm] = useState(term);
-  const [_, updateFilterParams] = useFilterParams();
   const [sortOption, onSortChange] = useSortParam();
 
-  // 캐시된 엔트리 목록 가져오기
-  const { entries, loading, error } = useCachedEntries(searchParams);
-  // 상세 데이터
+  /* 2. 상세 vs 목록 ----------------------------------------- */
+  const isDetail = Boolean(title);
   const eventData = useCachedEntry(title);
 
-  // 상세 조건
-  const isDetail = Boolean(title);
+  /* 3. 무한 스크롤 ------------------------------------------ */
 
-  // * 핸들러 함수
-  const onSearchClick = () => {
-    updateFilterParams({ term: searchTerm, title: null }); // 검색 시 상세 보기 초기화
-  };
-
-  const onDateRangeChange = ({ startDate, endDate }) => {
+  const {
+    items: entries,
+    loading,
+    error,
+    hasMore,
+    sentRef,
+  } = useInfiniteEntries(
+    Object.fromEntries(searchParams), // 필터 파라미터
+    { pageSize: 8, autoScroll: true }
+  );
+  /* 4. 핸들러 ------------------------------------------------ */
+  const onSearch = () => updateFilterParams({ term: searchTerm, title: null });
+  const onCateChange = (c) =>
+    updateFilterParams({ cate: c && c !== "전체" ? c : "" });
+  const onDateChange = ({ startDate, endDate }) => {
     updateFilterParams({ startDate, endDate });
   };
+  const onCardClick = (t) => updateFilterParams({ title: t });
+  const onBack = () => updateFilterParams({ title: null });
 
-  const onCategoryChange = (newCat) => {
-    updateFilterParams({ cate: newCat && newCat !== "전체" ? newCat : "" });
-  };
+  useEffect(() => {
+    console.log(
+      "mounted searchParams object:",
+      Object.fromEntries(searchParams)
+    );
+  }, [searchParams]);
 
-  // 카드 클릭 시 title 파라미터로 상세 페이지로 이동
-  const onCardClick = (title) => {
-    updateFilterParams({ title });
-  };
-
-  // 뒤로가기 버튼 클릭 시 title 파라미터 제거
-  const onBackToList = () => {
-    updateFilterParams({ title: null });
-  };
-
-  if (error) {
-    return <p>에러가 발생했습니다: {error.message}</p>;
-  }
-
+  /* 5. 렌더 -------------------------------------------------- */
   return (
     <>
       <FilterUiHeader
         term={searchTerm}
         setTerm={setSearchTerm}
-        onSearch={onSearchClick}
+        onSearch={onSearch}
         cate={cate}
-        onCategoryChange={onCategoryChange}
+        onCategoryChange={onCateChange}
         startDate={startDate}
         endDate={endDate}
-        onDateRangeChange={onDateRangeChange}
+        onDateRangeChange={onDateChange}
       />
-      {/* 상세 페이지일 때 DetailCard 컴포넌트 사용, 아니면 ImgCard 목록 */}
+
       {isDetail ? (
         eventData ? (
           <main className="contentsWrapper">
             <DetailCard
               title={eventData.TITLE}
               imageUrl={eventData.IMAGE_URL}
-              handleGoBack={onBackToList}
+              handleGoBack={onBack}
               details={[
                 { label: "카테고리", value: eventData["CATEGORY_NM"] },
                 {
@@ -92,34 +89,30 @@ export default function ListPage() {
         ) : (
           <p>상세 데이터를 불러오는 중...</p>
         )
-      ) : // 로딩 상태
-      loading ? (
-        <p>로딩 중...</p>
       ) : (
-        // 엔트리 목록
         <main className="contentsWrapper">
           <div className="sortSelectArea">
             <SortSelect sortOption={sortOption} onSortChange={onSortChange} />
           </div>
+
           <div className="listContainer">
-            {entries.length === 0 ? (
-              <p>결과가 없습니다.</p>
-            ) : (
-              entries
-                .slice(0, 8)
-                .map((entry, index) => (
-                  <ImgCard
-                    key={entry.URL || index}
-                    title={entry.TITLE}
-                    address={entry.HOST_INST_NM}
-                    sPeriod={entry.BEGIN_DE}
-                    ePeriod={entry.END_DE}
-                    imageUrl={entry.IMAGE_URL}
-                    onClick={() => onCardClick(entry.TITLE)}
-                  />
-                ))
-            )}
+            {entries.map((e, i) => (
+              <ImgCard
+                key={e.URL ?? i}
+                title={e.TITLE}
+                address={e.HOST_INST_NM}
+                sPeriod={e.BEGIN_DE}
+                ePeriod={e.END_DE}
+                imageUrl={e.IMAGE_URL}
+                onClick={() => onCardClick(e.TITLE)}
+              />
+            ))}
+            <div id="sentinel" ref={sentRef} /> {/* Intersection 대상 */}
           </div>
+
+          {loading && <p>로딩 중...</p>}
+          {error && <p style={{ color: "red" }}>{error}</p>}
+          {!hasMore && <p>모든 항목을 불러왔습니다.</p>}
         </main>
       )}
     </>
