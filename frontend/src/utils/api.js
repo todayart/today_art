@@ -3,10 +3,18 @@ import { fetchData } from "./fetchData";
 
 /**
  * 필터링된 전시 리스트 가져오기
- * @param {string} queryString - URLSearchParams를 직렬화한 문자열
+ * @param {object} queryString - URLSearchParams를 직렬화한 문자열
  */
 export function fetchEntries(queryString) {
-  return fetchData(`http://localhost:8000/api/entries/?${queryString}`);
+  const sanitizedQuery = Object.keys(queryString).reduce((acc, key) => {
+    if (queryString[key] !== "") {
+      acc[key] = queryString[key];
+    }
+    return acc;
+  }, {});
+  const qs = new URLSearchParams(sanitizedQuery).toString();
+  console.log("Fetching entries with query:", qs);
+  return fetchData(`http://localhost:8000/api/entries/?${qs}`);
 }
 
 /**
