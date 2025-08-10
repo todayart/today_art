@@ -1,14 +1,11 @@
 # 할 일 (이거보고 일하자)
 
-!! DetailPage 적용해보기
+!!! 1. 무한 스크롤 구현 (list page 기능 구현 파트)
 
-- searchInput -> term 쿼리로만 작동
-- DetailCard -> title 파라미터 있을 때만 조건부 렌더
-- ImgCard 클릭 -> 해당 카드의 TITLE을 title 파라미터로 반영
-- 뒤로 가기 -> title 파라미터 제거 -> 리스트 복귀
+- 서버사이드 페이징 방식으로 구현 : 8개 후 나중에 추가 주문
+- IntersectionObserver를 활용한 구현 : 간단한 구현, 유지보수에 유리
 
-1. 무한 스크롤 구현 (list page 기능 구현 파트)
-2. 기능 완성 - nav, 이전버튼
+2. 기능 완성 - nav
 
 3. sort가 바뀌어도 list가 갱신되지 않는 오류가 발생
 4. 백앤드 : 최신순이 today 기준으로 절대값으로 차이가 적은 순이면 좋겠음
@@ -19,6 +16,7 @@
 3. 지금은 LocMemCache를 이용해 개발에 용이하고, 프로덕트 환경에선 redis를 이용할 것을 추천한다고함.
 4. 캐시 무효화 패턴에 대해 필요한가 고민 필요(데이터 무효화 sessionStorage.removeItem(CACHE_KEY)
 5. fetch 실패 시 새로 고침 말고 재시도 로직에 대해 고민(retryCount로 fetch 실패 시 재시도 로직)
+6. 현재 cached 훅이 첫 로딩시만 fetch를 하는 것이 아니라 매번 fetch를 업데이트하도록 구성되어 있어 의도와 다름. 이를 확인해야함
 
 ## 필요한 객체명
 
@@ -128,6 +126,13 @@ git reset --soft HEAD~1
   /detail의 뒤에 쿼리 파라미터를 관리하는 것이 아니라 다시 List 페이지를 활용해야 하기 때문에 리다이렉트라는 큰 비용이 드는 현상을 관찰했다.
 
 - 결론 : 이 방식은 좋지 않고, ListPage의 분기 안에 작성하는 것이 좋아보임. 트리거가 될 title 파라미터를 관리한다.
+
+#### DetailPage에 적용하기
+
+- searchInput -> term 쿼리로만 작동
+- DetailCard -> title 파라미터 있을 때만 조건부 렌더
+- ImgCard 클릭 -> 해당 카드의 TITLE을 title 파라미터로 반영
+- 뒤로 가기 -> title 파라미터 제거 -> 리스트 복귀
 
 #### 이전에는 퍼센트 디코딩된 코드가 보였는데 지금은 왜 한글로 보일까요?
 

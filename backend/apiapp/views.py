@@ -65,13 +65,14 @@ def entries_api(request):
     qs = _load_all_entries()
     
     # 쿼리 파라미터 읽기
-    limit = request.GET.get("limit", 50)
+    page = int(request.GET.get("page", 1))
+    size = int(request.GET.get("pageSize", 8))
     term  = request.GET.get("term", "").strip().lower()
     start = request.GET.get("startDate")
     end   = request.GET.get("endDate")
     sort  = request.GET.get("sort")  # ex) "begin" or "-begin"
     cate  = request.GET.get("cate", "").strip().lower()
-    active = request.GET.get("active", "").strip().lower()  # ex) "true" or "false"
+    active = request.GET.get("active", "true").strip().lower()  # ex) "true" or "false"
     
     # 1) 검색(term)
     if term:
@@ -86,14 +87,14 @@ def entries_api(request):
     # * 날짜 방식은 type이 string으로 되어있음
     # * YYYY-MM-dd 형태로 되어있음
     
-    if start:
-        qs = [e for e in qs if e["BEGIN_DE"] >= start]
-    
-    if end: 
-        qs = [e for e in qs if e["END_DE"] <= end]
-
     if start and end:
-        qs = [e for e in qs if start >= e["BEGIN_DE"] and e["END_DE"] <= end]
+        qs = [e for e in qs if e["BEGIN_DE"] >= start and e["END_DE"] <= end]
+    else:
+        if start:
+            qs = [e for e in qs if e["BEGIN_DE"] >= start]
+
+        if end:
+            qs = [e for e in qs if e["END_DE"] <= end]
 
     # 4) 카테고리 필터
     # 공연, 행사, 교육, 전시
@@ -136,10 +137,14 @@ def entries_api(request):
         # 리스트 qs를 sort_key 함수를 기준으로 정렬하며, 정렬 순서는 reverse 값에 따라 결정됨
         qs.sort(key=sort_key, reverse=reverse)
         
-    # 5) limit 적용
-    if limit:
-        limit = int(limit)
-        qs = qs[:limit]
+    # 5) 페이징 처리
+    # * page: 현재 페이지 번호 (1부터 시작)
+    # * size: 페이지당 항목 수
+    # * 페이지 번호와 항목 수가 모두 지정된 경우에만 페이징 처리
+    if page is not None and size is not None:
+        start = (page - 1) * size
+        end   = start + size
+        qs  = qs[start:end]
 
     # 응답
     # * 리스트 형태로 보내기 위해 safe=False 설정
