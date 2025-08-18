@@ -1,16 +1,14 @@
-import { useEffect } from "react";
-
 import ImgCard from "./ImgCard";
 
+/**
+ * CategoryList 컴포넌트는 이미지 카드 목록을 렌더링합니다.
+ *
+ * @param {Array} entries
+ * @param {Function} handleImgCardClick
+ * @returns {JSX.Element}
+ */
+
 export default function CategoryList({ handleImgCardClick, entries }) {
-  useEffect(() => {
-    console.log("CategoryList Mounted");
-  }, []);
-
-  useEffect(() => {
-    console.log("entries:", entries);
-  }, [entries]);
-
   return (
     <div className="listBox">
       <ul>
