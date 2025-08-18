@@ -3,15 +3,16 @@ import { useEffect, useState } from "react";
 import { fetchEntryByTitle } from "utils/api";
 
 /**
- * title 기준으로 로컬 캐시에서 검색하고, 없으면 fetch
+ * 제목을 기반으로 로컬 캐시에서 엔트리를 검색하고, 없으면 API를 통해 가져옵니다.
  */
-export function useCachedEntry(title) {
+export function useCachedEntryByTitle(title) {
   const [entry, setEntry] = useState(null);
 
   useEffect(() => {
     if (!title) return;
+    console.log("useCachedEntry called with title:", title);
 
-    const cacheKey = `entry:${title}`;
+    const cacheKey = `entries:${title}`;
     const cached = sessionStorage.getItem(cacheKey);
 
     if (cached) {
