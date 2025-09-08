@@ -93,8 +93,7 @@ export function useInfiniteEntries({ qs, pageSize = 8, enabled = true }) {
       fetchPage(1).then(() => {
         console.log("useInfiniteEntries: Initial fetch completed");
       });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [key, enabled]);
+  }, [key, enabled, fetchPage]);
 
   // IO 구현
   const sentinelRef = useRef(null);
