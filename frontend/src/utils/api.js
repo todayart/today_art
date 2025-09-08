@@ -69,8 +69,8 @@ const TTL = 10 * 60 * 1000; // 10분
 export const qsToString = (qs) =>
   typeof qs === "string" ? qs : new URLSearchParams(qs).toString();
 
-export const cacheKey = (qs, pageSize) =>
-  `entries:${qsToString(qs)}:ps${pageSize}`;
+export const cacheKey = (qs, pageSize, pageIndex = 1) =>
+  `entries:${qsToString(qs)}:p${pageIndex}:s${pageSize}`;
 
 export const readCache = (key) => {
   try {
@@ -93,7 +93,7 @@ export const writeCache = (key, data) => {
 
 /** 외부에서 선패치할 때 사용(Entry 페이지 등) */
 export async function prefetchFirstPage({ qs, pageSize = 8, signal }) {
-  const key = cacheKey(qs, pageSize);
+  const key = cacheKey(qs, pageSize, 1);
   const hit = readCache(key);
   if (hit?.pageLoaded >= 1) return; // 이미 예열됨
 

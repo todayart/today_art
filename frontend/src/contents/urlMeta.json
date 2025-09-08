@@ -2,12 +2,12 @@
   "navLinks": [
     {
       "name": "HOME",
-      "url": "",
+      "url": "/",
       "icon": "HomeSvg"
     },
     {
       "name": "CALENDAR",
-      "url": "#",
+      "url": "/calendar",
       "icon": "CalendarSvg"
     },
     {

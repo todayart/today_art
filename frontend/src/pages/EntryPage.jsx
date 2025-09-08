@@ -16,6 +16,7 @@ export default function EntryPage() {
     // 진입 시 현재 필터로 1페이지 예열(실패해도 무해)
     prefetchFirstPage({
       qs: searchParams,
+      pageIndex: 1,
       pageSize: 8,
       signal: ac.signal,
     }).catch(() => {});
