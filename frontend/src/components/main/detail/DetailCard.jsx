@@ -1,5 +1,6 @@
 // components/DetailCard.jsx
 import ArrowSvg from "assets/main/prevBtn.svg";
+// import { useEffect } from "react";
 import { ReactSVG } from "react-svg";
 
 /**
@@ -35,6 +36,12 @@ export default function DetailCard({
   imageUrl,
   handleGoBack = () => {},
 }) {
+  // useEffect(() => {
+  //   console.log("DetailCard mounted");
+  //   console.log("DetailCard mounted with title:", title);
+  //   console.log("DetailCard details:", details);
+  // }, [title, details]);
+
   return (
     <div className="detailCard flexCenter">
       {/* 이미지와 콘텐츠 사이 간격 74px */}

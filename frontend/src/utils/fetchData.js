@@ -21,12 +21,15 @@
  */
 export const fetchData = async (url) => {
   try {
+    console.log("FetchData Url :", url);
     const response = await fetch(url);
     if (!response.ok) {
       console.error("Fetch 에러:", response.statusText);
       // throw new Error("Network response was not ok");
     }
-    return await response.json();
+    const data = await response.json();
+    console.log("FetchData Response:", data);
+    return data;
   } catch (error) {
     console.error("네트워크 에러:", error);
     throw error;
