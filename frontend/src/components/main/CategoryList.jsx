@@ -8,19 +8,21 @@ import ImgCard from "./ImgCard";
  * @returns {JSX.Element}
  */
 
-export default function CategoryList({ handleImgCardClick, entries }) {
+export default function CategoryList({ handleImgCardClick, entries = [] }) {
+  const list = Array.isArray(entries) ? entries : [];
+
   return (
     <div className="listBox">
-      <ul>
-        {entries.slice(0, 5).map((entry, index) => (
+      <ul className="listTrack">
+        {list.map((entry, index) => (
           <ImgCard
-            key={index}
-            title={entry.TITLE}
-            address={entry.HOST_INST_NM}
-            sPeriod={entry.BEGIN_DE}
-            ePeriod={entry.END_DE}
-            imageUrl={entry.IMAGE_URL}
-            onClick={() => handleImgCardClick(entry.TITLE)}
+            key={entry?.ID ?? index}
+            title={entry?.TITLE}
+            address={entry?.HOST_INST_NM}
+            sPeriod={entry?.BEGIN_DE}
+            ePeriod={entry?.END_DE}
+            imageUrl={entry?.IMAGE_URL}
+            onClick={() => handleImgCardClick(entry?.TITLE)}
           />
         ))}
       </ul>
