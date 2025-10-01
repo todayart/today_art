@@ -5,15 +5,24 @@ import ImgCard from "./ImgCard";
  *
  * @param {Array} entries
  * @param {Function} handleImgCardClick
+ * @param {Object} trackStyle
+ * @param {React.RefObject} trackRef
+ * @param {React.RefObject} containerRef
  * @returns {JSX.Element}
  */
 
-export default function CategoryList({ handleImgCardClick, entries = [] }) {
+export default function CategoryList({
+  handleImgCardClick,
+  entries = [],
+  trackStyle,
+  trackRef,
+  containerRef,
+}) {
   const list = Array.isArray(entries) ? entries : [];
 
   return (
-    <div className="listBox">
-      <ul className="listTrack">
+    <div className="listBox" ref={containerRef}>
+      <ul className="listTrack" ref={trackRef} style={trackStyle}>
         {list.map((entry, index) => (
           <ImgCard
             key={entry?.ID ?? index}

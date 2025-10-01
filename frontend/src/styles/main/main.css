@@ -5,7 +5,7 @@
   --card-width: 210px;
 
   /* 반응형 이미지카드 사이 간격 */
-  --dt-gap: 12px;
+  --dt-gap: 22px;
   --tb-gap: 48px;
   --mb-gap: 52px;
 
@@ -227,12 +227,20 @@ section.category {
   will-change: transform;
   transition: transform 0.4s ease;
 }
+
+/* 화살표 버튼 */
 .categoryBox > .arrowPrev {
   position: absolute;
   left: 0;
   top: 42%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+/* 화살표 버튼 비활성화 */
+.categoryBox > .arrowPrev.disabled {
+  opacity: 0.3;
+  cursor: default;
+  pointer-events: none;
 }
 
 /* 이미지 */
