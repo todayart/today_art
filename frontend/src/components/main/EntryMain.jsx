@@ -13,6 +13,7 @@ import PrevBtn from "assets/main/prevBtn.svg";
 
 import { fetchEntriesPaged } from "utils/api";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
+import { hintBrowser, removeHint } from "utils/cssUtil";
 
 const TTL = 10 * 60 * 1000; // 10분
 
@@ -64,6 +65,7 @@ export default function EntryMain() {
   }, [searchParams]);
 
   const computeSlideMetrics = useCallback(() => {
+    // 최신 Dom 참조를 위해 내부에서 선언
     const containerEl = listContainerRef.current;
     const trackEl = listTrackRef.current;
 
@@ -71,6 +73,11 @@ export default function EntryMain() {
       setSlideState({ offset: 0, step: 0, maxOffset: 0 });
       return;
     }
+    // ? <trackEl>에 GPU 가속 힌트 주기
+    // willChange라는 것을 찾을 수 없다는 오류가 발생
+    // 이걸 여기에 쓰는게 적절할까?
+    trackEl.addEventListener("mouseenter", hintBrowser);
+    trackEl.addEventListener("mouseleave", removeHint);
 
     const firstItem = trackEl.querySelector(".imgCard");
     const computedStyle = window.getComputedStyle(trackEl);
