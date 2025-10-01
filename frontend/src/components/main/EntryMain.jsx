@@ -142,6 +142,9 @@ export default function EntryMain() {
           ) : error ? (
             <div className="statusMessage">Error : {error.message}</div>
           ) : (
+            //  TODO : 슬라이드 구현 필요
+            // 1. arrowPrev를 누르면 왼쪽으로만 이동하는 슬라이드 구현이 필요
+            // 고민 포인트 : CategoryList는 fetch를 통한 렌더링이므로, 슬라이드 라이브러리 적용이 어려울 수 있음, 라이브러리 없이 구현해보고 싶음
             <>
               {/* arrowPrev */}
               <div className="arrowPrev">

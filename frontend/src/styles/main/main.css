@@ -20,6 +20,9 @@
 /********************* 반응형 *********************/
 /* 데스크탑 */
 @media (min-width: 1024px) {
+  .listBox {
+    height: 382px;
+  }
   .logoBox {
     margin-top: 130px;
   }
@@ -33,9 +36,8 @@
   .searchBox {
     margin-bottom: 35px;
   }
-  .categoryBox > .listBox > ul {
-    flex-wrap: wrap;
-    column-gap: var(--dt-gap);
+  .categoryBox > .listBox > .listTrack {
+    gap: var(--dt-gap);
   }
   .categoryBg {
     width: 547px;
@@ -66,12 +68,8 @@
     height: 100px;
     column-gap: 10px;
   }
-  .categoryBox > .listBox > ul {
-    flex-wrap: nowrap;
-    column-gap: var(--tb-gap);
-    position: absolute;
-    top: 0;
-    left: 0;
+  .categoryBox > .listBox > .listTrack {
+    gap: var(--tb-gap);
   }
 }
 /* 모바일 393x776 */
@@ -97,9 +95,8 @@
     margin-bottom: 50px;
     column-gap: 4px;
   }
-  .categoryBox > .listBox > ul {
-    flex-wrap: nowrap;
-    column-gap: var(--mb-gap);
+  .categoryBox > .listBox > .listTrack {
+    gap: var(--mb-gap);
   }
 }
 
@@ -219,12 +216,16 @@ section.category {
 }
 .categoryBox > .listBox {
   position: relative;
+  width: 100%;
+  overflow: hidden;
 }
-.categoryBox > .listBox > ul {
+.categoryBox > .listBox > .listTrack {
   display: flex;
-  justify-content: center;
-  gap: 22px;
-  flex-flow: wrap;
+  justify-content: flex-start;
+  gap: var(--dt-gap);
+  flex-wrap: nowrap;
+  will-change: transform;
+  transition: transform 0.4s ease;
 }
 .categoryBox > .arrowPrev {
   position: absolute;
@@ -235,7 +236,7 @@ section.category {
 }
 
 /* 이미지 */
-.listBox > ul > li > a > div.imgBox {
+.listBox > .listTrack > li > a > div.imgBox {
   width: 210px;
   height: 300px;
   position: relative;
