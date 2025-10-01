@@ -49,12 +49,16 @@ export default function EntryMain() {
     maxOffset: 0,
   });
 
+  // Dom 참조 (슬라이드)
   const listContainerRef = useRef(null);
   const listTrackRef = useRef(null);
+  const offTimerRef = useRef(null);
 
+  // Router 내비게이터
   const navigate = useNavigate();
   const { searchParams } = useFilterParamsValues();
 
+  // API 결과에서 entries 배열과 길이 (슬라이드)
   const entries = fetchedData?.results ?? [];
   const entriesLength = entries.length;
 
@@ -64,6 +68,36 @@ export default function EntryMain() {
     return new URLSearchParams(searchParams).toString();
   }, [searchParams]);
 
+  // 전환 종료/취소 시 will-change 해제 (슬라이드)
+  useEffect(() => {
+    const el = listTrackRef.current;
+    if (!el) return;
+
+    const off = () => {
+      removeHint(el);
+      if (offTimerRef.current) {
+        clearTimeout(offTimerRef.current);
+        offTimerRef.current = null;
+      }
+    };
+
+    const onEndOrCancel = (e) => {
+      // transform만 감지하고 싶으니 필터
+      if (e.propertyName !== "transform") return;
+      off();
+    };
+
+    el.addEventListener("transitionend", onEndOrCancel);
+    el.addEventListener("transitioncancel", onEndOrCancel);
+    return () => {
+      el.removeEventListener("transitionend", onEndOrCancel);
+      el.removeEventListener("transitioncancel", onEndOrCancel);
+      if (offTimerRef.current) clearTimeout(offTimerRef.current);
+      removeHint(el); // 언마운트 중 전환 중이었을 때 대비
+    };
+  }, []);
+
+  // 슬라이드 메트릭 계산 (슬라이드)
   const computeSlideMetrics = useCallback(() => {
     // 최신 Dom 참조를 위해 내부에서 선언
     const containerEl = listContainerRef.current;
@@ -73,11 +107,6 @@ export default function EntryMain() {
       setSlideState({ offset: 0, step: 0, maxOffset: 0 });
       return;
     }
-    // ? <trackEl>에 GPU 가속 힌트 주기
-    // willChange라는 것을 찾을 수 없다는 오류가 발생
-    // 이걸 여기에 쓰는게 적절할까?
-    trackEl.addEventListener("mouseenter", hintBrowser);
-    trackEl.addEventListener("mouseleave", removeHint);
 
     const firstItem = trackEl.querySelector(".imgCard");
     const computedStyle = window.getComputedStyle(trackEl);
@@ -100,6 +129,7 @@ export default function EntryMain() {
     });
   }, [entriesLength]);
 
+  // 필터 변경 시 데이터 패치  (캐시 활용)
   // 1) 캐시 즉시표시  2) 백그라운드 재검증  3) 미스면 로딩 표시 후 패치
   useEffect(() => {
     const key = cacheKey(qsString);
@@ -152,28 +182,43 @@ export default function EntryMain() {
     return () => ac.abort();
   }, [qsString, searchParams]);
 
+  // 슬라이드 상태 초기화 (슬라이드)
   useEffect(() => {
     setSlideState((prev) => ({ ...prev, offset: 0 }));
     computeSlideMetrics();
   }, [computeSlideMetrics, entriesLength]);
 
+  // 리사이즈 시 슬라이드 메트릭 재계산 (슬라이드)
   useEffect(() => {
     window.addEventListener("resize", computeSlideMetrics);
     return () => window.removeEventListener("resize", computeSlideMetrics);
   }, [computeSlideMetrics]);
 
+  // 이전 화살표 클릭 (슬라이드)
   const handlePrevClick = useCallback(() => {
+    // 시작 직전 hint on
+    const listTrack = listTrackRef.current;
+    if (!listTrack) return;
+    hintBrowser(listTrack);
+
+    // 트랜지션 유발
     setSlideState((prev) => {
       if (prev.step <= 0) return prev;
       const nextOffset = Math.min(prev.offset + prev.step, prev.maxOffset);
       if (nextOffset === prev.offset) return prev;
       return { ...prev, offset: nextOffset };
     });
+
+    // 0.45초 후에 hint off (transitionend/cancel 이벤트가 실패할 수도 있으니 백업)
+    clearTimeout(offTimerRef.current);
+    offTimerRef.current = setTimeout(() => removeHint(listTrack), 450);
   }, []);
 
+  // 이전 화살표 활성 여부 (슬라이드)
   const canMovePrev =
     slideState.step > 0 && slideState.maxOffset - slideState.offset > 0.5;
 
+  // 트랙 스타일 (슬라이드)
   const trackStyle = useMemo(
     () => ({ transform: `translateX(-${slideState.offset}px)` }),
     [slideState.offset]

@@ -9,5 +9,5 @@ export function hintBrowser(el, props = "transform") {
 
 // 요소에 GPU 가속 힌트 제거
 export function removeHint(el) {
-  if (el) el.style.willChange = "auto";
+  if (el) el.style.willChange = "";
 }

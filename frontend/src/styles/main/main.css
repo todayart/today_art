@@ -224,7 +224,6 @@ section.category {
   justify-content: flex-start;
   gap: var(--dt-gap);
   flex-wrap: nowrap;
-  will-change: transform;
   transition: transform 0.4s ease;
 }
 
