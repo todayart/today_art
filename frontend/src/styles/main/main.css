@@ -242,6 +242,12 @@ section.category {
   pointer-events: none;
 }
 
+/* 화살표 버튼 반전 */
+.categoryBox > .arrowPrev.reverse svg {
+  transform: scaleX(-1);
+  transition: all 0.3s ease;
+}
+
 /* 이미지 */
 .listBox > .listTrack > li > a > div.imgBox {
   width: 210px;

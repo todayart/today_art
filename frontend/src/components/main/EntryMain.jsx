@@ -195,6 +195,9 @@ export default function EntryMain() {
   }, [computeSlideMetrics]);
 
   // 이전 화살표 클릭 (슬라이드)
+  const isAtEnd = slideState.maxOffset - slideState.offset <= 0.5;
+  const hasScrollableContent = slideState.step > 0 && slideState.maxOffset > 0;
+
   const handlePrevClick = useCallback(() => {
     // 시작 직전 hint on
     const listTrack = listTrackRef.current;
@@ -203,7 +206,12 @@ export default function EntryMain() {
 
     // 트랜지션 유발
     setSlideState((prev) => {
-      if (prev.step <= 0) return prev;
+      if (prev.step <= 0 || prev.maxOffset <= 0) return prev;
+
+      if (prev.maxOffset - prev.offset <= 0.5) {
+        return { ...prev, offset: 0 };
+      }
+
       const nextOffset = Math.min(prev.offset + prev.step, prev.maxOffset);
       if (nextOffset === prev.offset) return prev;
       return { ...prev, offset: nextOffset };
@@ -213,10 +221,6 @@ export default function EntryMain() {
     clearTimeout(offTimerRef.current);
     offTimerRef.current = setTimeout(() => removeHint(listTrack), 450);
   }, []);
-
-  // 이전 화살표 활성 여부 (슬라이드)
-  const canMovePrev =
-    slideState.step > 0 && slideState.maxOffset - slideState.offset > 0.5;
 
   // 트랙 스타일 (슬라이드)
   const trackStyle = useMemo(
@@ -268,14 +272,16 @@ export default function EntryMain() {
             <>
               {/* arrowPrev */}
               <div
-                className={`arrowPrev${canMovePrev ? "" : " disabled"}`}
+                className={`arrowPrev${
+                  hasScrollableContent ? "" : " disabled"
+                }${isAtEnd ? " reverse" : ""}`}
                 role="button"
-                tabIndex={canMovePrev ? 0 : -1}
-                aria-label="이전 카드 보기"
-                aria-disabled={!canMovePrev}
-                onClick={canMovePrev ? handlePrevClick : undefined}
+                tabIndex={hasScrollableContent ? 0 : -1}
+                aria-label={isAtEnd ? "처음 카드로 이동" : "이전 카드 보기"}
+                aria-disabled={!hasScrollableContent}
+                onClick={hasScrollableContent ? handlePrevClick : undefined}
                 onKeyDown={(event) => {
-                  if (!canMovePrev) return;
+                  if (!hasScrollableContent) return;
                   if (event.key === "Enter" || event.key === " ") {
                     event.preventDefault();
                     handlePrevClick();
