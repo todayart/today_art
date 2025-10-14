@@ -1,3 +1,6 @@
+import { useNavigate } from "react-router-dom";
+import { useCallback } from "react";
+
 /**
  * 긴 직사각형 내부에 전시 이름을 표시하는 태그 컴포넌트입니다.
  *
@@ -9,13 +12,27 @@
  * <ExhibitionTag name="아트페어 2025: 현대미술의 흐름" />
  * ```
  */
-// TODO : 태그를 누르면 상세보기로 이동하는 기능 추가 그렇다면 부모의 EXHIBITION 객체의 구조를 바꿔야 함
 
 const ExhibitionTag = ({ name }) => {
+  const navigate = useNavigate();
+
+  const handleClick = useCallback(() => {
+    navigate(`/list?title=${encodeURIComponent(name)}`);
+  }, [name, navigate]);
+
   return (
     <div
       className="exhibitionTag commonBorder flexCenter textOverflow overflowHidden shadow"
-      title={`${name}의 태그`} // 전체 이름을 툴팁으로 보여줌
+      title={`${name}의 태그`}
+      onClick={handleClick}
+      style={{ cursor: "pointer" }}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          handleClick();
+        }
+      }}
     >
       {name}
     </div>

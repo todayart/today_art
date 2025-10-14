@@ -67,7 +67,6 @@ export default function DetailCard({
           </ul>
         </div>
       </div>
-      {/* TODO : 이전 페이지로 이동하는 기능을 추가해야함 */}
       <button
         className="backButton flexCenter commonBorder"
         onClick={handleGoBack}

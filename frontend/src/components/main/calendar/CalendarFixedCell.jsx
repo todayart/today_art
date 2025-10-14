@@ -2,12 +2,6 @@ import CalendarCell from "components/main/calendar/CalendarCell";
 import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
 export default function CalendarFixedCell({ exhibitions }) {
-  // TODO : exhibitions 데이터를 받아서 각 셀에 전시 이름을 표시하도록 구현
-  // 예시로 빈 객체를 사용하고 있습니다. 실제로는 API에서 데이터를 받아
-  // exhibitions 객체는 { "1m-start": ["전시1", ... ], "1m-end": ["전시2", ...] } 형태로 되어 있어야 합니다.
-  // 각 키에 해당하는 값은 전시 이름입니다.
-  // exhibitions 객체가 비어있으면 빈 셀을 렌더링합니다.
-
   return (
     <main className="calendarWrapper">
       {/* 첫 번째 열: 고정 파트 (OPEN, CLOSE) */}
