@@ -1,6 +1,5 @@
 import { ReactSVG } from "react-svg";
 import CommonSearchIcon from "assets/common/commonSearch.svg";
-import { debounce } from "utils/util";
 
 /**
  * 검색 입력창과 버튼이 결합된 컴포넌트입니다.
@@ -28,11 +27,6 @@ const SmallSearchInput = ({
   onSearch,
   placeholder = "",
 }) => {
-  //
-  const debounceOnChange = debounce((value) => {
-    onChange(value);
-  }, 300);
-
   return (
     <div className="smallSearchWrapper">
       {/* 라벨링 + 텍스트 */}
@@ -47,7 +41,7 @@ const SmallSearchInput = ({
         type="text"
         value={value}
         // TODO : 입력값 변경 핸들러 추가, 디바운스 구현할 때 완성
-        onChange={(e) => debounceOnChange(e.target.value)}
+        onChange={(e) => onChange && onChange(e.target.value)}
         placeholder={placeholder}
         onKeyDown={(e) => e.key === "Enter" && onSearch()}
       />
