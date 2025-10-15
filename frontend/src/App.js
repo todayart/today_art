@@ -1,7 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
 // 페이지 컴포넌트
-import TestPage from "./components/test/TestPage.jsx";
 import EntryPage from "pages/EntryPage";
 import ListPage from "pages/ListPage";
 import CalendarPage from "pages/CalendarPage.jsx";
@@ -13,7 +12,7 @@ import "react-datepicker/dist/react-datepicker.css";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<TestPage />} />
+      <Route path="/" element={<EntryPage />} />
       <Route path="/entry" element={<EntryPage />} />
       <Route path="/list" element={<ListPage />} />
       <Route path="/calendar" element={<CalendarPage />} />
