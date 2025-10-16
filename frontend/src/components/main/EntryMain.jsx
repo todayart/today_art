@@ -11,33 +11,9 @@ import DetailBtn from "./DetailBtn";
 
 import PrevBtn from "assets/main/prevBtn.svg";
 
-import { fetchEntriesPaged } from "utils/api";
+import { cacheKey, fetchEntriesPaged, readCache, writeCache } from "utils/api";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
 import { hintBrowser, removeHint } from "utils/cssUtil";
-
-const TTL = 10 * 60 * 1000; // 10분
-
-function cacheKey(qsString) {
-  // 1페이지, 8개 예열 캐시 키(필터별 분리)
-  return `entries:${qsString}:p1:s8`;
-}
-function readCache(key) {
-  try {
-    const raw = sessionStorage.getItem(key);
-    if (!raw) return null;
-    const parsed = JSON.parse(raw);
-    if (!parsed.cachedAt || Date.now() - parsed.cachedAt > TTL) return null;
-    return parsed;
-  } catch {
-    return null;
-  }
-}
-function writeCache(key, data) {
-  sessionStorage.setItem(
-    key,
-    JSON.stringify({ ...data, cachedAt: Date.now() })
-  );
-}
 
 export default function EntryMain() {
   const [loading, setLoading] = useState(false);
@@ -230,15 +206,19 @@ export default function EntryMain() {
 
   // 카테고리 클릭 시
   const onCategoryClick = (cateValue) => {
+    const params = new URLSearchParams();
     if (cateValue !== "전체") {
-      navigate(`/list?cate=${encodeURIComponent(cateValue)}`);
-    } else {
-      navigate(`/list`);
+      params.set("cate", cateValue);
     }
+
+    const qs = params.toString();
+    navigate(qs ? `/list?${qs}` : `/list`);
   };
   // 이미지 카드 클릭 시
   const onImgCardClick = (titleValue) => {
-    navigate(`/list?title=${encodeURIComponent(titleValue)}`);
+    const params = new URLSearchParams();
+    params.set("title", titleValue);
+    navigate(`/list?${params.toString()}`);
   };
 
   return (

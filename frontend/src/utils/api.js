@@ -1,5 +1,6 @@
 // utils/api.js
 import { fetchData } from "./fetchData";
+import { getQSInt, safeInt } from "./numberUtil";
 
 /**
  * 응답 스키마
@@ -33,6 +34,14 @@ export function fetchEntries(queryString) {
 
 /**
  * 기존 fetchEntries는 유지(호환). 페이징 전용 fetchEntriesPaged 함수 추가
+ * @param {Object} params
+ * @param {URLSearchParams|string|Object|null} params.qs - 필터 파라미터
+ * @param {number} [params.page=1] - 기본 1
+ * @param {number} [params.pageSize=8] - 기본 8
+ * @param {AbortSignal} [params.signal] - fetch 취소용
+ * @returns {Promise<any>} - { results, total, page, pageSize, hasMore, nextPage }
+ * @example
+ * fetchEntriesPaged({ qs: new URLSearchParams({ cate: "React" }), page: 1, pageSize: 8 })
  */
 export async function fetchEntriesPaged({
   qs,
@@ -40,11 +49,55 @@ export async function fetchEntriesPaged({
   pageSize = 8,
   signal,
 }) {
-  // qs: URLSearchParams 또는 직렬화된 문자열
-  const base = typeof qs === "string" ? qs : new URLSearchParams(qs).toString();
-  const url = `http://localhost:8000/api/entries/?${base}&pIndex=${page}&pSize=${pageSize}`;
-  const res = await fetch(url, { signal, credentials: "include" });
-  if (!res.ok) console.error(`HTTP ${res.status}`);
+  // 1) qs를 URLSearchParams로 정규화해야 함
+  let qsParams;
+  if (qs == null) {
+    qsParams = new URLSearchParams();
+  } else if (typeof qs === "string") {
+    // "a=1&b=2" 형태
+    qsParams = new URLSearchParams(qs);
+  } else if (
+    typeof qs.toString === "function" &&
+    qs instanceof URLSearchParams
+  ) {
+    qsParams = new URLSearchParams(qs); // 복사본
+  } else if (typeof qs === "object") {
+    // 평범한 객체도 허용 (ex. { cate: "React" })
+    qsParams = new URLSearchParams(qs);
+  } else {
+    // 알 수 없는 타입은 빈 파라미터로
+    qsParams = new URLSearchParams();
+  }
+
+  // 2) 인자로 받은 page/pageSize도 안전 보정
+  const pageSafeArg = safeInt(page, 1, "arg:page");
+  const sizeSafeArg = safeInt(pageSize, 8, "arg:pageSize");
+
+  // 3) qs 내부에 pIndex/pSize가 있으면 그것도 안전 보정
+  const qsPage = getQSInt(qsParams, "pIndex", pageSafeArg);
+  const qsSize = getQSInt(qsParams, "pSize", sizeSafeArg);
+
+  // 4) 최종 파라미터 구성: 필터는 유지하고 pIndex/pSize를 안전값으로 덮어쓰기
+  qsParams.set("pIndex", String(qsPage));
+  qsParams.set("pSize", String(qsSize));
+
+  // 5) 최종 URL
+  const finalUrl = `http://localhost:8000/api/entries/?${qsParams.toString()}`;
+
+  // 6) 개발 중엔 항상 로깅하여 Network 탭과 비교 확인
+  if (
+    typeof process !== "undefined" &&
+    process.env &&
+    process.env.NODE_ENV !== "production"
+  ) {
+    console.log("[fetchEntriesPaged] GET", finalUrl);
+  }
+
+  // 7) 요청
+  const res = await fetch(finalUrl, { signal, credentials: "include" });
+  if (!res.ok) {
+    console.error(`HTTP ${res.status} for ${finalUrl}`);
+  }
   return res.json(); // { results, total, page, pageSize, hasMore, nextPage }
 }
 
@@ -52,12 +105,13 @@ export async function fetchEntriesPaged({
  * 특정 제목(term)에 해당하는 단일 전시 가져오기
  * @param {string} title
  * @return {Promise<Object|null>} - 전시 객체 또는 null
+ * @example
+ * fetchEntryByTitle("My Title").then(item => console.log(item));
  */
 export function fetchEntryByTitle(title) {
   const query = new URLSearchParams({ term: title });
   return fetchEntries(query.toString()).then((res) => {
     const { results } = res;
-    // console.log("fetchEntryByTitle results:", results[0]);
     return Array.isArray(results) && results.length > 0 ? results[0] : null;
   });
 }
@@ -66,8 +120,12 @@ export function fetchEntryByTitle(title) {
 
 const TTL = 10 * 60 * 1000; // 10분
 
-export const qsToString = (qs) =>
-  typeof qs === "string" ? qs : new URLSearchParams(qs).toString();
+export const qsToString = (qs) => {
+  if (qs == null) return "";
+  if (typeof qs === "string") return qs;
+  if (qs && typeof qs.toString === "function") return qs.toString();
+  return new URLSearchParams(qs).toString();
+};
 
 export const cacheKey = (qs, pageSize, pageIndex = 1) =>
   `entries:${qsToString(qs)}:p${pageIndex}:s${pageSize}`;
