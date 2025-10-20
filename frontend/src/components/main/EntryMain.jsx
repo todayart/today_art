@@ -14,6 +14,7 @@ import PrevBtn from "assets/main/prevBtn.svg";
 import { cacheKey, fetchEntriesPaged, readCache, writeCache } from "utils/api";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
 import { hintBrowser, removeHint } from "utils/cssUtil";
+import { isItString } from "utils/util";
 
 export default function EntryMain() {
   const [loading, setLoading] = useState(false);
@@ -206,18 +207,19 @@ export default function EntryMain() {
 
   // 카테고리 클릭 시
   const onCategoryClick = (cateValue) => {
+    const cateVal = isItString(cateValue);
     const params = new URLSearchParams();
-    if (cateValue !== "전체") {
-      params.set("cate", cateValue);
+    if (cateVal !== "전체") {
+      params.set("cate", cateVal);
     }
-
     const qs = params.toString();
     navigate(qs ? `/list?${qs}` : `/list`);
   };
   // 이미지 카드 클릭 시
   const onImgCardClick = (titleValue) => {
+    const titleVal = isItString(titleValue);
     const params = new URLSearchParams();
-    params.set("title", titleValue);
+    params.set("title", titleVal);
     navigate(`/list?${params.toString()}`);
   };
 
