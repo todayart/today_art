@@ -26,6 +26,9 @@ export default function EntryMain() {
     maxOffset: 0,
   });
 
+  // 검색 상태
+  const [searchTerm, setSearchTerm] = useState("");
+
   // Dom 참조 (슬라이드)
   const listContainerRef = useRef(null);
   const listTrackRef = useRef(null);
@@ -157,7 +160,7 @@ export default function EntryMain() {
     })();
 
     return () => ac.abort();
-  }, [qsString, searchParams]);
+  }, [searchParams]);
 
   // 슬라이드 상태 초기화 (슬라이드)
   useEffect(() => {
@@ -175,6 +178,7 @@ export default function EntryMain() {
   const isAtEnd = slideState.maxOffset - slideState.offset <= 0.5;
   const hasScrollableContent = slideState.step > 0 && slideState.maxOffset > 0;
 
+  // 이전 버튼 핸들러 (슬라이드)
   const handlePrevClick = useCallback(() => {
     // 시작 직전 hint on
     const listTrack = listTrackRef.current;
@@ -215,12 +219,29 @@ export default function EntryMain() {
     const qs = params.toString();
     navigate(qs ? `/list?${qs}` : `/list`);
   };
+
   // 이미지 카드 클릭 시
   const onImgCardClick = (titleValue) => {
     const titleVal = isItString(titleValue);
     const params = new URLSearchParams();
     params.set("title", titleVal);
     navigate(`/list?${params.toString()}`);
+  };
+
+  // 메인 검색 실행 시
+  const onSearch = (searchInputValue) => {
+    const termVal = isItString(searchInputValue).trim();
+    if (termVal === "") {
+      // 빈값이면 이동 안 함
+      return;
+    }
+    // 빈값이 아닐 때 검색 실행
+    const params = new URLSearchParams();
+    if (termVal) {
+      params.set("term", termVal);
+    }
+    const qs = params.toString();
+    navigate(qs ? `/list?${qs}` : `/list`);
   };
 
   return (
@@ -232,7 +253,12 @@ export default function EntryMain() {
             <Logoimg />
           </div>
           <div className="searchBox">
-            <MainSearch />
+            <MainSearch
+              placeholder="전시회를 검색해보세요"
+              value={searchTerm}
+              onChange={(value) => setSearchTerm(value)}
+              onSearch={onSearch}
+            />
           </div>
           <div className="tagBox">
             <CategoryTag handleCategoryClick={onCategoryClick} />
