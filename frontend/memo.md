@@ -7,8 +7,9 @@
 !! 빌드 과정 (프론트, 백앤드 따로)
 
 1. 프론트엔드는 vercel
-2. 백앤드는 별도의 호스팅이 필요 (ec2)
-   2-1. locMemCache에서 Redis로 업글이 필요할까? (네)
+2. 백앤드는 별도의 호스팅이 필요 (ec2 대신 Azure App Service - linux)
+   2-1. locMemCache에서 Redis로 업글이 필요할까? (굳이 필요는 없음)
+   2-2. python 업데이트 필요 3.9 이상 사용 가능해서 3.13.9 lts버전으로 업데이트함
 
 ! ux 개선
 
