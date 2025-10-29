@@ -1,0 +1,9 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/:path*",
+      "destination": "https://YOUR-DJANGO-API.DOMAIN/:path*"
+    },
+    { "source": "/(.*)", "destination": "/index.html" }
+  ]
+}
