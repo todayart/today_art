@@ -10,3 +10,6 @@ db.sqlite3
 
 # 백업
 /oldfiles
+
+# 정적 파일
+/staticfiles

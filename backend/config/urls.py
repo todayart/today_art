@@ -2,18 +2,14 @@
 
 from django.urls import path, include
 from django.contrib import admin
-
-from django.http import JsonResponse
-
-import requests
-import os
-
-# 테스트용 로직
-# def react_test(request):
-#     return JsonResponse({'message': 'Hello from Django!'})
-
+from django.http import HttpResponse
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("api/", include("apiapp.urls")),   # apiapp.urls 연결
+    # lambda 함수에서 status 파라미터 위치 수정
+    path('', lambda request: HttpResponse(
+        "<h1>Django is running, can't use Korean!</h1>", 
+        content_type="text/html"
+    )),  # status는 HttpResponse의 파라미터가 아님
+    path('api/', include("apiapp.urls")),
 ]

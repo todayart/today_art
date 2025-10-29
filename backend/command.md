@@ -56,3 +56,31 @@ pip freeze > requirements.txt
 // 설치하는 방법
 pip install -r requirements.txt
 ```
+
+---
+
+## Azure Cli 커맨드
+
+```
+# 로그인
+az login
+
+# 공급자 등록 커맨드
+az provider register --namespace Microsoft.Web
+
+# 리소스 그룹 생성
+az group create --name todayart-rg --location koreacentral
+
+# App Service 플랜 생성 (무료 F1 티어)
+az appservice plan create --name todayart-plan --resource-group todayart-rg --sku F1 --is-linux
+
+# 웹앱 생성 (Django 실행 환경)
+az webapp create --resource-group todayart-rg --plan todayart-plan \
+  --name todayart-backend \
+  --runtime "PYTHON|3.13"
+```
+
+```
+# 플랜 정보
+az appservice plan show --name <플랜 이름> --resource-group <리소스 그룹 이름>
+```
