@@ -53,6 +53,7 @@ CUSTOM_APPS = [
     'rest_framework',
     # my apps
     'apiapp',
+    "whitenoise.runserver_nostatic",
 ]
 
 INSTALLED_APPS = SYSTEM_APPS + CUSTOM_APPS
@@ -66,6 +67,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 MIDDLEWARE.insert(1, "whitenoise.middleware.WhiteNoiseMiddleware")
