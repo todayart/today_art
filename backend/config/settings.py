@@ -21,8 +21,8 @@ from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Load environment variables from .env file
-load_dotenv()
+# Load environment variables from backend/.env explicitly
+load_dotenv(BASE_DIR / ".env")
 
 # Load environment variables
 API_KEY = os.getenv('OPEN_API_KEY')
@@ -31,7 +31,8 @@ API_KEY = os.getenv('OPEN_API_KEY')
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.getenv('DEBUG')
+# Coerce string env to boolean (e.g., "True"/"False")
+DEBUG = str(os.getenv('DEBUG', 'False')).lower() in ("true", "1", "yes")
 
 ALLOWED_HOSTS = ["todayart-backend.azurewebsites.net", "127.0.0.1", "localhost"]
 
@@ -86,6 +87,8 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://todayart-backend.azurewebsites.net",
+    "https://today-art-lac.vercel.app"
 ]
 
 ROOT_URLCONF = 'config.urls'
