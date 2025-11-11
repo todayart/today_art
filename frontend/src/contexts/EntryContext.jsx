@@ -9,6 +9,7 @@
  */
 
 import { createContext, useState, useEffect, useCallback } from "react";
+import { API_BASE } from "utils/api";
 
 export const EntryContext = createContext([]);
 
@@ -17,7 +18,7 @@ export function EntryProvider({ children }) {
 
   const fetchEntry = useCallback(() => {
     console.log("EntryPage mounted");
-    fetch("http://127.0.0.1:8000/api/entries/?limit=20")
+    fetch(`${API_BASE}/api/entries/?limit=20`)
       .then((response) => response.json())
       .then((data) => {
         setEntries(data);

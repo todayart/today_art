@@ -24,12 +24,16 @@ import { getQSInt, safeInt } from "./numberUtil";
  * @return {Promise<Object>} - 전시 목록 객체
  */
 
+// * 환경 변수 기반 API 베이스 URL
+export const API_BASE =
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+
 /**
  * 필터링된 전시 리스트 가져오기
  * @param {string} queryString - URLSearchParams를 직렬화한 문자열
  */
 export function fetchEntries(queryString) {
-  return fetchData(`http://localhost:8000/api/entries/?${queryString}`);
+  return fetchData(`${API_BASE}/api/entries/?${queryString}`);
 }
 
 /**
@@ -82,7 +86,7 @@ export async function fetchEntriesPaged({
   qsParams.set("pSize", String(qsSize));
 
   // 5) 최종 URL
-  const finalUrl = `http://localhost:8000/api/entries/?${qsParams.toString()}`;
+  const finalUrl = `${API_BASE}/api/entries/?${qsParams.toString()}`;
 
   // 6) 개발 중엔 항상 로깅하여 Network 탭과 비교 확인
   if (
