@@ -34,8 +34,17 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # Coerce string env to boolean (e.g., "True"/"False")
 DEBUG = str(os.getenv('DEBUG', 'False')).lower() in ("true", "1", "yes")
 
-ALLOWED_HOSTS = ["todayart-backend.azurewebsites.net", "127.0.0.1", "localhost"]
+ALLOWED_HOSTS = [
+    "127.0.0.1", 
+    "localhost", 
+    "todayart-backend.azurewebsites.net", 
+    "today-art-lac.vercel.app"
+]
 
+# Cookies 설정
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SAMESITE = None
 
 # Application definition
 
@@ -89,7 +98,6 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
-    "https://todayart-backend.azurewebsites.net",
     "https://today-art-lac.vercel.app"
 ]
 
