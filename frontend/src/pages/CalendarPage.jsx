@@ -3,6 +3,7 @@ import CalendarFixedCell from "components/main/calendar/CalendarFixedCell";
 import { useEffect, useState } from "react";
 
 import { fetchData } from "utils/fetchData";
+import { API_BASE } from "utils/api";
 /**
  * 이 컴포넌트는 calendar 페이지의 메인 컴포넌트입니다.
  *
@@ -15,7 +16,7 @@ export default function CalendarPage() {
   useEffect(() => {
     // 여기에 필요한 초기화 작업이나 API 호출 등을 작성할 수 있습니다.
     console.log("CalendarPage mounted");
-    fetchData("http://localhost:8000/api/calendar/")
+    fetchData(`${API_BASE}/api/calendar/`)
       .then((data) => {
         console.log("Fetched calendar data:", data);
         // 데이터를 상태에 저장하거나 필요한 작업을 수행합니다.

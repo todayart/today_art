@@ -7,8 +7,8 @@
 !! 빌드 과정 (프론트, 백앤드 따로)
 
 1. 프론트엔드는 vercel
-2. 백앤드는 별도의 호스팅이 필요 (ec2)
-   2-1. locMemCache에서 Redis로 업글이 필요할까? (네)
+2. 백앤드는 Azure web app 배포
+3. localhost를 실제 도메인으로 변경, 연결
 
 ! ux 개선
 
