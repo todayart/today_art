@@ -6,6 +6,10 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 env:
   # python 버전에 주의
   # 만약 path를 수정해서 backend로 진입할 거라면 sh -c "gunicorn --bind 0.0.0.0:$PORT config.wsgi:application"을 시작 커맨드로 변경해야함
@@ -21,6 +25,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
+      - name: Azure Login
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -42,11 +53,10 @@ jobs:
         working-directory: backend
         run: python manage.py check
 
-      - name: Deploy to Azure Web App
+      - name: Deploy to Azure Web App (OIDC)
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
-          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
 
   frontend:
