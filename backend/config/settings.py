@@ -80,13 +80,27 @@ CORS_ALLOWED_ORIGINS = [
     "https://today-art-lac.vercel.app"
 ]
 
+# Vercel preview subdomains 허용, 프리뷰용 정규식을 활용
+# (today-<hash>-yoonjieuts-projects.vercel.app)
+VERCEL_PREVIEW_REGEX = r"^https://today-[a-z0-9-]+-yoonjieuts-projects\.vercel\.app$"
+CORS_ALLOWED_ORIGIN_REGEXES = [VERCEL_PREVIEW_REGEX]
+
 CORS_ALLOW_CREDENTIALS = True
 
 # CSRF (쿠키/POST 대비)
 CSRF_TRUSTED_ORIGINS = [
     "http://localhost:3000",
     "http://127.0.0.1:3000",
+    "https://today-art-lac.vercel.app",
 ]
+
+extra_csrf_origins = os.getenv("CSRF_EXTRA_TRUSTED_ORIGINS")
+if extra_csrf_origins:
+    CSRF_TRUSTED_ORIGINS += [
+        origin.strip()
+        for origin in extra_csrf_origins.split(",")
+        if origin.strip()
+    ]
 
 ROOT_URLCONF = 'config.urls'
 
