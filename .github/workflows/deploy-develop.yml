@@ -89,8 +89,8 @@ jobs:
       - name: Run frontend tests (preview only)
         working-directory: frontend
         run: |
-          # CRA 기준 예시, 필요에 따라 조정해야 함
-          npm run test -- --watch=false
+          # CRA(react-scripts) 기준: 테스트 파일이 없어도 성공으로 처리
+          npm run test -- --watch=false --passWithNoTests
 
       - name: Build frontend
         working-directory: frontend
