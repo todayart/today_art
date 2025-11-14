@@ -50,6 +50,7 @@ export default function EntryMain() {
 
   // 전환 종료/취소 시 will-change 해제 (슬라이드)
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const el = listTrackRef.current;
     if (!el) return;
 
@@ -180,6 +181,7 @@ export default function EntryMain() {
 
   // 이전 버튼 핸들러 (슬라이드)
   const handlePrevClick = useCallback(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     // 시작 직전 hint on
     const listTrack = listTrackRef.current;
     if (!listTrack) return;

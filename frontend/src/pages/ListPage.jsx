@@ -17,7 +17,8 @@ export default function ListPage() {
     useFilterParamsValues();
 
   const [searchTerm, setSearchTerm] = useState(term);
-  const [_, updateFilterParams] = useFilterParams();
+  // _ 대신 공백을 사용, lint 에러 방지
+  const [, updateFilterParams] = useFilterParams();
   const [sortOption, onSortChange] = useSortParam();
 
   // 리스트 데이터: 무한 스크롤 훅

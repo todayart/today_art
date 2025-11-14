@@ -13,6 +13,7 @@ export default function CalendarPage() {
   const [exhibitions, setExhibitions] = useState({});
   // useEffect나 커스텀훅으로 내용을 작성
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     // 여기에 필요한 초기화 작업이나 API 호출 등을 작성할 수 있습니다.
     console.log("CalendarPage mounted");
     fetchData("http://localhost:8000/api/calendar/")

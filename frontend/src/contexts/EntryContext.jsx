@@ -16,6 +16,7 @@ export function EntryProvider({ children }) {
   const [entries, setEntries] = useState([]);
 
   const fetchEntry = useCallback(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     console.log("EntryPage mounted");
     fetch("http://127.0.0.1:8000/api/entries/?limit=20")
       .then((response) => response.json())

@@ -2,6 +2,7 @@ import metaData from "contents/urlMeta.json";
 import { memo, useMemo } from "react";
 
 function CategoryTag({ handleCategoryClick = () => {} }) {
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const categoryData = useMemo(() => {
     const foundLink = metaData.headerLinks.find((link) => link.category);
     return foundLink?.category || [];

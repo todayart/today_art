@@ -21,6 +21,13 @@
 
 - 조건 입력됐을 때, 로딩 중이 무한으로 뜨는 현상을 관찰
 
+## 작성 규칙
+
+의존성 배열을 비울 땐 이 로그를 적어서
+에러를 최소화 하자
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
 ## 연구 필요
 
 2. map을 누르면 네이버 지도 api로 연결
