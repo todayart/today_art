@@ -49,6 +49,7 @@ export default function EntryMain() {
   }, [searchParams]);
 
   // 전환 종료/취소 시 will-change 해제 (슬라이드)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const el = listTrackRef.current;
     if (!el) return;
@@ -75,7 +76,6 @@ export default function EntryMain() {
       if (offTimerRef.current) clearTimeout(offTimerRef.current);
       removeHint(el); // 언마운트 중 전환 중이었을 때 대비
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // 슬라이드 메트릭 계산 (슬라이드)
