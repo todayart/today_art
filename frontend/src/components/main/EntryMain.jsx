@@ -45,7 +45,13 @@ export default function EntryMain() {
   // 필터 상태(qs) → 캐시 키 문자열
   const qsString = useMemo(() => {
     // pIndex/pSize는 API 호출에서만 붙이고, 캐시 키에는 "필터만" 고정
-    return new URLSearchParams(searchParams).toString();
+    const base = new URLSearchParams(searchParams);
+
+    // 불필요한 파라미터 제거
+    base.delete("page");
+    base.delete("pageSize");
+
+    return base.toString();
   }, [searchParams]);
 
   // 전환 종료/취소 시 will-change 해제 (슬라이드)
@@ -125,14 +131,20 @@ export default function EntryMain() {
     }
 
     const ac = new AbortController();
+
     (async () => {
       try {
+        // qsString -> URLSearchParams 복원 ( api용 )
+
+        const qs = new URLSearchParams(qsString);
+
         const res = await fetchEntriesPaged({
-          qs: searchParams, // URLSearchParams 그대로 전달
+          qs, // 필터만 들어있는 qs
           page: 1,
           pageSize: 8,
           signal: ac.signal,
         });
+
         const normalized = {
           results: Array.isArray(res?.results)
             ? res.results
@@ -147,6 +159,7 @@ export default function EntryMain() {
           hasMore: res?.hasMore ?? false,
           nextPage: res?.nextPage ?? 2,
         };
+
         writeCache(key, normalized);
         setFetchedData(normalized);
         setError(null);
@@ -161,7 +174,7 @@ export default function EntryMain() {
     })();
 
     return () => ac.abort();
-  }, [searchParams]);
+  }, [qsString]);
 
   // 슬라이드 상태 초기화 (슬라이드)
   useEffect(() => {
