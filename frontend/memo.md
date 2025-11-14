@@ -2,13 +2,12 @@
 
 !! 프로젝트 마무리 준비
 
-- 간단히 vercel 배포 중, npm ci만 실행해봄
+- GITHUB ACTION을 이용한 CI/CD 배포 자동화 파이프라인 구축 완료.
 
-!! 빌드 과정 (프론트, 백앤드 따로)
+고민되는 2가지 길
 
-1. 프론트엔드는 vercel
-2. 백앤드는 Azure web app 배포
-3. localhost를 실제 도메인으로 변경, 연결
+- 개발용 WORKFLOWS 작성
+- 반응형 CSS 작업
 
 ! ux 개선
 
@@ -185,3 +184,9 @@ git reset --soft HEAD~1
 
 - 타입 오류였고, Console.Ninja 문제였다...
 - 자세한 것은 issue15에 작성해두었다. (https://github.com/todayart/today_art/issues/15)
+
+### !! 빌드 과정 (프론트, 백앤드 따로) [완료]
+
+1. 프론트엔드는 vercel
+2. 백앤드는 Azure web app 배포
+3. localhost를 실제 도메인으로 변경, 연결
