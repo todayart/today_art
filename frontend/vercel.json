@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://YOUR-DJANGO-API.DOMAIN/:path*"
+      "destination": "https://todayart-backend.azurewebsites.net/:path*"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]
