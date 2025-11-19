@@ -1,8 +1,8 @@
-@charset "uft-8";
+@charset "utf-8";
 
 :root {
   /* 이미지 카드 가로 길이 */
-  --card-width: 210px;
+  --card-width: 232px;
 
   /* 반응형 이미지카드 사이 간격 */
   --dt-gap: 22px;
@@ -22,6 +22,11 @@
 @media (min-width: 1024px) {
   .listBox {
     height: 382px;
+  }
+  .listContainer {
+    grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+    column-gap: clamp(40px, 6vw, 80px);
+    padding: 0 clamp(40px, 10vw, 200px);
   }
   .logoBox {
     margin-top: 130px;
@@ -71,6 +76,11 @@
   .categoryBox > .listBox > .listTrack {
     gap: var(--tb-gap);
   }
+  .listContainer {
+    grid-template-columns: repeat(3, minmax(var(--card-width), 1fr));
+    column-gap: var(--tb-gap);
+    padding: 0 60px;
+  }
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
@@ -78,6 +88,12 @@
     width: calc(var(--card-width) * 1 + var(--mb-gap) * 2);
     height: 470px;
     overflow: hidden;
+  }
+  .listContainer {
+    grid-template-columns: repeat(1, minmax(var(--card-width), 1fr));
+    column-gap: 0;
+    row-gap: 32px;
+    padding: 0 24px;
   }
   .logoBox {
     margin-top: 22px;
@@ -469,20 +485,18 @@ main.contentsWrapper {
 .listContainer {
   width: 100%;
   max-width: 1440px;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  row-gap: 50px; /* 수정: flex-wrap 시 생기는 행 간 간격 조정 */
-
-  /* 패딩 마진 */
-  padding: 0 200px; /* needs 좌우 패딩 200px */
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(var(--card-width), 1fr));
+  justify-items: center;
+  column-gap: clamp(32px, 4vw, 80px);
+  row-gap: 50px;
   margin-bottom: 15px;
 }
 
 /* imgCard */
 
 .imgCard {
-  width: 232px;
+  width: var(--card-width);
   height: 380px;
   box-sizing: border-box;
   display: flex;
