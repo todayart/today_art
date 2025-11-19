@@ -5,9 +5,12 @@ export default function CommonHeader({ children }) {
   return (
     <div className="commonHeader">
       <Header />
+      <Logoimg
+        className="commonHeaderLogoImg"
+        wrapperClassName="commonHeaderLogoHeading"
+      />
       <div className="selectBox flexCenter">
-        <Logoimg className="commonHeaderLogoImg" />
-        {children}
+        <div className="selectScroller">{children}</div>
       </div>
     </div>
   );

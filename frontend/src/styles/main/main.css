@@ -329,20 +329,59 @@ div.imgBox > img {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  position: relative;
 }
 
+.commonHeader > .commonHeaderLogoHeading {
+  max-width: 100%;
+  position: absolute;
+  display: inline-flex;
+  left: 50%;
+  /* top이 기준 */
+  top: calc(90px + 30px);
+  justify-content: center;
+  align-items: flex-end;
+  margin: 0;
+  z-index: 1;
+
+  transform: translateX(-50%);
+  transform-origin: center bottom;
+}
+.commonHeader > .commonHeaderLogoHeading .commonHeaderLogoImg {
+  display: block;
+}
 .commonHeader > .selectBox {
   width: 100%;
   height: 90px;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   gap: 11px;
 }
+.commonHeader > .selectBox > .selectScroller {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 11px;
+  width: 100%;
+  height: 100%;
+  flex: 1 1 auto;
+}
 
-.commonHeader > .selectBox > h1 > .commonHeaderLogoImg {
-  position: absolute;
-  top: 0%;
-  left: 50%;
-  transform: translate(-50%, -100%);
+@media all and (min-width: 769px) and (max-width: 1023px) {
+  .commonHeader > .selectBox {
+    justify-content: flex-start;
+  }
+  .commonHeader > .selectBox > .selectScroller {
+    overflow-x: auto;
+    padding: 0 24px;
+    gap: 20px;
+    justify-content: flex-start;
+  }
+  .commonHeader > .selectBox > .selectScroller > * {
+    flex: 0 0 auto;
+  }
 }
 
 /* commonHeader > LocationSelect */
