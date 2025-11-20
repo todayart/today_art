@@ -11,6 +11,7 @@
 
   /* categoryBg 컬러 */
   --categoryBg-Desktop: rgba(217, 217, 217, 0.3);
+  --categoryBg-Tablet: rgba(217, 217, 217, 0.2);
 
   /* commonHeader Selector, Input BorderLine 컬러 */
   --selector-border: #444;
@@ -62,15 +63,19 @@
 /* 테블릿 */
 @media all and (min-width: 769px) and (max-width: 1023px) {
   .listBox {
-    min-width: calc(var(--card-width) * 3 + var(--tb-gap) * 2);
     min-height: 400px;
-    overflow: hidden;
   }
   .logoBox {
     margin-top: 130px;
   }
+  .searchBox {
+    margin-bottom: 35px;
+  }
+  section.title > .titleBox {
+    margin-bottom: 100px;
+  }
   section.title > .titleBox > .tagBox > ul {
-    height: 100px;
+    height: 35px;
     column-gap: 10px;
   }
   .categoryBox > .listBox > .listTrack {
@@ -81,13 +86,20 @@
     column-gap: var(--tb-gap);
     padding: 0 60px;
   }
+  .categoryBg {
+    width: 547px;
+    height: 549px;
+    background-color: var(--categoryBg-Tablet);
+    border-radius: 274.5px 0 0 274.5px;
+    top: 40%;
+    right: -16%;
+  }
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
   .listBox {
     width: calc(var(--card-width) * 1 + var(--mb-gap) * 2);
     height: 470px;
-    overflow: hidden;
   }
   .listContainer {
     grid-template-columns: repeat(1, minmax(var(--card-width), 1fr));
@@ -223,6 +235,7 @@ section.category {
 .categoryBox {
   position: relative;
   max-width: 1440px;
+  width: calc(100% - 40px);
   min-height: 360px;
   padding-right: 106px;
   padding-left: 54px;
@@ -238,9 +251,9 @@ section.category {
 .categoryBox > .listBox > .listTrack {
   display: flex;
   justify-content: flex-start;
-  gap: var(--dt-gap);
   flex-wrap: nowrap;
   transition: transform 0.4s ease;
+  /* gap은 각자 사이즈에 맞춰서 */
 }
 
 /* 화살표 버튼 */
