@@ -1,8 +1,14 @@
 @charset "utf-8";
 
 :root {
-  /* 이미지 카드 가로 길이 */
+  /* 이미지 카드 길이 */
   --card-width: 232px;
+  --mb-card-width: 207px;
+  --mb-card-height: 360px;
+
+  /* 모바일 categoryBox 간격 */
+  --mb-cb-right-gap: 23px;
+  --mb-cb-left-gap: 39px;
 
   /* 반응형 이미지카드 사이 간격 */
   --dt-gap: 22px;
@@ -97,9 +103,12 @@
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
-  .listBox {
-    width: calc(var(--card-width) * 1 + var(--mb-gap) * 2);
-    height: 470px;
+  main.mainBox {
+    padding-bottom: 50px;
+  }
+
+  div.listBox {
+    width: 100%;
   }
   .listContainer {
     grid-template-columns: repeat(1, minmax(var(--card-width), 1fr));
@@ -116,20 +125,63 @@
 
   section.title > .titleBox {
     margin-bottom: 48px;
+    padding: 0 18px;
   }
 
-  section.title > .titleBox > .tagBox > ul {
+  section.title > .titleBox > div.tagBox > ul {
     height: 80px;
-    margin-bottom: 50px;
     column-gap: 4px;
+    justify-content: start;
   }
+  section.title > .titleBox > div.tagBox > ul > li.categoryTag {
+    width: 113px;
+    height: 35px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  section.category > .categoryBox {
+    width: 100%;
+    padding: 0 93px;
+  }
+  section.category > .categoryBox > .arrowPrev {
+    left: var(--mb-cb-left-gap);
+  }
+
+  section.category > .categoryBox > .detailBtnOuterBox {
+    right: calc(var(--mb-cb-right-gap) * -1);
+  }
+
   .categoryBox > .listBox > .listTrack {
     gap: var(--mb-gap);
+  }
+
+  /* 모바일 imgCard 커스텀 */
+  div.imgCard {
+    width: var(--mb-card-width);
+    height: var(--mb-card-height);
+  }
+  div.imgCard .imgCardContent {
+    height: 67px;
+    padding: 0;
+    border: 0;
+    margin-top: 8px;
+  }
+  div.imgCard .imgCardContent .imgCardTitle {
+    margin-bottom: 8px;
+  }
+  div.imgCard .imgCardDetailButton {
+    display: none;
+  }
+  div.imgCard .imgCardContent .imgCardPeriodFont {
+    font-size: 12px;
   }
 }
 
 /********** title **********/
-section.title > .titleBox {
+.titleBox {
   display: flex;
   flex-direction: column;
   align-items: center;
