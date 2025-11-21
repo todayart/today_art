@@ -22,7 +22,6 @@ export default function FilterUiHeader({
         labels={urlMeta.headerLinks[1].category}
         selected={cate || "전체"}
         id="cateSelect"
-        selectStyle={{ width: "220px" }}
         onChange={onCategoryChange}
       />
       <PeriodInput

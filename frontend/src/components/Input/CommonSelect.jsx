@@ -28,7 +28,6 @@ const CommonSelect = ({
   labels,
   selected,
   id,
-  selectStyle = "",
   onChange = () => {}, // 선택 변경 핸들러, 기본값은 빈 함수
 }) => {
   return (
@@ -38,7 +37,6 @@ const CommonSelect = ({
         id={id}
         className="commonSelect commonBorder"
         value={selected}
-        style={selectStyle}
         onChange={(e) => onChange && onChange(e.target.value)}
       >
         {labels.map((label) => (
