@@ -181,17 +181,99 @@
     font-size: 12px;
   }
 
+  div.commonHeader > h1.commonHeaderLogoHeading {
+    top: 72px;
+  }
+
   /* 리스트 페이지 커스텀 ---------------------------- */
   div.commonHeader {
     border-bottom: 0;
-    /* * 여기부터 시작해야함. select에 고정 height를 지정하자 , CommonHeader 범위로 넘어오는 것을 확인 내가 원하는 것은 밑으로 180px 확장되는 것이다. */
-    /* height: ; */
+    height: 311px;
+    margin-bottom: 20px;
   }
+
+  /* selectBox 모바일 커스텀 */
   div.commonHeader > div.selectBox {
-    border-top: 4px solid var(--borderColor);
-    width: 100%;
-    height: 180px;
+    width: calc(100% - 35px);
+    height: 152px;
+    padding-top: 20px;
+    margin-right: 35px;
   }
+
+  div.commonHeader > div.selectBox::before {
+    content: "";
+    position: absolute;
+    top: -4px;
+    left: 0;
+    width: 100vw;
+    height: 4px;
+    background-color: var(--borderColor);
+  }
+
+  div.commonHeader > div.selectBox > div.selectScroller {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 15px;
+    flex-shrink: 0;
+  }
+
+  /* 카테고리 모바일 커스텀 */
+  div.selectScroller > div.selectWrapper {
+    width: 100%;
+    height: 34px;
+    justify-content: flex-start;
+    gap: 0;
+  }
+  div.selectScroller > div.selectWrapper > select.commonSelect {
+    width: 100%;
+  }
+
+  div.selectScroller > div.selectWrapper > label.commonTitleText {
+    width: 83px;
+    flex-shrink: 0;
+  }
+
+  /* 기간입력 모바일 커스텀 */
+  div.periodInputWrapper {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0;
+  }
+  div.periodInputWrapper > span:first-child {
+    width: 83px;
+    flex-shrink: 0;
+  }
+  div.periodInputWrapper > span.dateSeparator {
+    margin: 0 10px;
+  }
+  div.datepickerInputWrapper .periodInput {
+    min-width: 100px;
+    width: 100%;
+  }
+
+  /* 검색 모바일 커스텀 */
+  div.smallSearchWrapper {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 0;
+  }
+  div.smallSearchWrapper > button.smallSearchButton {
+    margin-left: 10px;
+  }
+  div.smallSearchWrapper > label.commonTitleText {
+    width: 83px;
+    flex-shrink: 0;
+  }
+
+  /* 정렬 선택 모바일 커스텀 */
+  main.contentsWrapper > div.sortSelectArea {
+    padding: 0 35px;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* 리스트 페이지 모바일 imgCard 커스텀 */
   div.listContainer > .imgCard {
     width: var(--mb-list-card-width);
     height: var(--mb-list-card-height);
@@ -264,7 +346,7 @@ section.title > .titleBox > .searchBox > .searchGroup {
   border-radius: 50px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: var(--seachBox);
+  background-color: var(--searchBox);
   border: 1px solid var(--borderColor);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.093), 0 4px 4px rgba(0, 0, 0, 0.097);
 }
@@ -280,13 +362,13 @@ section.title > .titleBox > .searchBox > .searchGroup {
 .searchBox > .searchGroup > .searchGroupInner > input.searchInput {
   width: 95%;
   height: 40px;
-  background-color: var(--seachBox);
+  background-color: var(--searchBox);
   font-size: 16px;
   color: var(--font);
 }
 /* 검색 버튼 */
 .searchBox > .searchGroup > .searchGroupInner > button {
-  background-color: var(--seachBox);
+  background-color: var(--searchBox);
   border: none;
   cursor: pointer;
 }
@@ -505,7 +587,7 @@ div.imgBox > img {
   }
 }
 
-/* commonHeader > LocationSelect */
+/* commonHeader > 카테고리 */
 
 .selectWrapper {
   width: 303px;
@@ -520,10 +602,13 @@ div.imgBox > img {
   /* 드롭다운 아이콘을 위해 position relative 필요 */
 }
 
-.selectWrapper .exhibitionLocationSelect {
+.selectWrapper .commonSelect {
   /* 넓이 리터럴값 */
   width: 220px;
   padding: 0px 8px;
+}
+.selectWrapper #sortSelect {
+  width: 150px;
 }
 
 .selectWrapper > .selectIconWrapper {

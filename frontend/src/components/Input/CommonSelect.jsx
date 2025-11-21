@@ -32,7 +32,9 @@ const CommonSelect = ({
 }) => {
   return (
     <div className="selectWrapper">
-      <label htmlFor={id}>{labelContents}</label>
+      <label htmlFor={id} className="commonTitleText">
+        {labelContents}
+      </label>
       <select
         id={id}
         className="commonSelect commonBorder"

@@ -62,7 +62,7 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
       </div>
 
       {/* 구분선 */}
-      <span>–</span>
+      <span className="dateSeparator">–</span>
 
       {/* 종료일 선택 */}
       <div className="datePickerBox">
