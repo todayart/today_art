@@ -113,7 +113,7 @@
     width: 100%;
   }
   .listContainer {
-    grid-template-columns: repeat(1, minmax(var(--card-width), 1fr));
+    grid-template-columns: repeat(1, minmax(var(--mb-card-width), 1fr));
     column-gap: 0;
     row-gap: 32px;
     padding: 0 24px;
@@ -311,10 +311,13 @@
 
   /* 모바일 리스트 컨테이너 그리드*/
   div.listContainer {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--mb-list-card-width), 1fr)
+    );
     gap: 20px;
     margin: 20px 0;
-    padding: 0 35px;
+    padding: 0 35px 50px 35px;
   }
 }
 
