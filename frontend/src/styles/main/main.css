@@ -349,7 +349,7 @@ section.title > .titleBox > .searchBox > .searchGroup {
   border-radius: 50px;
   padding-left: 20px;
   padding-right: 20px;
-  background-color: var(--searchBox);
+  background-color: transparent;
   border: 1px solid var(--borderColor);
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.093), 0 4px 4px rgba(0, 0, 0, 0.097);
 }
@@ -365,13 +365,13 @@ section.title > .titleBox > .searchBox > .searchGroup {
 .searchBox > .searchGroup > .searchGroupInner > input.searchInput {
   width: 95%;
   height: 40px;
-  background-color: var(--searchBox);
+  background-color: transparent;
   font-size: 16px;
   color: var(--font);
 }
 /* 검색 버튼 */
 .searchBox > .searchGroup > .searchGroupInner > button {
-  background-color: var(--searchBox);
+  background-color: transparent;
   border: none;
   cursor: pointer;
 }
