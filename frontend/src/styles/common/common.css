@@ -167,6 +167,13 @@ nav > ul.navBox > li > a > svg {
   overflow: hidden;
 }
 
+.mobileButton {
+  height: 34px;
+}
+.mobileButton > div {
+  height: 34px;
+}
+
 /* 폰트 */
 .imgCardTitleFont {
   color: var(--font);
@@ -253,6 +260,8 @@ nav > ul.navBox > li > a > svg {
   background: var(--background);
   color: var(--font-wh);
   font-weight: bold;
+}
+.pcBackButtonPosition {
   position: absolute;
   right: 0;
   top: -12px;
@@ -276,4 +285,8 @@ nav > ul.navBox > li > a > svg {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   word-wrap: normal;
+}
+
+.bg-tr {
+  background-color: transparent;
 }

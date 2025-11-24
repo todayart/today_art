@@ -319,6 +319,26 @@
     margin: 20px 0;
     padding: 0 35px 50px 35px;
   }
+
+  /* * Detail Page 모바일 커스텀 --------------------*/
+  div.mobileDetailCard {
+    width: calc(100% - 120px);
+    margin: 54px auto 70px auto;
+    flex-direction: column;
+  }
+  div.mobileDetailCard > div.detailCardContent > div.detailCardText h2 {
+    margin-top: 24px;
+  }
+  .mobileDetailCardBtnGroup {
+    width: 100%;
+    height: 34px;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 6px;
+    margin: 12px 12px 0 0;
+  }
 }
 
 /********** title **********/
@@ -719,6 +739,7 @@ main.contentsWrapper {
   align-items: center;
   /* 스크롤 기능을 허용하기 위해 수직 overflow와 높이 지정 */
   overflow-y: auto;
+  overflow-x: hidden;
   height: calc(100vh - 294px);
   position: relative;
 }
@@ -820,7 +841,8 @@ main.contentsWrapper {
   color: var(--font);
 }
 
-.detailCard .detailCardContent img {
+/* DetailCard 모바일 공용 */
+.detailCardContent img {
   width: 274px;
   height: 346px;
   object-fit: cover;
@@ -829,7 +851,7 @@ main.contentsWrapper {
   box-shadow: 0 0px 10px rgba(0, 0, 0, 0.093), 0 4px 4px rgba(0, 0, 0, 0.097);
 }
 
-.detailCard .detailCardContent .detailCardText {
+.detailCardContent .detailCardText {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -838,36 +860,36 @@ main.contentsWrapper {
   gap: 31px;
 }
 
-.detailCard .detailCardContent .detailCardText h2,
+.detailCardContent .detailCardText h2,
 span {
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
-.detailCard .detailCardContent .detailCardText h2 {
+.detailCardContent .detailCardText h2 {
   font-size: 24px;
   line-height: 1.2;
   max-width: 585px;
 }
 
-.detailCard .detailCardContent .detailCardText ul {
+.detailCardContent .detailCardText ul {
   list-style: none;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-.detailCard .detailCardContent .detailCardText ul li {
+.detailCardContent .detailCardText ul li {
   display: flex;
   align-items: center;
   height: 20px;
 }
 
-.detailCard .detailCardContent .detailCardText span {
+.detailCardContent .detailCardText span {
   white-space: nowrap;
 }
 
-.detailCard .detailCardContent .detailCardText ul li span:first-child {
+.detailCardContent .detailCardText ul li span:first-child {
   width: 110px;
   height: 20px;
   line-height: 20px;
@@ -878,7 +900,7 @@ span {
   font-weight: 700;
 }
 
-.detailCard .detailCardContent .detailCardText ul li span:last-child {
+.detailCardContent .detailCardText ul li span:last-child {
   max-width: 415px;
   margin-left: 12px;
   flex-shrink: 0;

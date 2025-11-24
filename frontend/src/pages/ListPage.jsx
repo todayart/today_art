@@ -1,21 +1,27 @@
 // src/pages/ListPage.jsx
 
 import { useState } from "react";
+import { ReactSVG } from "react-svg";
+import mapIcon from "assets/common/mobile/map.svg";
+import searchIcon from "assets/common/commonSearch.svg";
+
 import { useFilterParams } from "hooks/useFilterParams";
 import { useSortParam } from "hooks/useSortParams";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
 import { useCachedEntryByTitle } from "hooks/useCachedEntryByTitle";
 import { useInfiniteEntries } from "hooks/useInfiniteEntries";
+import useMobile from "hooks/useMobile";
 
 import FilterUiHeader from "components/header/FilterUiHeader";
 import SortSelect from "components/main/list/SortSelect";
 import ImgCard from "components/main/ImgCard";
 import DetailCard from "components/main/detail/DetailCard";
+import MobileDetailCard from "components/mobile/MobileDetailCard";
 
 export default function ListPage() {
   const { term, startDate, endDate, cate, title, searchParams } =
     useFilterParamsValues();
-
+  const isMobile = useMobile();
   const [searchTerm, setSearchTerm] = useState(term);
   // _ 대신 공백을 사용, lint 에러 방지
   const [, updateFilterParams] = useFilterParams();
@@ -66,32 +72,80 @@ export default function ListPage() {
       {isDetail ? (
         eventData ? (
           <main className="contentsWrapper">
-            <DetailCard
-              title={eventData.TITLE}
-              imageUrl={eventData.IMAGE_URL}
-              handleGoBack={onBackToList}
-              details={[
-                { label: "카테고리", value: eventData.CATEGORY_NM },
-                {
-                  label: "전시기간",
-                  value: `${eventData.BEGIN_DE} ~ ${eventData.END_DE}`,
-                },
-                {
-                  label: "이벤트 시간",
-                  value: eventData.EVENT_TM_INFO,
-                },
-                {
-                  label: "참가비",
-                  value: eventData.PARTCPT_EXPN_INFO,
-                },
-                {
-                  label: "주최 기관",
-                  value: eventData.HOST_INST_NM,
-                },
-                { label: "전화번호", value: eventData.TELNO_INFO },
-                { label: "홈페이지", value: eventData.HMPG_URL },
-              ]}
-            />
+            {!isMobile ? (
+              // 데스크탑 Detail 페이지
+              <DetailCard
+                title={eventData.TITLE}
+                imageUrl={eventData.IMAGE_URL}
+                handleGoBack={onBackToList}
+                details={[
+                  { label: "카테고리", value: eventData.CATEGORY_NM },
+                  {
+                    label: "전시기간",
+                    value: `${eventData.BEGIN_DE} ~ ${eventData.END_DE}`,
+                  },
+                  {
+                    label: "이벤트 시간",
+                    value: eventData.EVENT_TM_INFO,
+                  },
+                  {
+                    label: "참가비",
+                    value: eventData.PARTCPT_EXPN_INFO,
+                  },
+                  {
+                    label: "주최 기관",
+                    value: eventData.HOST_INST_NM,
+                  },
+                  { label: "전화번호", value: eventData.TELNO_INFO },
+                  { label: "홈페이지", value: eventData.HMPG_URL },
+                ]}
+              />
+            ) : (
+              // 모바일 Detail 페이지
+              <>
+                <div className="mobileDetailCardBtnGroup">
+                  <button type="button" className="mobileButton bg-tr">
+                    <ReactSVG src={mapIcon} />
+                  </button>
+                  <button type="button" className="mobileButton bg-tr">
+                    <ReactSVG src={searchIcon} />
+                  </button>
+                  <button
+                    type="button"
+                    className="backButton flexCenter commonBorder"
+                    onClick={onBackToList}
+                  >
+                    이전으로
+                  </button>
+                </div>
+                <MobileDetailCard
+                  title={eventData.TITLE}
+                  imageUrl={eventData.IMAGE_URL}
+                  handleGoBack={onBackToList}
+                  details={[
+                    { label: "카테고리", value: eventData.CATEGORY_NM },
+                    {
+                      label: "전시기간",
+                      value: `${eventData.BEGIN_DE} ~ ${eventData.END_DE}`,
+                    },
+                    {
+                      label: "이벤트 시간",
+                      value: eventData.EVENT_TM_INFO,
+                    },
+                    {
+                      label: "참가비",
+                      value: eventData.PARTCPT_EXPN_INFO,
+                    },
+                    {
+                      label: "주최 기관",
+                      value: eventData.HOST_INST_NM,
+                    },
+                    { label: "전화번호", value: eventData.TELNO_INFO },
+                    { label: "홈페이지", value: eventData.HMPG_URL },
+                  ]}
+                />
+              </>
+            )}
           </main>
         ) : (
           <p>상세 데이터를 불러오는 중...</p>
