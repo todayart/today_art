@@ -20,6 +20,7 @@
   --thema: #f1e6dd;
   --thema-tablet: aquamarine;
   --thema-mobile: pink;
+  --thema-mobile-menu: #d9d9d9;
 
   /* 선택시 투명도 */
   --selected-rgb: 0, 0, 0;
@@ -76,6 +77,87 @@ nav > ul.navBox > li > a {
 }
 nav > ul.navBox > li > a > svg {
   margin-left: 6px;
+}
+.hamburgerBtn {
+  background: transparent;
+  border: none;
+  padding: 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--thema-mobile);
+}
+.mobileMenuOverlay .mobileMenuPanel {
+  width: 100%;
+  height: 100%;
+  background: var(--thema-mobile-menu);
+  color: var(--font);
+  transform: translateY(-100%);
+  transition: transform 240ms ease;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  padding: 48px 20px 28px 20px;
+  border-radius: 0 0 18px 18px;
+}
+
+.mobileMenuPanel > button.cancelBtn {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  background-color: transparent;
+}
+
+.mobileMenuPanel > button.cancelBtn > div > div {
+  height: 41px;
+}
+
+.mobileMenuOverlay .mobileMenuPanel > h1.mobileMenuLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.mobileMenuOverlay .mobileMenuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.mobileMenuOverlay .mobileMenuList li a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 22px;
+}
+/* svg 아이콘 wrapper 높이 */
+.mobileMenuOverlay .mobileMenuList li a > div > div {
+  height: 20px;
+}
+.mobileMenuOverlay .mobileMenuList a {
+  color: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+.mobileMenuOverlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+.mobileMenuOverlay.is-open .mobileMenuPanel {
+  transform: translateY(0);
 }
 .mainBox {
   margin: 0 auto;
