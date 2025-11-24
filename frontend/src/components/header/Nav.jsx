@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { ReactSVG } from "react-svg";
 import urlMeta from "contents/urlMeta.json";
 import useMobile from "hooks/useMobile";
-import Logoimg from "../main/Logoimg";
+import MobileMenu from "components/mobile/MobileMenu";
 
 const icons = {
   HomeSvg: require("../../assets/common/home.svg").default,
@@ -23,7 +23,6 @@ export default function Nav() {
   const menuPanelRef = useRef(null);
   const toggleRef = useRef(null);
 
-  // TODO : useMobile 훅으로 대체
   useEffect(() => {
     // 모바일이 아닐 때는 메뉴를 닫아 상태를 정리한다.
     if (!isMobile && menuOpen) {
@@ -105,52 +104,14 @@ export default function Nav() {
         )}
       </ul>
       {isMobile && (
-        // TODO : 모바일 메뉴 컴포넌트화
-        // 모바일 메뉴 오버레이
-        <div
-          id="mobile-menu"
-          role="menu"
-          aria-hidden={!menuOpen}
-          className={`mobileMenuOverlay ${menuOpen ? "is-open" : ""}`}
-          onClick={() => setMenuOpen(false)}
-        >
-          <div
-            className="mobileMenuPanel"
-            ref={menuPanelRef}
-            onClick={(event) => event.stopPropagation()}
-          >
-            <button
-              onClick={() => setMenuOpen(false)}
-              aria-label="메뉴 닫기"
-              className="cancelBtn"
-            >
-              <ReactSVG src={cancelIcon} />
-            </button>
-            {/* 타이틀 */}
-            <section className="title">
-              <div className="titleBox">
-                <div className="logoBox">
-                  <Logoimg />
-                </div>
-              </div>
-            </section>
-            {/* 네비게이션 링크 */}
-            <ul className="mobileMenuList">
-              {urlMeta.navLinks.map((link) => (
-                <li key={link.name}>
-                  <a
-                    role="menuitem"
-                    href={link.url}
-                    onClick={() => setMenuOpen(false)}
-                  >
-                    {<ReactSVG src={icons[link.icon]} />}
-                    {link.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
+        <MobileMenu
+          isOpen={menuOpen}
+          navLinks={urlMeta.navLinks}
+          icons={icons}
+          cancelIcon={cancelIcon}
+          onClose={() => setMenuOpen(false)}
+          menuPanelRef={menuPanelRef}
+        />
       )}
     </nav>
   );
