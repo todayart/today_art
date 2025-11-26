@@ -1,6 +1,6 @@
 // src/pages/ListPage.jsx
 
-import { useState } from "react";
+import { lazy, Suspense, useState } from "react";
 import { ReactSVG } from "react-svg";
 import mapIcon from "assets/common/mobile/map.svg";
 import searchIcon from "assets/common/commonSearch.svg";
@@ -13,10 +13,11 @@ import { useInfiniteEntries } from "hooks/useInfiniteEntries";
 import useMobile from "hooks/useMobile";
 
 import FilterUiHeader from "components/header/FilterUiHeader";
-import SortSelect from "components/main/list/SortSelect";
-import ImgCard from "components/main/ImgCard";
 import DetailCard from "components/main/detail/DetailCard";
 import MobileDetailCard from "components/mobile/MobileDetailCard";
+import FeedbackMessage from "components/common/FeedbackMessage";
+
+const ListContent = lazy(() => import("components/main/list/ListContent"));
 
 export default function ListPage() {
   const { term, startDate, endDate, cate, title, searchParams } =
@@ -28,7 +29,7 @@ export default function ListPage() {
   const [sortOption, onSortChange] = useSortParam();
 
   // 리스트 데이터: 무한 스크롤 훅
-  const { items, hasMore, loading, error, sentinelRef } = useInfiniteEntries({
+  const { items, loading, error, sentinelRef } = useInfiniteEntries({
     qs: searchParams,
     pageSize: 8,
   });
@@ -53,8 +54,6 @@ export default function ListPage() {
   const onBackToList = () => {
     updateFilterParams({ title: null });
   };
-
-  if (error) return <p>에러: {error.message}</p>;
 
   return (
     <>
@@ -148,41 +147,26 @@ export default function ListPage() {
             )}
           </main>
         ) : (
-          <p>상세 데이터를 불러오는 중...</p>
+          <FeedbackMessage>상세 데이터를 불러오는 중...</FeedbackMessage>
         )
       ) : (
-        <main className="contentsWrapper">
-          <div className="sortSelectArea">
-            <SortSelect sortOption={sortOption} onSortChange={onSortChange} />
-          </div>
-
-          <div className="listContainer">
-            {items.length === 0 && loading ? (
-              <p>로딩 중...</p>
-            ) : items.length === 0 ? (
-              <p>결과가 없습니다.</p>
-            ) : (
-              items.map((entry, idx) => (
-                <ImgCard
-                  key={entry.URL || entry.TITLE || idx}
-                  title={entry.TITLE}
-                  address={entry.HOST_INST_NM}
-                  sPeriod={entry.BEGIN_DE}
-                  ePeriod={entry.END_DE}
-                  imageUrl={entry.IMAGE_URL}
-                  onClick={() => onCardClick(entry.TITLE)}
-                />
-              ))
-            )}
-          </div>
-
-          {/* 스크롤 센티널 */}
-          <div ref={sentinelRef} style={{ height: 1 }} />
-
-          {/* 상태 표시 */}
-          {loading && <p>로딩 중...</p>}
-          {!hasMore && items.length > 0 && <p>마지막 페이지입니다.</p>}
-        </main>
+        <Suspense
+          fallback={
+            <main className="contentsWrapper">
+              <FeedbackMessage>불러오는 중...</FeedbackMessage>
+            </main>
+          }
+        >
+          <ListContent
+            sortOption={sortOption}
+            onSortChange={onSortChange}
+            items={items}
+            loading={loading}
+            error={error}
+            sentinelRef={sentinelRef}
+            onCardClick={onCardClick}
+          />
+        </Suspense>
       )}
     </>
   );

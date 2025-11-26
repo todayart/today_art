@@ -214,6 +214,24 @@ nav > ul.navBox > li > a > svg {
   height: 34px;
 }
 
+.feedbackMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  gap: 10px;
+}
+.listContainer .feedbackMessage {
+  grid-column: 1 / -1;
+}
+
 /* 폰트 */
 .imgCardTitleFont {
   color: var(--font);

@@ -3,11 +3,12 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { useNavigate } from "react-router-dom";
 
-import Logoimg from "./Logoimg";
-import MainSearch from "./MainSearch";
-import CategoryTag from "./CategoryTag";
-import CategoryList from "./CategoryList";
-import DetailBtn from "./DetailBtn";
+import FeedbackMessage from "components/common/FeedbackMessage";
+import Logoimg from "components/main/Logoimg";
+import MainSearch from "components/main//MainSearch";
+import CategoryTag from "components/main//CategoryTag";
+import CategoryList from "components/main//CategoryList";
+import DetailBtn from "components/main//DetailBtn";
 
 import PrevBtn from "assets/main/prevBtn.svg";
 
@@ -285,9 +286,9 @@ export default function EntryMain() {
       <section className="category">
         <div className="categoryBox">
           {loading ? (
-            <div className="statusMessage">Loading...</div>
+            <FeedbackMessage>로딩 중...</FeedbackMessage>
           ) : error ? (
-            <div className="statusMessage">Error : {error.message}</div>
+            <FeedbackMessage>에러 : {error.message}</FeedbackMessage>
           ) : (
             <>
               {/* arrowPrev */}
