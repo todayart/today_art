@@ -33,6 +33,7 @@
   --searchBox: #f1e6dd;
   --calendarLogoFont: #222;
   --calendarLogoFont-wh: #fff;
+  --scrollbarColor: #d9d9d9;
 }
 
 /********************* 반응형 *********************/
@@ -53,6 +54,45 @@
   body {
     background-color: var(--thema-mobile);
   }
+}
+
+/* PC와 테블릿 */
+@media (min-width: 769px) {
+  *::-webkit-scrollbar {
+    width: 13px; /* 8px 스크롤바 + 5px 여백 */
+  }
+  *::-webkit-scrollbar-thumb {
+    margin-right: 5px;
+    width: 8px;
+  }
+  *::-webkit-scrollbar-track {
+    border-right: 5px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbarColor) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 258px;
+  background-color: inherit;
+}
+*::-webkit-scrollbar-track {
+  background-color: inherit;
+}
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
 }
 
 /* 네비 */
