@@ -95,7 +95,11 @@ export default function Nav() {
             const svgSrc = icons[link.icon];
             return (
               <li key={link.name}>
-                <a role="menuitem" href={link.url}>
+                <a
+                  role="menuitem"
+                  href={link.url}
+                  className={`${link.className} ${link.icon}` || ""}
+                >
                   {svgSrc && <ReactSVG src={svgSrc} />}
                 </a>
               </li>
@@ -103,6 +107,7 @@ export default function Nav() {
           })
         )}
       </ul>
+      {/* 모바일 레이아웃 메뉴 */}
       {isMobile && (
         <MobileMenu
           isOpen={menuOpen}

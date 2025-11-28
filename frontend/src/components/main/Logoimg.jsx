@@ -10,7 +10,7 @@ export default function Logoimg({
   const navigate = useNavigate();
   // 로고 클릭 시
   const onLogoClick = () => {
-    navigate(`/list`);
+    navigate(`/`);
   };
 
   return (

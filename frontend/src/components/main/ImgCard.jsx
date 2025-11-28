@@ -70,11 +70,10 @@ const ImgCard = ({
         <p className="imgCardPeriod imgCardPeriodFont textOverflow">
           {sPeriod} ~ {ePeriod}
         </p>
-        {/* 상세 버튼 아이콘 */}
-        {/* TODO 버튼 누를 때 일어날 이벤트를 추가해야함 */}
-        <button className="imgCardDetailButton flexCenter" type="button">
+        {/* 상세 버튼 아이콘 - 디자인 피드백, 비활성화 */}
+        {/* <button className="imgCardDetailButton flexCenter" type="button">
           <ReactSVG src={imgcardDetailIcon} />
-        </button>
+        </button> */}
       </div>
     </div>
   );

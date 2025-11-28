@@ -3,27 +3,32 @@
     {
       "name": "HOME",
       "url": "/",
-      "icon": "HomeSvg"
+      "icon": "HomeSvg",
+      "className": ""
     },
     {
       "name": "CALENDAR",
       "url": "/calendar",
-      "icon": "CalendarSvg"
+      "icon": "CalendarSvg",
+      "className": ""
     },
     {
       "name": "USER",
       "url": "#",
-      "icon": "UserSvg"
+      "icon": "UserSvg",
+      "className": "eventDisable"
     },
     {
       "name": "WISH",
       "url": "#",
-      "icon": "WishSvg"
+      "icon": "WishSvg",
+      "className": "eventDisable"
     },
     {
       "name": "INFO",
       "url": "#",
-      "icon": "QuestionSvg"
+      "icon": "QuestionSvg",
+      "className": "eventDisable"
     }
   ],
   "headerLinks": [

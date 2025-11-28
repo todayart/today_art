@@ -38,7 +38,7 @@
     padding: 0 clamp(40px, 10vw, 200px);
   }
   .logoBox {
-    margin-top: 130px;
+    margin-top: 50px;
   }
   section.title > .titleBox {
     margin-bottom: 100px;
@@ -57,7 +57,7 @@
     width: 547px;
     height: 549px;
     background-color: var(--categoryBg-Desktop);
-    border-radius: 274.5px 0 0 274.5px;
+    border-radius: 274.5px;
     top: 40%;
     right: -16%;
   }
@@ -269,7 +269,7 @@
   /* 정렬 선택 모바일 커스텀 */
   main.contentsWrapper > div.sortSelectArea {
     padding: 0 35px;
-    width: 100%;
+    /* width: 100%; */
     height: 100%;
   }
 
@@ -779,6 +779,8 @@ main.contentsWrapper {
   width: 100%;
   height: 293px;
   background-color: transparent;
+  border: 1px solid var(--borderColor);
+  overflow: hidden;
 }
 
 .imgCard .imgCardPlaceholder {

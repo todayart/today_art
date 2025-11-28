@@ -204,7 +204,7 @@ nav > ul.navBox > li > a > svg {
   width: 100%;
   max-width: 1440px;
   height: calc(100% - 50px);
-  overflow: hidden;
+  /* overflow: hidden; */
 }
 
 .mobileButton {
@@ -347,4 +347,10 @@ nav > ul.navBox > li > a > svg {
 
 .bg-tr {
   background-color: transparent;
+}
+
+.eventDisable {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.25;
 }
