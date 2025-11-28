@@ -109,6 +109,13 @@ nav > ul.navBox {
 nav > ul.navBox > li {
   margin-left: 14px;
 }
+nav > ul.navBox > li.navItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 nav > ul.navBox > li > a {
   font-size: 12px;
   display: flex;
@@ -358,18 +365,17 @@ nav > ul.navBox > li > a > svg {
 /* tooltip */
 
 .tooltip {
+  position: relative;
   display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
   background: #444;
   color: #fff;
   border-radius: 999px;
   font-size: 14px;
   line-height: 1;
-
-  position: relative;
-  align-items: center;
+  white-space: nowrap;
   margin-top: 6px;
-
-  padding: 8px 14px;
 }
 .tooltip::after {
   content: "";
@@ -381,8 +387,19 @@ nav > ul.navBox > li > a > svg {
   border-bottom-color: #444;
   z-index: 10;
 }
-/* 화살표가 밑으로 향하는 속성 */
-.tooltip.bottom::after {
-  bottom: -6px;
-  border-top-color: transparent;
+.tooltip.navTooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  /* 클릭 방지 */
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  z-index: 5;
+}
+
+.navItem:hover .tooltip.navTooltip,
+.navItem:focus-within .tooltip.navTooltip {
+  opacity: 1;
 }

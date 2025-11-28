@@ -4,31 +4,36 @@
       "name": "HOME",
       "url": "/",
       "icon": "HomeSvg",
-      "className": ""
+      "className": "",
+      "tooltip": "메인 홈"
     },
     {
       "name": "CALENDAR",
       "url": "/calendar",
       "icon": "CalendarSvg",
-      "className": ""
+      "className": "",
+      "tooltip": "달력 보기"
     },
     {
       "name": "USER",
       "url": "#",
       "icon": "UserSvg",
-      "className": "eventDisable"
+      "className": "eventDisable",
+      "tooltip": "회원 기능 준비중"
     },
     {
       "name": "WISH",
       "url": "#",
       "icon": "WishSvg",
-      "className": "eventDisable"
+      "className": "eventDisable",
+      "tooltip": "찜 기능 준비중"
     },
     {
       "name": "INFO",
       "url": "#",
       "icon": "QuestionSvg",
-      "className": "eventDisable"
+      "className": "eventDisable",
+      "tooltip": "정보 준비중"
     }
   ],
   "headerLinks": [

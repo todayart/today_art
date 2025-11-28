@@ -3,6 +3,7 @@ import { ReactSVG } from "react-svg";
 import urlMeta from "contents/urlMeta.json";
 import useMobile from "hooks/useMobile";
 import MobileMenu from "components/mobile/MobileMenu";
+import Tooltip from "components/common/Tooltip";
 
 const icons = {
   HomeSvg: require("../../assets/common/home.svg").default,
@@ -94,7 +95,7 @@ export default function Nav() {
           urlMeta.navLinks.map((link) => {
             const svgSrc = icons[link.icon];
             return (
-              <li key={link.name}>
+              <li key={link.name} className="navItem">
                 <a
                   role="menuitem"
                   href={link.url}
@@ -102,6 +103,9 @@ export default function Nav() {
                 >
                   {svgSrc && <ReactSVG src={svgSrc} />}
                 </a>
+                {link.tooltip && (
+                  <Tooltip className="navTooltip">{link.tooltip}</Tooltip>
+                )}
               </li>
             );
           })
