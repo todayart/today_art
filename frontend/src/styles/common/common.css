@@ -354,3 +354,35 @@ nav > ul.navBox > li > a > svg {
   pointer-events: none;
   opacity: 0.25;
 }
+
+/* tooltip */
+
+.tooltip {
+  display: inline-flex;
+  background: #444;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1;
+
+  position: relative;
+  align-items: center;
+  margin-top: 6px;
+
+  padding: 8px 14px;
+}
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: #444;
+  z-index: 10;
+}
+/* 화살표가 밑으로 향하는 속성 */
+.tooltip.bottom::after {
+  bottom: -6px;
+  border-top-color: transparent;
+}

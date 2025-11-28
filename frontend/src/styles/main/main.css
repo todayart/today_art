@@ -37,9 +37,6 @@
     column-gap: clamp(40px, 6vw, 80px);
     padding: 0 clamp(40px, 10vw, 200px);
   }
-  .logoBox {
-    margin-top: 50px;
-  }
   section.title > .titleBox {
     margin-bottom: 100px;
   }
@@ -72,9 +69,6 @@
 @media all and (min-width: 769px) and (max-width: 1023px) {
   .listBox {
     min-height: 400px;
-  }
-  .logoBox {
-    margin-top: 130px;
   }
   .searchBox {
     margin-bottom: 35px;
@@ -118,7 +112,7 @@
     row-gap: 32px;
     padding: 0 24px;
   }
-  .logoBox {
+  section.title > div.titleBox > div.logoBox {
     margin-top: 22px;
   }
   .searchBox {
@@ -131,8 +125,10 @@
   }
 
   section.title > .titleBox > div.tagBox > ul {
-    height: 80px;
-    column-gap: 4px;
+    /* CategoryTag 3개만 나오는 고정 width */
+    width: 358px;
+    height: 78px;
+    gap: 8px;
     justify-content: start;
   }
   section.title > .titleBox > div.tagBox > ul > li.categoryTag {
@@ -354,7 +350,7 @@
 section.title > .titleBox > .logoBox {
   width: 260px;
   height: 90px;
-  /* margin-top: 130px; */
+  margin-top: 50px;
 }
 /* 검색창 */
 section.title > .titleBox > .searchBox {
@@ -401,6 +397,7 @@ section.title > .titleBox > .tagBox {
   width: 100%;
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 section.title > .titleBox > .tagBox > ul {
   display: flex;
