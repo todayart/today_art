@@ -4,11 +4,15 @@ import { ReactSVG } from "react-svg";
 import { useNavigate } from "react-router-dom";
 
 import FeedbackMessage from "components/common/FeedbackMessage";
+import IconFeedback from "components/common/IconFeedback";
 import Logoimg from "components/main/Logoimg";
 import MainSearch from "components/main//MainSearch";
 import CategoryTag from "components/main//CategoryTag";
 import CategoryList from "components/main//CategoryList";
 import DetailBtn from "components/main//DetailBtn";
+
+import { FEEDBACK_ICONS } from "constants/feedbackIcons";
+import { formatErrorMessage } from "utils/messages";
 
 import PrevBtn from "assets/main/prevBtn.svg";
 
@@ -288,7 +292,11 @@ export default function EntryMain() {
           {loading ? (
             <FeedbackMessage>로딩 중...</FeedbackMessage>
           ) : error ? (
-            <FeedbackMessage>에러 : {error.message}</FeedbackMessage>
+            <IconFeedback
+              icon={FEEDBACK_ICONS.error}
+              message={formatErrorMessage(error)}
+              role="alert"
+            />
           ) : (
             <>
               {/* arrowPrev */}

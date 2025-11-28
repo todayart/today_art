@@ -1,6 +1,9 @@
 import ImgCard from "components/main/ImgCard";
 import SortSelect from "components/main/list/SortSelect";
 import FeedbackMessage from "components/common/FeedbackMessage";
+import IconFeedback from "components/common/IconFeedback";
+import { FEEDBACK_ICONS } from "constants/feedbackIcons";
+import { formatErrorMessage } from "utils/messages";
 
 export default function ListContent({
   sortOption,
@@ -16,11 +19,15 @@ export default function ListContent({
   const showError = Boolean(error);
 
   const feedbackNode = showError ? (
-    <FeedbackMessage role="alert">에러: {error.message}</FeedbackMessage>
+    <IconFeedback
+      icon={FEEDBACK_ICONS.error}
+      message={formatErrorMessage(error)}
+      role="alert"
+    />
   ) : showLoading ? (
     <FeedbackMessage>불러오는 중...</FeedbackMessage>
   ) : showEmpty ? (
-    <FeedbackMessage>결과가 없습니다.</FeedbackMessage>
+    <IconFeedback icon={FEEDBACK_ICONS.noResult} message="결과가 없습니다." />
   ) : null;
 
   return (

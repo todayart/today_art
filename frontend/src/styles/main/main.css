@@ -860,7 +860,7 @@ main.contentsWrapper {
 }
 
 .detailCardContent .detailCardText h2,
-span {
+.detailCardContent .detailCardText span {
   overflow: hidden;
   text-overflow: ellipsis;
 }

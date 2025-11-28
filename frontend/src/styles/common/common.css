@@ -235,6 +235,26 @@ nav > ul.navBox > li > a > svg {
   line-height: 1.4;
   gap: 10px;
 }
+.feedbackMessage .iconFeedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.feedbackMessage .iconFeedbackText {
+  display: inline-block;
+}
+/* legacy alias for older class names */
+.feedbackMessage .feedbackMessageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+.feedbackMessage .feedbackIcon {
+  width: 48px;
+  height: 48px;
+}
 .listContainer .feedbackMessage {
   grid-column: 1 / -1;
 }

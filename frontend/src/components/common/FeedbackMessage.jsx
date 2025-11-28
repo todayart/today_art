@@ -1,6 +1,7 @@
-export default function FeedbackMessage({ children, role = "status" }) {
+export default function FeedbackMessage({ children, role = "status", className = "" }) {
+  const mergedClassName = `feedbackMessage ${className}`.trim();
   return (
-    <div className="feedbackMessage" role={role}>
+    <div className={mergedClassName} role={role}>
       {children}
     </div>
   );
