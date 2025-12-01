@@ -54,6 +54,16 @@ export default function ListPage() {
   const onBackToList = () => {
     updateFilterParams({ title: null });
   };
+  const onReset = () => {
+    setSearchTerm("");
+    updateFilterParams({
+      term: "",
+      startDate: "",
+      endDate: "",
+      cate: "",
+      title: null,
+    });
+  };
 
   return (
     <>
@@ -66,6 +76,7 @@ export default function ListPage() {
         startDate={startDate}
         endDate={endDate}
         onDateRangeChange={onDateRangeChange}
+        onReset={onReset}
       />
 
       {isDetail ? (

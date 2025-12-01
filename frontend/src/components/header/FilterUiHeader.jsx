@@ -17,6 +17,7 @@ export default function FilterUiHeader({
   startDate,
   endDate,
   onDateRangeChange,
+  onReset,
 }) {
   return (
     <CommonHeader>
@@ -38,8 +39,11 @@ export default function FilterUiHeader({
         onSearch={onSearch}
         placeholder="검색어를 입력하세요"
       />
-      {/* 상태 초기화 버튼 */}
-      <SvgButton icon={CommonResetIcon} label="필터 초기화" />
+      <SvgButton
+        icon={CommonResetIcon}
+        label="필터 초기화 버튼"
+        onClick={onReset}
+      />
     </CommonHeader>
   );
 }

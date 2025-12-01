@@ -261,7 +261,6 @@ export default function CustomSelect({
             const isActive = idx === activeIndex;
             const optionClass = [
               "customSelect__option",
-              "commonBorder",
               isSelected ? "is-selected" : "",
               isActive ? "is-active" : "",
               opt.disabled ? "is-disabled" : "",

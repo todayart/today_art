@@ -687,10 +687,6 @@ div.imgBox > img {
   position: relative;
 }
 
-.smallSearchWrapper .smallSearchButton .commonSearchIconSvg {
-  pointer-events: none;
-}
-
 /* commonHeader > PeriodInput */
 .periodInputWrapper {
   display: flex;

@@ -18,9 +18,11 @@ const SvgButton = ({
   onClick = () => {},
   className = "",
   disabled = false,
+  ariaLabel = "",
 }) => {
   return (
     <button
+      aria-label={ariaLabel}
       className={`iconButton ${className}`}
       onClick={onClick}
       disabled={disabled}
