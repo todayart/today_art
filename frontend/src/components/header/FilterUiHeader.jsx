@@ -1,9 +1,12 @@
+import urlMeta from "contents/urlMeta.json";
+
 import CommonHeader from "components/header/CommonHeader";
 import CommonSelect from "components/Input/CommonSelect";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import PeriodInput from "components/Input/PeriodInput";
+import SvgButton from "components/common/SvgButton";
 
-import urlMeta from "contents/urlMeta.json";
+import CommonResetIcon from "assets/common/commonResetIcon.svg";
 
 export default function FilterUiHeader({
   term,
@@ -35,6 +38,8 @@ export default function FilterUiHeader({
         onSearch={onSearch}
         placeholder="검색어를 입력하세요"
       />
+      {/* 상태 초기화 버튼 */}
+      <SvgButton icon={CommonResetIcon} label="필터 초기화" />
     </CommonHeader>
   );
 }

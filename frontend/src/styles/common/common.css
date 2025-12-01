@@ -510,3 +510,24 @@ nav > ul.navBox > li > a > svg {
 .navItem:focus-within .tooltip.navTooltip {
   opacity: 1;
 }
+
+/* ReactSVG 아이콘 공동 Wrapper */
+.reactSVGBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  font-size: 0;
+}
+
+/* ReactSVG를 감싸는 button */
+.iconButton {
+  display: inline-flex; /* 한 줄 텍스트가 아니라 flex 박스로 취급해야 함 */
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  line-height: 0;
+  font-size: 0;
+}
