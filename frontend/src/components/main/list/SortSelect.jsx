@@ -1,16 +1,19 @@
-import CommonSelect from "components/Input/CommonSelect";
+import CustomSelect from "components/common/CustomSelect";
 import { SORT_MAP } from "contents/sortOption";
 
 export default function SortSelect({ sortOption, onSortChange }) {
+  const options = Object.keys(SORT_MAP).map((label) => ({
+    label,
+    value: label,
+  }));
+
   return (
-    <>
-      <CommonSelect
-        labels={Object.keys(SORT_MAP)}
-        selected={sortOption || "정렬순"}
-        id="sortSelect"
-        selectStyle={{ width: "150px" }}
-        onChange={onSortChange}
-      />
-    </>
+    <CustomSelect
+      value={sortOption || "정렬순"}
+      onChange={onSortChange}
+      options={options}
+      placeholder="정렬순"
+      width="150px"
+    />
   );
 }

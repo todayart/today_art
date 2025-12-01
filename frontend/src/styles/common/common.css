@@ -48,11 +48,17 @@
   body {
     background-color: var(--thema-tablet);
   }
+  li.customSelect__option {
+    background: var(--thema-tablet);
+  }
 }
 /* 모바일 393x776 */
 @media (max-width: 768px) {
   body {
     background-color: var(--thema-mobile);
+  }
+  li.customSelect__option {
+    background: var(--thema-mobile);
   }
 }
 
@@ -328,6 +334,87 @@ nav > ul.navBox > li > a > svg {
   background-color: transparent;
   appearance: none; /* needs 드롭다운 기본 스타일 제거 */
   padding: 0 8px;
+}
+
+/* Custom Select */
+.customSelect {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+  color: var(--font);
+}
+.customSelect__button {
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+.customSelect__button:focus-visible {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+.customSelect__button:disabled {
+  cursor: not-allowed;
+  background: #f2f2f2;
+  color: #aaa;
+  border-color: #ddd;
+}
+.customSelect__label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+.customSelect__chevron {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #888;
+}
+.customSelect__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  z-index: 20;
+}
+.customSelect__option {
+  padding: 0 12px;
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+  background: var(--thema);
+  height: 34px;
+  /* 글자 왼쪽 상하 중앙 정렬 */
+  display: flex;
+  align-items: center;
+}
+.customSelect__option.is-active {
+  border: 2px solid var(--selector-border);
+}
+.customSelect__option.is-selected {
+  font-weight: 600;
+  color: var(--font);
+}
+.customSelect__option.is-disabled {
+  cursor: not-allowed;
+  color: #aaa;
+}
+.customSelect__option.is-disabled.is-active {
+  background: transparent;
+}
+.customSelect--error .customSelect__button {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
+}
+.customSelect--open .customSelect__button {
+  border-color: #666;
 }
 
 /* 생략 옵션 */
