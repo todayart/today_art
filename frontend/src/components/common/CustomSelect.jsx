@@ -48,9 +48,17 @@
 // 접근 가능한 커스텀 셀렉트 컴포넌트 (네이티브 <select> 대체)
 // 키보드: 위/아래 화살표로 이동, Enter/Space로 열기/선택, Escape나 Tab으로 닫기
 
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffect,
+  useId,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { ReactSVG } from "react-svg";
 import SelectIcon from "assets/common/selectIcon.svg";
+import { useResetSubscription } from "stores/resetStore";
 
 function normalizeOptions(options) {
   if (!Array.isArray(options)) return [];
@@ -221,6 +229,13 @@ export default function CustomSelect({
   };
 
   const widthStyle = width ? { width } : undefined;
+
+  // 리셋 구독: 드롭다운 닫기 및 활성 하이라이트 제거
+  const handleReset = useCallback(() => {
+    setOpen(false);
+    setActiveIndex(-1);
+  }, []);
+  useResetSubscription(handleReset);
 
   return (
     <div className={mergedClass} ref={containerRef} style={widthStyle}>

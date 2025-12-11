@@ -1,6 +1,7 @@
 // src/pages/ListPage.jsx
 
 import { lazy, Suspense, useState } from "react";
+
 import { ReactSVG } from "react-svg";
 import mapIcon from "assets/common/mobile/map.svg";
 import searchIcon from "assets/common/commonSearch.svg";
@@ -11,6 +12,8 @@ import { useFilterParamsValues } from "hooks/useFilterParamsValues";
 import { useCachedEntryByTitle } from "hooks/useCachedEntryByTitle";
 import { useInfiniteEntries } from "hooks/useInfiniteEntries";
 import useMobile from "hooks/useMobile";
+
+import { emitReset } from "stores/resetStore";
 
 import FilterUiHeader from "components/header/FilterUiHeader";
 import DetailCard from "components/main/detail/DetailCard";
@@ -54,6 +57,8 @@ export default function ListPage() {
   const onBackToList = () => {
     updateFilterParams({ title: null });
   };
+
+  // 필터 초기화 핸들러
   const onReset = () => {
     setSearchTerm("");
     updateFilterParams({
@@ -63,6 +68,8 @@ export default function ListPage() {
       cate: "",
       title: null,
     });
+    // 전역 리셋 이벤트 발신
+    emitReset();
   };
 
   return (

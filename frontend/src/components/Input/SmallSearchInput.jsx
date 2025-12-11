@@ -1,5 +1,7 @@
+import { useCallback, useEffect, useState } from "react";
 import CommonSearchIcon from "assets/common/commonSearch.svg";
 import SvgButton from "components/common/SvgButton";
+import { useResetSubscription } from "stores/resetStore";
 
 /**
  * 검색 입력창과 버튼이 결합된 컴포넌트입니다.
@@ -27,6 +29,31 @@ const SmallSearchInput = ({
   onSearch,
   placeholder = "",
 }) => {
+  const [innerValue, setInnerValue] = useState(value || "");
+
+  // 외부 value 변화에 따라 로컬 상태 동기화
+  useEffect(() => {
+    setInnerValue(value || "");
+  }, [value]);
+
+  const handleInputChange = useCallback(
+    (next) => {
+      setInnerValue(next);
+      onChange(next);
+    },
+    [onChange]
+  );
+
+  const handleReset = useCallback(() => {
+    setInnerValue("");
+    onChange("");
+    if (onSearch) {
+      onSearch();
+    }
+  }, [onChange]);
+
+  useResetSubscription(handleReset);
+
   return (
     <div className="smallSearchWrapper">
       {/* 라벨링 + 텍스트 */}
@@ -39,9 +66,9 @@ const SmallSearchInput = ({
         id="smallSearchInput"
         className="smallSearchInput"
         type="text"
-        value={value}
+        value={innerValue}
         // TODO : 입력값 변경 핸들러 추가, 디바운스 구현할 때 완성
-        onChange={(e) => onChange && onChange(e.target.value)}
+        onChange={(e) => handleInputChange(e.target.value)}
         placeholder={placeholder}
         onKeyDown={(e) => e.key === "Enter" && onSearch()}
       />

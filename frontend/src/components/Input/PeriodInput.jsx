@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import DatePicker from "react-datepicker";
 import { ReactSVG } from "react-svg";
 import CalendarIcon from "assets/common/calendar.svg";
 import { format } from "date-fns";
+import { useResetSubscription } from "stores/resetStore";
 
 /**
  * 시작 날짜와 종료 날짜를 각각 선택하여
@@ -26,6 +27,14 @@ import { format } from "date-fns";
 const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
+
+  const handleReset = useCallback(() => {
+    setStartDate(null);
+    setEndDate(null);
+    onRangeChange({ startDate: "", endDate: "" });
+  }, [onRangeChange]);
+
+  useResetSubscription(handleReset);
 
   const handleStartChange = (date) => {
     setStartDate(date);
