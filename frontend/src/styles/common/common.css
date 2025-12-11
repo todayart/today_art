@@ -531,4 +531,5 @@ nav > ul.navBox > li > a > svg {
   background: transparent;
   line-height: 0;
   font-size: 0;
+  cursor: pointer;
 }
