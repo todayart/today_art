@@ -12,6 +12,8 @@ import { useCachedEntryByTitle } from "hooks/useCachedEntryByTitle";
 import { useInfiniteEntries } from "hooks/useInfiniteEntries";
 import useMobile from "hooks/useMobile";
 
+import { emitReset } from "stores/resetStore";
+
 import FilterUiHeader from "components/header/FilterUiHeader";
 import DetailCard from "components/main/detail/DetailCard";
 import MobileDetailCard from "components/mobile/MobileDetailCard";
@@ -63,6 +65,7 @@ export default function ListPage() {
       cate: "",
       title: null,
     });
+    emitReset();
   };
 
   return (

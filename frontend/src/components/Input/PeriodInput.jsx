@@ -3,6 +3,7 @@ import DatePicker from "react-datepicker";
 import { ReactSVG } from "react-svg";
 import CalendarIcon from "assets/common/calendar.svg";
 import { format } from "date-fns";
+import { useResetSubscription } from "stores/resetStore";
 
 /**
  * 시작 날짜와 종료 날짜를 각각 선택하여
@@ -44,6 +45,15 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
     };
     onRangeChange(payload);
   };
+
+  // 리셋 구독 및 처리
+  // 내부 상태만 초기화하도록 구현
+  const handleReset = () => {
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  useResetSubscription(handleReset);
 
   return (
     <div className="periodInputWrapper ">
