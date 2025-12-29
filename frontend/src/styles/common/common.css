@@ -23,8 +23,8 @@
   --thema-mobile-menu: #d9d9d9;
 
   /* 선택시 투명도 */
-  --selected-rgb: 0, 0, 0;
-  --selected-opacity: 0.1;
+  --selected-rgb: 68, 68, 68;
+  --selected-opacity: 0.4;
 
   --font: #444444;
   --font-wh: #fff;

@@ -346,6 +346,11 @@
     gap: 6px;
     margin: 12px 12px 0 0;
   }
+
+  /* 캘린더 모바일 커스텀 */
+  div.calendarCell div.innerCell:hover {
+    width: 100%;
+  }
 }
 
 /* 테블릿 + pc */
@@ -996,14 +1001,17 @@ main.contentsWrapper {
   height: 42px;
   flex-shrink: 0;
 }
+.monthGrid > .monthCell.is-active {
+  background-color: rgba(var(--selected-rgb), var(--selected-opacity));
+}
 /* calendarWrapper */
 .calendarWrapper {
   width: 100%;
   height: 700px;
   /* 그리드 */
   display: grid;
-  grid-template-columns: repeat(13, 1fr);
-  grid-template-rows: repeat(2, 1fr);
+  grid-template-columns: repeat(13, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 
   /* 폰트 */
   color: var(--calendarLogoFont);
@@ -1012,33 +1020,57 @@ main.contentsWrapper {
   font-weight: 700;
 }
 .calendarCell {
-  /* 여백 */
-  padding: 14px;
   border-right: 1px solid;
   border-bottom: 1px solid;
-
-  /* 숨김 */
-  overflow: hidden;
-
-  /* 포지션 */
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  box-sizing: border-box;
   position: relative;
   z-index: 0;
+  overflow: visible;
+  display: block;
+}
 
-  /* flex */
+.calendarCell:hover {
+  z-index: 10;
+}
+
+.innerCell {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding: 14px;
+  box-sizing: border-box;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  align-items: start;
+  align-items: flex-start;
 }
 
 .innerCell:hover {
   z-index: 1;
-  width: 500px;
-  height: 500px;
+  width: calc(300% + 2px);
+  height: 100%;
+  overflow: visible;
   overflow-y: auto;
   background-color: rgba(var(--selected-rgb), var(--selected-opacity));
 }
 
-.calendarCell > .exhibitionTag {
+.calendarCell[id="11m-start"] .innerCell:hover,
+.calendarCell[id="11m-end"] .innerCell:hover {
+  left: -100%;
+}
+
+.calendarCell[id="12m-start"] .innerCell:hover,
+.calendarCell[id="12m-end"] .innerCell:hover {
+  left: -200%;
+}
+
+.calendarCell > .innerCell > .exhibitionTag {
   display: flex;
   padding: 4px 12px;
   background-color: var(--thema);

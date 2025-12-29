@@ -1,7 +1,11 @@
 import CalendarCell from "components/main/calendar/CalendarCell";
 import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
-export default function CalendarFixedCell({ exhibitions }) {
+export default function CalendarFixedCell({
+  exhibitions,
+  onHoverMonth,
+  onLeaveMonth,
+}) {
   return (
     <main className="calendarWrapper">
       {/* 첫 번째 열: 고정 파트 (OPEN, CLOSE) */}
@@ -23,7 +27,13 @@ export default function CalendarFixedCell({ exhibitions }) {
         Array.from({ length: 2 }).map((_, rowIndex) => {
           const id = `${monthIndex + 1}m-${rowIndex === 0 ? "start" : "end"}`;
           return (
-            <CalendarCell key={id} monthIndex={monthIndex} rowIndex={rowIndex}>
+            <CalendarCell
+              key={id}
+              monthIndex={monthIndex}
+              rowIndex={rowIndex}
+              onHoverMonth={onHoverMonth}
+              onLeaveMonth={onLeaveMonth}
+            >
               {/* exhibitions 객체에서 해당 월의 전시 이름을 가져와서 ExhibitionTag 컴포넌트로 렌더링 */}
               {/* id가 key와 같다면 value를 name으로 전달하면 된다. */}
               {/* { "1m-start": ["전시1", ... ], "1m-end": ["전시2", ...] } */}

@@ -5,7 +5,7 @@ import { format } from "date-fns";
 import Logoimg from "components/main/Logoimg";
 import Header from "components/header/Header";
 
-export default function CalendarHeader() {
+export default function CalendarHeader({ activeMonth = null }) {
   return (
     <section className="commonHeader">
       <Header />
@@ -24,8 +24,12 @@ export default function CalendarHeader() {
             }
             const monthDate = new Date(2000, index - 1, 1);
             const monthName = format(monthDate, "MMMM");
+            const isActive = activeMonth === index;
             return (
-              <div key={index} className="monthCell">
+              <div
+                key={index}
+                className={`monthCell${isActive ? " is-active" : ""}`}
+              >
                 <span>{monthName}</span>
                 <span>{index < 10 ? "0" + index : index}</span>
               </div>

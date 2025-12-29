@@ -11,6 +11,8 @@ import { fetchData } from "utils/fetchData";
  */
 export default function CalendarPage() {
   const [exhibitions, setExhibitions] = useState({});
+  // 현재 활성화된 월을 상태로 관리
+  const [activeMonth, setActiveMonth] = useState(null);
   // useEffect나 커스텀훅으로 내용을 작성
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -29,10 +31,13 @@ export default function CalendarPage() {
 
   return (
     <>
-      {/* 캘린더 헤더 영역 */}
-      <CalendarHeader />
-      {/* 메인 캘린더 영역 (grid layout으로 13열 x 2행) */}
-      <CalendarFixedCell exhibitions={exhibitions} />
+      <CalendarHeader activeMonth={activeMonth} />
+      {/* 메인 캘린더 영역 ( 13열 x 2열 ) */}
+      <CalendarFixedCell
+        exhibitions={exhibitions}
+        onHoverMonth={setActiveMonth}
+        onLeaveMonth={() => setActiveMonth(null)}
+      />
     </>
   );
 }
