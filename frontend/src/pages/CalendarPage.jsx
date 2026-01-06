@@ -1,8 +1,10 @@
 import CalendarHeader from "components/main/calendar/CalendarHeader";
 import CalendarFixedCell from "components/main/calendar/CalendarFixedCell";
+import CalendarMobileList from "components/main/calendar/CalendarMobileList";
 import { useEffect, useState } from "react";
 
 import { fetchData } from "utils/fetchData";
+import useMobile from "hooks/useMobile";
 /**
  * 이 컴포넌트는 calendar 페이지의 메인 컴포넌트입니다.
  *
@@ -13,6 +15,7 @@ export default function CalendarPage() {
   const [exhibitions, setExhibitions] = useState({});
   // 현재 활성화된 월을 상태로 관리
   const [activeMonth, setActiveMonth] = useState(null);
+  const isMobile = useMobile();
   // useEffect나 커스텀훅으로 내용을 작성
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -30,14 +33,20 @@ export default function CalendarPage() {
   }, []);
 
   return (
-    <>
+    <div className="calendarPage">
       <CalendarHeader activeMonth={activeMonth} />
       {/* 메인 캘린더 영역 ( 13열 x 2열 ) */}
-      <CalendarFixedCell
-        exhibitions={exhibitions}
-        onHoverMonth={setActiveMonth}
-        onLeaveMonth={() => setActiveMonth(null)}
-      />
-    </>
+      <section className="calendarBoard">
+        {isMobile ? (
+          <CalendarMobileList exhibitions={exhibitions} />
+        ) : (
+          <CalendarFixedCell
+            exhibitions={exhibitions}
+            onHoverMonth={setActiveMonth}
+            onLeaveMonth={() => setActiveMonth(null)}
+          />
+        )}
+      </section>
+    </div>
   );
 }
