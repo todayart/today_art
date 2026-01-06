@@ -22,7 +22,7 @@ const ExhibitionTag = ({ name }) => {
 
   return (
     <div
-      className="exhibitionTag commonBorder flexCenter textOverflow overflowHidden shadow"
+      className="exhibitionTag commonBorder textOverflow overflowHidden shadow"
       title={`${name}의 태그`}
       onClick={handleClick}
       style={{ cursor: "pointer" }}
