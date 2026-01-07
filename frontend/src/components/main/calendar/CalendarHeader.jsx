@@ -1,17 +1,31 @@
-import React from "react";
+// src/components/main/calendar/CalendarHeader.jsx
+// 캘린더 헤더 컴포넌트
 
+import { useMemo } from "react";
 import { format } from "date-fns";
 
 import Logoimg from "components/main/Logoimg";
 import Header from "components/header/Header";
-import SvgButton from "components/common/SvgButton";
+import MonthCell from "components/main/calendar/MonthCell";
 
 import useMobile from "hooks/useMobile";
 
-import calendarArrow from "assets/common/mobile/calendarArrow.svg";
-
 export default function CalendarHeader({ activeMonth = null }) {
   const isMobile = useMobile();
+
+  // 월 배열 생성
+  const months = useMemo(
+    () =>
+      Array.from({ length: 12 }, (_, idx) => {
+        const month = idx + 1;
+        const date = new Date(2000, idx, 1);
+        return { month, name: format(date, "MMMM") };
+      }),
+    []
+  );
+
+  // 로고 파트 현재 연도 계산
+  const currentYear = useMemo(() => format(new Date(), "yyyy"), []);
 
   return (
     <section className="commonHeader">
@@ -20,68 +34,21 @@ export default function CalendarHeader({ activeMonth = null }) {
         {/* 로고 파트 */}
         <div className="calendarLogo">
           <Logoimg className="calendarLogoImg" />
-          <span className="currentYear">{format(new Date(), "yyyy")}</span>
+          <span className="currentYear">{currentYear}</span>
         </div>
         {/* 월 표시 그리드 파트 */}
-        {isMobile ? (
-          <section className="monthGrid">
-            {[...Array(13)].map((_, index) => {
-              // 첫 쉘은 비움
-              if (index === 0) {
-                return <div key={index} className="monthCell"></div>;
-              }
-              const monthDate = new Date(2000, index - 1, 1);
-              const monthName = format(monthDate, "MMMM");
-              const isActive = activeMonth === index;
-              return (
-                // 월 표시
-                <div
-                  key={index}
-                  className={`monthCell${isActive ? " is-active" : ""}`}
-                >
-                  <SvgButton icon={calendarArrow} className="monthNavButton" />
-                  <div className="monthTitle">
-                    <span className="monthName">{monthName}</span>
-                    <span className="monthNumber">
-                      {index < 10 ? "0" + index : index}
-                    </span>
-                  </div>
-                  <SvgButton
-                    icon={calendarArrow}
-                    className="monthNavButton reverse"
-                  />
-                </div>
-              );
-            })}
-          </section>
-        ) : (
-          <section className="monthGrid">
-            {[...Array(13)].map((_, index) => {
-              // 첫 쉘은 비움
-              if (index === 0) {
-                return <div key={index} className="monthCell"></div>;
-              }
-              const monthDate = new Date(2000, index - 1, 1);
-              const monthName = format(monthDate, "MMMM");
-              const isActive = activeMonth === index;
-
-              return (
-                // 월 표시
-                <div
-                  key={index}
-                  className={`monthCell${isActive ? " is-active" : ""}`}
-                >
-                  <div className="monthTitle">
-                    <span className="monthName">{monthName}</span>
-                    <span className="monthNumber">
-                      {index < 10 ? "0" + index : index}
-                    </span>
-                  </div>
-                </div>
-              );
-            })}
-          </section>
-        )}
+        <section className="monthGrid">
+          <div className="monthCell monthCell--spacer" aria-hidden="true" />
+          {months.map(({ month, name }) => (
+            <MonthCell
+              key={month}
+              month={month}
+              name={name}
+              isActive={activeMonth === month}
+              isMobile={isMobile}
+            />
+          ))}
+        </section>
       </div>
     </section>
   );

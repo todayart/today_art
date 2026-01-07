@@ -986,6 +986,16 @@ main.contentsWrapper {
   justify-content: center;
   gap: 10px;
 }
+.monthGrid > .monthCell.monthCell--spacer {
+  background: transparent;
+}
+.monthGrid .monthNavButton {
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  border: none;
+  background: transparent;
+}
 
 .monthGrid > .monthCell > .monthTitle {
   display: flex;
