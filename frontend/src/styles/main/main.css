@@ -350,7 +350,17 @@
     margin: 12px 12px 0 0;
   }
 
-  /* 캘린더 모바일 커스텀 */
+  div.detailCardContent {
+    display: flex;
+    flex-direction: column;
+    align-self: center;
+  }
+
+  div.detailCardContent img {
+    margin: 0 auto;
+  }
+
+  /* * 캘린더 페이지 모바일 커스텀 */
   div.calendarCell div.innerCell:hover {
     width: 100%;
   }
@@ -855,9 +865,8 @@ main.contentsWrapper {
   color: var(--font);
 }
 
-/* DetailCard 모바일 공용 */
 .detailCardContent img {
-  width: 274px;
+  /* width: 274px; */
   height: 346px;
   object-fit: cover;
   flex-shrink: 0;
