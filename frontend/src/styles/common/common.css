@@ -446,6 +446,11 @@ nav > ul.navBox > li > a > svg {
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* transform */
+.reverse {
+  transform: rotate(180deg);
+}
+
 /* a11yHidden */
 .a11yHidden {
   position: absolute;

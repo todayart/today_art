@@ -21,7 +21,7 @@ export default function CalendarFixedCell({
           {label}
         </div>
       ))}
-      {/* TODO : 해당 CalenarCell이 클릭되면 .innerCell:hover가 발생함 이를 트리거로, id를 추적하여 open인지 close인지, 몇 월인지 배경 색을 바꾸는 옵션을 추가하면 ux가 상승할 것 같다. */}
+
       {/* 반복문 설명 : 2열부터 13열: 각 월에 대한 그리드 셀, 배열에 index만 필요하니 _를 사용해서 map을 활용함*/}
       {Array.from({ length: 12 }).map((_, monthIndex) =>
         Array.from({ length: 2 }).map((_, rowIndex) => {
