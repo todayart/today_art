@@ -16,7 +16,12 @@ export default function CalendarMobileList({ exhibitions = {} }) {
         const closeList = exhibitions[closeKey] || [];
 
         return (
+          // 각 월별 카드
+
+          // TODO : calendarMobileCard에 overflowHidden 옵션이 있고, 부모인 List는 세로로 되어 있다. 추후 monthCell 내부에 좌우 버튼을 추가할 예정이며, 각 버튼을 누르면 monthCell은 좌측 또는 우측으로 100vw씩 이동하고, section.calendarMobileList는 상하로 calc(100vh - var(--commonHeader-height))만큼 이동하는 기능을 추가해야함.
+
           <article key={month} className="calendarMobileCard">
+            {/* upperSection */}
             <div className="calendarMobileSection">
               <div className="calendarMobileSectionTitle">OPEN</div>
               <div className="calendarMobileTags">
@@ -31,7 +36,7 @@ export default function CalendarMobileList({ exhibitions = {} }) {
                 )}
               </div>
             </div>
-
+            {/* lowerSection */}
             <div className="calendarMobileSection">
               <div className="calendarMobileSectionTitle">CLOSE</div>
               <div className="calendarMobileTags">
