@@ -6,6 +6,7 @@ import { ReactSVG } from "react-svg";
  * @param {Object} props - 컴포넌트 props
  * @param {string} props.icon - 표시할 SVG 아이콘의 경로
  * @param {string} props.label - 접근성을 위한 버튼 레이블 (화면 리더용)
+ * @param {string} [props.ariaLabel=""] - 접근성을 위한 aria-label 속성
  * @param {Function} props.onClick - 버튼 클릭 시 실행될 함수
  * @param {string} [props.className=""] - 추가할 CSS 클래스명
  * @param {boolean} [props.disabled=false] - 버튼 비활성화 여부
