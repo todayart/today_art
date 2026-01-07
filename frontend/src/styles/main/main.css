@@ -982,11 +982,19 @@ main.contentsWrapper {
   height: 100%;
   border: 1px solid var(--borderColor);
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.monthGrid > .monthCell > .monthTitle {
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
-.monthGrid > .monthCell > span:first-child {
+
+.monthGrid > .monthCell span.monthName {
   color: var(--font);
   text-align: center;
   font-family: Inter;
@@ -999,7 +1007,7 @@ main.contentsWrapper {
   flex-shrink: 0;
 }
 
-.monthGrid > .monthCell > span:last-child {
+.monthGrid > .monthCell span.monthNumber {
   color: var(--font);
   text-align: center;
   font-family: Inter;
