@@ -1,9 +1,11 @@
 import CalendarHeader from "components/main/calendar/CalendarHeader";
 import CalendarFixedCell from "components/main/calendar/CalendarFixedCell";
 import CalendarMobileList from "components/main/calendar/CalendarMobileList";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 
 import { fetchData } from "utils/fetchData";
+import { getCurrentMonth, getMonths } from "utils/calendar";
+
 import useMobile from "hooks/useMobile";
 /**
  * 이 컴포넌트는 calendar 페이지의 메인 컴포넌트입니다.
@@ -13,11 +15,21 @@ import useMobile from "hooks/useMobile";
  */
 export default function CalendarPage() {
   const [exhibitions, setExhibitions] = useState({});
-  // 현재 활성화된 월을 상태로 관리
+  // * 데스크톱
+  // hover 활성화 상태
   const [activeMonth, setActiveMonth] = useState(null);
-  const isMobile = useMobile();
 
-  // TODO-1-3 : 현재 월(getMonth())로 초기값 설정된 상태가 필요하고, header의 이전/다음 버튼 클릭 시 해당 상태를 -1/+1 해주는 기능이 필요
+  // * 모바일
+  // 화면에 띄울 월(인덱스)
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
+
+  // * 공통
+  // 월 배열
+  const months = useMemo(() => getMonths(), []);
+  // 현재 디바이스가 모바일인지 여부
+  const isMobile = useMobile();
+  // 월 상태 범위 제한 함수
+  const clampMonth = (month) => Math.min(12, Math.max(1, month));
 
   // useEffect나 커스텀훅으로 내용을 작성
   useEffect(() => {
@@ -37,11 +49,20 @@ export default function CalendarPage() {
 
   return (
     <div className="calendarPage">
-      <CalendarHeader activeMonth={activeMonth} />
+      <CalendarHeader
+        activeMonth={activeMonth}
+        selectedMonth={selectedMonth}
+        onChangeMonth={(next) => setSelectedMonth(clampMonth(next))}
+        monthsArray={months}
+      />
       {/* 메인 캘린더 영역 ( 13열 x 2열 ) */}
       <section className="calendarBoard">
         {isMobile ? (
-          <CalendarMobileList exhibitions={exhibitions} />
+          <CalendarMobileList
+            exhibitions={exhibitions}
+            selectedMonth={selectedMonth}
+            monthsArray={months}
+          />
         ) : (
           <CalendarFixedCell
             exhibitions={exhibitions}

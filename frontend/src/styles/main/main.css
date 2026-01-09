@@ -374,9 +374,9 @@
     justify-content: flex-start;
   }
   .calendarLogo.calendarLogo--mobile {
-    position: absolute;
-    left: calc(100vw + 28px);
-    top: -156px;
+    /* position: absolute;
+    left: 28px;
+    top: 30px; */
   }
   .calendarBoard {
     overflow: hidden;
@@ -970,8 +970,8 @@ main.contentsWrapper {
 /* calendarPageLogo*/
 .calendarLogo {
   position: absolute;
-  left: 30px;
-  top: -156px;
+  left: 28px;
+  top: 30px;
 }
 .calendarLogo > h1 {
   display: block;
@@ -1134,6 +1134,8 @@ main.contentsWrapper {
 .calendarMobileList {
   width: 1200vw;
   display: flex;
+  transition: transform 0.3s ease;
+  will-change: transform;
 }
 
 .calendarMobileCard {

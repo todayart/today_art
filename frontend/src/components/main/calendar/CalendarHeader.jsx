@@ -1,59 +1,66 @@
 // src/components/main/calendar/CalendarHeader.jsx
 // 캘린더 헤더 컴포넌트
 
-import { useMemo } from "react";
-import { format } from "date-fns";
-
 import Logoimg from "components/main/Logoimg";
 import Header from "components/header/Header";
 import MonthCell from "components/main/calendar/MonthCell";
 
 import useMobile from "hooks/useMobile";
+import { getCurrentMonth, getCurrentYear } from "utils/calendar";
 
-export default function CalendarHeader({ activeMonth = null }) {
+export default function CalendarHeader({
+  activeMonth = null,
+  selectedMonth = null,
+  onChangeMonth,
+  monthsArray = [],
+}) {
   const isMobile = useMobile();
 
-  // 월 배열 생성
-  const months = useMemo(
-    () =>
-      Array.from({ length: 12 }, (_, idx) => {
-        const month = idx + 1;
-        const date = new Date(2000, idx, 1);
-        return { month, name: format(date, "MMMM") };
-      }),
-    []
-  );
+  // * 공통
+  // 활성화 class를 추가할 월 결정
+  // 1. 모바일 - 현재 월을 selectedMonth로 고정
+  // 2. 데스크톱 - hover된 월을 activeMonth로 설정
+  const currentActiveMonth = isMobile ? selectedMonth : activeMonth;
+
+  // offset 계산
+  // (monthCell은 첫 번째 칸이 스페이서이므로 selectedMonth와 동일)
+  const offset = selectedMonth * 100;
 
   // 로고 파트 현재 연도 계산
-  const currentYear = useMemo(() => format(new Date(), "yyyy"), []);
+  const currentYear = getCurrentYear();
+
+  // * 모바일
+  const currentMonth = getCurrentMonth();
 
   return (
     <section className="commonHeader">
       <Header />
+      {/* 로고 파트 */}
+      <div
+        className={
+          isMobile ? "calendarLogo calendarLogo--mobile" : "calendarLogo"
+        }
+      >
+        <Logoimg className="calendarLogoImg" />
+        <span className="currentYear">{currentYear}</span>
+      </div>
       <div
         className="selectBox"
-        // TODO-1 추후 ~월 다음 버튼을 통해 +100vw, -100vw로 이동하는 기능 추가 예정
-        style={isMobile ? { transform: "translateX(-100vw)" } : {}}
+        style={isMobile ? { transform: `translateX(-${offset}vw)` } : {}}
       >
-        {/* 로고 파트 */}
-        <div
-          className={
-            isMobile ? "calendarLogo calendarLogo--mobile" : "calendarLogo"
-          }
-        >
-          <Logoimg className="calendarLogoImg" />
-          <span className="currentYear">{currentYear}</span>
-        </div>
         {/* 월 표시 그리드 파트 */}
         <section className="monthGrid">
           <div className="monthCell monthCell--spacer" aria-hidden="true" />
-          {months.map(({ month, name }) => (
+          {monthsArray.map(({ month, name }) => (
             <MonthCell
               key={month}
               month={month}
               name={name}
-              isActive={activeMonth === month}
+              isActive={
+                isMobile ? month === currentMonth : month === currentActiveMonth
+              }
               isMobile={isMobile}
+              onChangeMonth={onChangeMonth}
             />
           ))}
         </section>

@@ -1,15 +1,18 @@
 import ExhibitionTag from "components/main/calendar/ExhibitionTag";
-import { format } from "date-fns";
 
-const months = Array.from({ length: 12 }, (_, idx) => ({
-  month: idx + 1,
-  label: format(new Date(2000, idx, 1), "MMMM"),
-}));
-
-export default function CalendarMobileList({ exhibitions = {} }) {
+export default function CalendarMobileList({
+  exhibitions = {},
+  selectedMonth = 1,
+  monthsArray = null,
+}) {
+  const offset = (selectedMonth - 1) * 100;
   return (
-    <section className="calendarMobileList" aria-label="월별 전시 일정">
-      {months.map(({ month, label }) => {
+    <section
+      className="calendarMobileList"
+      aria-label="월별 전시 일정"
+      style={{ transform: `translateX(-${offset}vw)` }}
+    >
+      {monthsArray.map(({ month }) => {
         const openKey = `${month}m-start`;
         const closeKey = `${month}m-end`;
         const openList = exhibitions[openKey] || [];
@@ -18,7 +21,6 @@ export default function CalendarMobileList({ exhibitions = {} }) {
         return (
           // 각 월별 카드
 
-          // TODO-1-2 : 부모의 상태에 따라 translateX 조절 필요 (2월이면 오른쪽으로 100vw 만큼, 3월이면 200vw 만큼)
           <article key={month} className="calendarMobileCard">
             {/* upperSection */}
             <div className="calendarMobileSection">
