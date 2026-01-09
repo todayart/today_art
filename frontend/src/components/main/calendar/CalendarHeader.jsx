@@ -30,9 +30,17 @@ export default function CalendarHeader({ activeMonth = null }) {
   return (
     <section className="commonHeader">
       <Header />
-      <div className="selectBox">
+      <div
+        className="selectBox"
+        // TODO-1 추후 ~월 다음 버튼을 통해 +100vw, -100vw로 이동하는 기능 추가 예정
+        style={isMobile ? { transform: "translateX(-100vw)" } : {}}
+      >
         {/* 로고 파트 */}
-        <div className="calendarLogo">
+        <div
+          className={
+            isMobile ? "calendarLogo calendarLogo--mobile" : "calendarLogo"
+          }
+        >
           <Logoimg className="calendarLogoImg" />
           <span className="currentYear">{currentYear}</span>
         </div>

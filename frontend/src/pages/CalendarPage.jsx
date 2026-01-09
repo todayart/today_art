@@ -16,6 +16,9 @@ export default function CalendarPage() {
   // 현재 활성화된 월을 상태로 관리
   const [activeMonth, setActiveMonth] = useState(null);
   const isMobile = useMobile();
+
+  // TODO-1-3 : 현재 월(getMonth())로 초기값 설정된 상태가 필요하고, header의 이전/다음 버튼 클릭 시 해당 상태를 -1/+1 해주는 기능이 필요
+
   // useEffect나 커스텀훅으로 내용을 작성
   useEffect(() => {
     // eslint-disable-next-line react-hooks/exhaustive-deps

@@ -12,6 +12,7 @@ export default function MonthCell({ month, name, isActive, isMobile }) {
       aria-current={isActive ? "date" : undefined}
     >
       {isMobile && (
+        // TODO-1 : 이전 버튼 클릭 시 부모 상태에게 -1
         <SvgButton
           icon={calendarArrow}
           className="monthNavButton"
@@ -24,6 +25,7 @@ export default function MonthCell({ month, name, isActive, isMobile }) {
         <span className="monthNumber">{monthNumber}</span>
       </div>
       {isMobile && (
+        // TODO-1 : 다음 버튼 클릭 시 부모 상태에게 +1
         <SvgButton
           icon={calendarArrow}
           className="monthNavButton reverse"

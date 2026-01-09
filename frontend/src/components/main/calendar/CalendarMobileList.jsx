@@ -18,8 +18,7 @@ export default function CalendarMobileList({ exhibitions = {} }) {
         return (
           // 각 월별 카드
 
-          // TODO-1 : 트리거(CalendarHeader의 모바일 분기의 svg 버튼)가 눌리면 calendarMobileCard에 overflowHidden 옵션이 있고, 부모인 List는 세로로 되어 있다. 추후 monthCell 내부에 좌우 버튼을 추가할 예정이며, 각 버튼을 누르면 monthCell은 좌측 또는 우측으로 100vw씩 이동하고, section.calendarMobileList는 상하로 calc(100vh - var(--commonHeader-height))만큼 이동하는 기능을 추가해야함.
-
+          // TODO-1-2 : 부모의 상태에 따라 translateX 조절 필요 (2월이면 오른쪽으로 100vw 만큼, 3월이면 200vw 만큼)
           <article key={month} className="calendarMobileCard">
             {/* upperSection */}
             <div className="calendarMobileSection">
