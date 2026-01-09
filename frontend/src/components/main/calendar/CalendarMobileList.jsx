@@ -3,7 +3,7 @@ import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 export default function CalendarMobileList({
   exhibitions = {},
   selectedMonth = 1,
-  monthsArray = null,
+  monthsArray = [],
 }) {
   const offset = (selectedMonth - 1) * 100;
   return (

@@ -56,10 +56,10 @@ export default function CalendarHeader({
               key={month}
               month={month}
               name={name}
-              isActive={
-                isMobile ? month === currentMonth : month === currentActiveMonth
-              }
+              isActive={month === currentActiveMonth}
+              isCurrent={isMobile && month === currentMonth}
               isMobile={isMobile}
+              isSelected={isMobile && month === selectedMonth}
               onChangeMonth={onChangeMonth}
             />
           ))}

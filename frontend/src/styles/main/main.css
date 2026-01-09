@@ -381,6 +381,12 @@
   .calendarBoard {
     overflow: hidden;
   }
+  section.monthGrid > .monthCell.is-active {
+    background-color: transparent;
+  }
+  section.monthGrid > .monthCell.is-current.is-active {
+    background-color: rgba(var(--selected-rgb), var(--selected-opacity));
+  }
 }
 
 /* 테블릿 + pc */
@@ -1173,4 +1179,8 @@ main.contentsWrapper {
   display: flex;
   flex-direction: column;
   row-gap: 3px;
+}
+
+.is-current {
+  background-color: rgba(var(--selected-rgb), var(--selected-opacity));
 }

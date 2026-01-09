@@ -8,7 +8,9 @@ export default function MonthCell({
   month,
   name,
   isActive,
+  isCurrent,
   isMobile,
+  isSelected,
   onChangeMonth,
 }) {
   const monthNumber = month.toString().padStart(2, "0");
@@ -18,10 +20,12 @@ export default function MonthCell({
 
   return (
     <div
-      className={`monthCell${isActive ? " is-active" : ""}`}
+      className={`monthCell${isActive ? " is-active" : ""}${
+        isCurrent ? " is-current" : ""
+      }`}
       aria-current={isActive ? "date" : undefined}
     >
-      {isMobile && (
+      {isMobile && isSelected && (
         <SvgButton
           icon={calendarArrow}
           className="monthNavButton"
@@ -35,7 +39,7 @@ export default function MonthCell({
         <span className="monthName">{name}</span>
         <span className="monthNumber">{monthNumber}</span>
       </div>
-      {isMobile && (
+      {isMobile && isSelected && (
         <SvgButton
           icon={calendarArrow}
           className="monthNavButton reverse"
