@@ -364,12 +364,22 @@
   div.calendarCell div.innerCell:hover {
     width: 100%;
   }
-
   section.monthGrid {
     width: 1300vw;
   }
   section.monthGrid > div.monthCell {
     width: 100vw;
+  }
+  section.commonHeader > div.selectBox {
+    justify-content: flex-start;
+  }
+  .calendarLogo.calendarLogo--mobile {
+    position: absolute;
+    left: calc(100vw + 28px);
+    top: -156px;
+  }
+  .calendarBoard {
+    overflow: hidden;
   }
 }
 
@@ -1122,11 +1132,12 @@ main.contentsWrapper {
 
 /* Calendar Mobile List (캘린더 모바일 리스트) */
 .calendarMobileList {
-  width: 100vw;
+  width: 1200vw;
+  display: flex;
 }
 
 .calendarMobileCard {
-  width: 100%;
+  width: 100vw;
   height: calc(100vh - var(--commonHeader-height));
   overflow: hidden;
 }
