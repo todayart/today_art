@@ -7,6 +7,7 @@ import PeriodInput from "components/Input/PeriodInput";
 import SvgButton from "components/common/SvgButton";
 
 import CommonResetIcon from "assets/common/commonResetIcon.svg";
+import MobileModalCloseIcon from "assets/main/nextBtn.svg";
 
 export default function FilterUiHeader({
   term,
@@ -18,9 +19,16 @@ export default function FilterUiHeader({
   endDate,
   onDateRangeChange,
   onReset,
+  // 모바일 전용
+  onMobileModalShow,
+  isMobile,
+  isDetail,
 }) {
   return (
-    <CommonHeader>
+    <CommonHeader
+      className={isMobile && isDetail ? "commonHeader--mobileDetail" : ""}
+      selectBoxClassName={isMobile && isDetail ? "selectBox--mobileDetail" : ""}
+    >
       <CommonSelect
         labelContents="카테고리"
         labels={urlMeta.headerLinks[1].category}
@@ -33,17 +41,27 @@ export default function FilterUiHeader({
         eValue={endDate}
         onRangeChange={onDateRangeChange}
       />
-      <SmallSearchInput
-        value={term}
-        onChange={setTerm}
-        onSearch={onSearch}
-        placeholder="검색어를 입력하세요"
-      />
-      <SvgButton
-        icon={CommonResetIcon}
-        label="필터 초기화 버튼"
-        onClick={onReset}
-      />
+      <div className="smallSearchInputWrapper">
+        <SmallSearchInput
+          value={term}
+          onChange={setTerm}
+          onSearch={onSearch}
+          placeholder="검색어를 입력하세요"
+        />
+        <SvgButton
+          icon={CommonResetIcon}
+          label="필터 초기화 버튼"
+          onClick={onReset}
+        />
+      </div>
+      {isMobile && isDetail && (
+        <SvgButton
+          icon={MobileModalCloseIcon}
+          className={"mobileModalCloseIcon--mobileDetail"}
+          label="모바일 필터 모달 최소화 버튼"
+          onClick={onMobileModalShow}
+        />
+      )}
     </CommonHeader>
   );
 }

@@ -22,11 +22,7 @@ export default function CalendarMobileView({
         monthsArray={monthsArray}
       />
       <section className="calendarBoard">
-        <CalendarStatus 
-          loading={loading} 
-          error={error} 
-          onRetry={onRetry} 
-        />
+        <CalendarStatus loading={loading} error={error} onRetry={onRetry} />
         {!loading && !error && (
           <CalendarMobileList
             exhibitions={exhibitions}

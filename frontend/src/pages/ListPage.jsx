@@ -80,6 +80,12 @@ export default function ListPage() {
         endDate={endDate}
         onDateRangeChange={onDateRangeChange}
         onReset={onReset}
+        // 모바일 디테일 전용
+        isMobile={isMobile}
+        isDetail={isDetail}
+        onMobileModalShow={() => {
+          console.log("모바일 모달 열기");
+        }}
       />
 
       {isDetail ? (
