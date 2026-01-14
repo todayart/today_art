@@ -10,7 +10,7 @@ import { getCurrentMonth, getCurrentYear } from "utils/calendar";
 
 export default function CalendarHeader({
   activeMonth = null,
-  selectedMonth = null,
+  selectedMonth = 1,
   onChangeMonth,
   monthsArray = [],
 }) {

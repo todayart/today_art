@@ -1,3 +1,6 @@
+// src/components/main/calendar/CalendarFixedCell.jsx
+// 캘린더 고정 셀 컴포넌트 (왼쪽 열: OPEN, CLOSE 및 월별 전시 태그)
+
 import CalendarCell from "components/main/calendar/CalendarCell";
 import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
@@ -5,6 +8,7 @@ export default function CalendarFixedCell({
   exhibitions,
   onHoverMonth,
   onLeaveMonth,
+  monthsArray = [],
 }) {
   return (
     <main className="calendarWrapper">
@@ -23,9 +27,10 @@ export default function CalendarFixedCell({
       ))}
 
       {/* 반복문 설명 : 2열부터 13열: 각 월에 대한 그리드 셀, 배열에 index만 필요하니 _를 사용해서 map을 활용함*/}
-      {Array.from({ length: 12 }).map((_, monthIndex) =>
+      {monthsArray.map((_, monthIndex) =>
         Array.from({ length: 2 }).map((_, rowIndex) => {
-          const id = `${monthIndex + 1}m-${rowIndex === 0 ? "start" : "end"}`;
+          const month = monthIndex + 1;
+          const id = `${month}m-${rowIndex === 0 ? "start" : "end"}`;
           return (
             <CalendarCell
               key={id}
