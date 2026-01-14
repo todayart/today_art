@@ -7,8 +7,9 @@
  * @async
  * @function fetchData
  * @param {string} url - 데이터를 가져올 URL입니다.
+ * @param {Object} [options={}] - fetch 요청에 사용할 옵션 객체입니다.
  * @returns {Promise<any>} JSON 데이터를 포함하는 프로미스를 반환합니다.
- * @throws {Error} 네트워크 요청 실패 혹은 응답이 정상적이지 않을 경우 예외를 발생시킵니다.
+ * @throws {Error} 네트워크 요청 실패 시 예외를 발생시킵니다.
  *
  * @example
  * fetchData('https://api.example.com/data')
@@ -19,10 +20,10 @@
  *     console.error('데이터를 가져오는 중 오류 발생:', error);
  *   });
  */
-export const fetchData = async (url) => {
+export const fetchData = async (url, options = {}) => {
   try {
     console.log("FetchData Url :", url);
-    const response = await fetch(url);
+    const response = await fetch(url, options);
     if (!response.ok) {
       console.error("Fetch 에러:", response.statusText);
       // throw new Error("Network response was not ok");
