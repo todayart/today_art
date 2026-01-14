@@ -373,11 +373,11 @@
   section.commonHeader > div.selectBox {
     justify-content: flex-start;
   }
-  .calendarLogo.calendarLogo--mobile {
-    /* position: absolute;
+  /* .calendarLogo.calendarLogo--mobile {
+    position: absolute;
     left: 28px;
-    top: 30px; */
-  }
+    top: 30px;
+  } */
   .calendarBoard {
     overflow: hidden;
   }
@@ -1121,6 +1121,26 @@ main.contentsWrapper {
 .calendarCell[id="12m-start"] .innerCell:hover,
 .calendarCell[id="12m-end"] .innerCell:hover {
   left: -200%;
+}
+
+.calendarStatus {
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  color: var(--calendarLogoFont);
+  font-size: 14px;
+}
+
+.calendarStatusButton {
+  border: 1px solid var(--borderColor);
+  background: transparent;
+  color: var(--font);
+  padding: 6px 12px;
+  cursor: pointer;
 }
 
 /* .calendarCell > .innerCell > .exhibitionTag { */
