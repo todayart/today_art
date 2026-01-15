@@ -157,7 +157,7 @@ export default function ListPage() {
                     type="button"
                     className="mobileButton bg-tr mobileMapBtn"
                     icon={mapIcon}
-                    ariaLabel="지도 보기"
+                    aria-label="지도 보기"
                   />
                   <SvgButton
                     type="button"
@@ -166,7 +166,7 @@ export default function ListPage() {
                     onClick={onToggleMobileFilterModal}
                     aria-controls="mobileFilterSelectBox"
                     aria-expanded={isMobileFilterModalOpen}
-                    ariaLabel="필터 모달 열기"
+                    aria-label="필터 모달 열기"
                     ref={mobileFilterButtonRef}
                   />
                   <button

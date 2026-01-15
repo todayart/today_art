@@ -11,7 +11,6 @@ import { ReactSVG } from "react-svg";
  * @param {Function} [props.onClick=() => {}] - 버튼 클릭 시 실행될 콜백 함수
  * @param {string} [props.className=""] - 추가적으로 적용할 CSS 클래스명
  * @param {boolean} [props.disabled=false] - 버튼 비활성화 여부
- * @param {string} [props.ariaLabel=""] - ARIA 레이블 (접근성 향상을 위한 추가 설명)
  * @param {Object} rest - 버튼 요소에 전달될 추가 HTML 속성들
  * @param {React.Ref} ref - 버튼 요소에 대한 ref
  * @returns {JSX.Element} SVG 아이콘이 포함된 버튼 컴포넌트
@@ -21,7 +20,6 @@ import { ReactSVG } from "react-svg";
  *   icon="/icons/menu.svg"
  *   label="메뉴 열기"
  *   onClick={handleMenuClick}
- *   ariaLabel="메인 메뉴"
  * />
  */
 const SvgButton = forwardRef(
@@ -32,7 +30,6 @@ const SvgButton = forwardRef(
       onClick = () => {},
       className = "",
       disabled = false,
-      ariaLabel = "",
       ...rest
     },
     ref
@@ -40,7 +37,6 @@ const SvgButton = forwardRef(
     return (
       <button
         ref={ref}
-        aria-label={ariaLabel}
         className={`iconButton ${className}`}
         onClick={onClick}
         disabled={disabled}

@@ -49,7 +49,7 @@ const SmallSearchInput = ({
       {/* 검색 버튼 */}
       <SvgButton
         icon={CommonSearchIcon}
-        ariaLabel="검색"
+        aria-label="검색"
         onClick={onSearch}
         className="smallSearchButton"
       />

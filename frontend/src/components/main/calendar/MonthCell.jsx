@@ -30,7 +30,7 @@ export default function MonthCell({
           icon={calendarArrow}
           className="monthNavButton"
           label={`${monthNumber}월 이전`}
-          ariaLabel={`${monthNumber}월 이전`}
+          aria-label={`${monthNumber}월 이전`}
           onClick={() => onChangeMonth?.(month - 1)}
           disabled={!canGoPrev}
         />
@@ -44,7 +44,7 @@ export default function MonthCell({
           icon={calendarArrow}
           className="monthNavButton reverse"
           label={`${monthNumber}월 다음`}
-          ariaLabel={`${monthNumber}월 다음`}
+          aria-label={`${monthNumber}월 다음`}
           onClick={() => onChangeMonth?.(month + 1)}
           disabled={!canGoNext}
         />
