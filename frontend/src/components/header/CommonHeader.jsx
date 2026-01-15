@@ -5,6 +5,7 @@ export default function CommonHeader({
   children,
   selectBoxClassName = "",
   className = "",
+  selectBoxId = "",
 }) {
   return (
     <div className={`commonHeader ${className}`}>
@@ -13,7 +14,10 @@ export default function CommonHeader({
         className="commonHeaderLogoImg"
         wrapperClassName="commonHeaderLogoHeading"
       />
-      <div className={`selectBox flexCenter ${selectBoxClassName}`}>
+      <div
+        id={selectBoxId || undefined}
+        className={`selectBox flexCenter ${selectBoxClassName}`}
+      >
         <div className="selectScroller">{children}</div>
       </div>
     </div>

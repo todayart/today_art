@@ -20,14 +20,25 @@ export default function FilterUiHeader({
   onDateRangeChange,
   onReset,
   // 모바일 전용
-  onMobileModalShow,
+  onToggleMobileFilterModal,
   isMobile,
   isDetail,
+  // 모바일 필터 모달 열림 상태
+  isMobileFilterModalOpen,
+  closeButtonRef,
 }) {
+  const isMobileDetail = isMobile && isDetail;
+  const headerClassName = isMobileDetail ? "commonHeader--mobileDetail" : "";
+  const selectBoxClassName = isMobileDetail
+    ? `selectBox--mobileDetail${
+        isMobileFilterModalOpen ? " commonHeader--modalOpen" : ""
+      }`
+    : "";
   return (
     <CommonHeader
-      className={isMobile && isDetail ? "commonHeader--mobileDetail" : ""}
-      selectBoxClassName={isMobile && isDetail ? "selectBox--mobileDetail" : ""}
+      className={headerClassName}
+      selectBoxClassName={selectBoxClassName}
+      selectBoxId={isMobileDetail ? "mobileFilterSelectBox" : ""}
     >
       <CommonSelect
         labelContents="카테고리"
@@ -54,12 +65,15 @@ export default function FilterUiHeader({
           onClick={onReset}
         />
       </div>
-      {isMobile && isDetail && (
+      {isMobileDetail && isMobileFilterModalOpen && (
         <SvgButton
           icon={MobileModalCloseIcon}
           className={"mobileModalCloseIcon--mobileDetail"}
           label="모바일 필터 모달 최소화 버튼"
-          onClick={onMobileModalShow}
+          onClick={onToggleMobileFilterModal}
+          aria-controls="mobileFilterSelectBox"
+          aria-expanded={isMobileFilterModalOpen}
+          ref={closeButtonRef}
         />
       )}
     </CommonHeader>
