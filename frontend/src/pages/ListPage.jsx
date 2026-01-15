@@ -164,8 +164,8 @@ export default function ListPage() {
                     className="mobileButton bg-tr mobileFilterModalBtn"
                     icon={searchIcon}
                     onClick={onToggleMobileFilterModal}
-                    ariaControls="mobileFilterSelectBox"
-                    ariaExpanded={isMobileFilterModalOpen}
+                    aria-controls="mobileFilterSelectBox"
+                    aria-expanded={isMobileFilterModalOpen}
                     ariaLabel="필터 모달 열기"
                     ref={mobileFilterButtonRef}
                   />

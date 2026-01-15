@@ -1,9 +1,31 @@
 // src/components/mobile/MobileDetailCard.jsx
+import { useRef, useState } from "react";
+import Tooltip from "components/common/Tooltip";
+
 export default function MobileDetailCard({
   title,
   details = [{ label: "", value: "" }],
   imageUrl,
 }) {
+  const [showTooltip, setShowTooltip] = useState(false);
+  const pressTimerRef = useRef(null);
+
+  const handlePressStart = () => {
+    if (pressTimerRef.current) return;
+    pressTimerRef.current = setTimeout(() => {
+      setShowTooltip(true);
+      pressTimerRef.current = null;
+    }, 600);
+  };
+
+  const handlePressEnd = () => {
+    if (pressTimerRef.current) {
+      clearTimeout(pressTimerRef.current);
+      pressTimerRef.current = null;
+    }
+    setShowTooltip(false);
+  };
+
   return (
     <div className="mobileDetailCard flexCenter">
       {/* 이미지와 콘텐츠 사이 간격 74px */}
@@ -14,7 +36,18 @@ export default function MobileDetailCard({
         {/* 우측 콘텐츠: 제목과 리스트 */}
         <div className="detailCardText">
           {/* 제목과 리스트 사이 31px */}
-          <h2>{title}</h2>
+          <div
+            className="longPressTarget"
+            onTouchStart={handlePressStart}
+            onTouchEnd={handlePressEnd}
+            onTouchMove={handlePressEnd}
+            onTouchCancel={handlePressEnd}
+          >
+            <h2>{title}</h2>
+            {showTooltip && (
+              <Tooltip className="longPressTooltip">{title}</Tooltip>
+            )}
+          </div>
 
           <ul>
             {details

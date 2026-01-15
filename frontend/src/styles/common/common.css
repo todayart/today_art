@@ -512,6 +512,29 @@ nav > ul.navBox > li > a > svg {
   z-index: 5;
 }
 
+.tooltip.longPressTooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  z-index: 10;
+  display: inline-block;
+  width: max-content;
+  max-width: calc(100vw - 40px);
+  white-space: normal;
+  text-align: center;
+  line-height: 1.1;
+  /* word-break: keep-all;
+  overflow-wrap: break-word; */
+}
+
+.longPressTarget {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
 .navItem:hover .tooltip.navTooltip,
 .navItem:focus-within .tooltip.navTooltip {
   opacity: 1;
