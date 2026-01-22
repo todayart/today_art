@@ -20,6 +20,14 @@
   /* commonHeader height - 캘린더모바일카드의 높이에 관련됨 */
   --commonHeader-height: 294px;
 }
+/* ************** 테마 속성 ***********************/
+/* 맵 아이콘 */
+.mobileMapBtn .map-icon__bg {
+  color: var(--font);
+}
+.mobileMapBtn .map-icon__fg {
+  color: var(--font-wh);
+} 
 
 /********************* 반응형 *********************/
 /* 데스크탑 */
@@ -96,28 +104,28 @@
   div.commonHeader > .selectBox > .selectScroller {
     padding: 0 24px;
     justify-content: space-between;
-    gap : 0;
+    gap: 0;
   }
   div.selectWrapper {
-    width : 24vw;
-    gap : 8px;
+    width: 24vw;
+    gap: 8px;
   }
   div.selectWrapper > .commonTitleText {
-    width : 83px; 
+    width: 83px;
   }
   div.selectWrapper > .commonSelect {
-    width : 100%;
+    width: 100%;
   }
 
   div.periodInputWrapper {
-    width : 36vw;
-    justify-content : center;
+    width: 36vw;
+    justify-content: center;
   }
   div.periodInputWrapper > .dateSeparator {
-    margin : 0 4px;
+    margin: 0 4px;
   }
   div.periodInputWrapper > .datePickerBox {
-    width : 12.5vw;
+    width: 12.5vw;
   }
   div.datepickerInputWrapper .periodInput {
     width: 100%;
@@ -125,47 +133,45 @@
 
   div.smallSearchWrapper {
     width: 28vw;
-    gap : 0;
+    gap: 0;
   }
   div.smallSearchWrapper .commonTitleText {
-    width : 83px;
+    width: 83px;
   }
   div.smallSearchWrapper > .smallSearchInput {
-    width : 100%;
+    width: 100%;
     margin-right: 8px;
   }
-  
-  /* *Detail 페이지 테블릿 커스텀----- */  
+
+  /* *Detail 페이지 테블릿 커스텀----- */
   main.contentsWrapper {
     height: calc(100vh - 294px);
-    padding-bottom : 24px;
+    padding-bottom: 24px;
   }
   div.detailCard {
-    width : calc(100% - 48px);
+    width: calc(100% - 48px);
     height: fit-content;
     padding: 8vw 19vw;
-    margin-bottom : 100px;
+    margin-bottom: 100px;
   }
   div.detailCard .detailCardContent {
-    gap : 24px;
-    flex-direction : column
+    gap: 24px;
+    flex-direction: column;
   }
   div.detailCard .detailCardContent > img {
-    margin : 0 auto;
+    margin: 0 auto;
   }
 
   /* 테이블 디테일 페이지 폰트 사이즈 +2 */
   div.detailCardContent .detailCardText h2 {
-    font-size : 26px;
+    font-size: 26px;
   }
   div.detailCardContent .detailCardText ul li span:first-child {
-    font-size : 18px;
+    font-size: 18px;
   }
   div.detailCardContent .detailCardText ul li span:last-child {
-    font-size : 16px;
+    font-size: 16px;
   }
-  
-  
 }
 
 /* 모바일 393x776 */
