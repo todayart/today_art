@@ -29,6 +29,43 @@
 .mobileMapBtn .map-icon__fg {
   color: var(--font-wh);
 }
+/* 리셋 아이콘 */
+.reset-icon__bg {
+  color: var(--font);
+}
+.reset-icon__fg {
+  color: var(--font-wh);
+}
+/* 검색 아이콘 */
+.search-icon__bg {
+  color: var(--font);
+}
+.search-icon__fg {
+  color: var(--font-wh);
+}
+
+/* 어두운 테마일 땐 */
+/* todo : 나중에 dark-theme 클래스 추가해야함 */
+.dark-theme .map-icon__bg {
+  color: var(--font-wh);
+}
+.dark-theme .map-icon__fg {
+  color: var(--font);
+}
+/* 리셋 아이콘 */
+.dark-theme .reset-icon__bg {
+  color: var(--font);
+}
+.dark-theme .reset-icon__fg {
+  color: var(--font-wh);
+}
+/* 검색 아이콘 */
+.dark-theme .search-icon__bg {
+  color: var(--font);
+}
+.dark-theme .search-icon__fg {
+  color: var(--font-wh);
+}
 
 /********************* 반응형 *********************/
 /* 데스크탑 */
@@ -439,7 +476,7 @@
     height: 160px;
     position: relative;
     overflow: visible;
-    background: var(--thema-mobile-menu);
+    background: var(--theme-mobile-menu);
   }
   .commonHeader > .selectBox.selectBox--mobileDetail > .selectScroller {
     position: fixed;
@@ -462,7 +499,7 @@
     transition: max-height 0.2s ease, opacity 0.2s ease, transform 0.2s ease,
       visibility 0s linear 0.2s;
 
-    background: var(--thema-mobile-menu);
+    background: var(--theme-mobile-menu);
   }
   .commonHeader
     > .selectBox.selectBox--mobileDetail.commonHeader--modalOpen
@@ -1281,7 +1318,7 @@ div.imgBox > img {
 .exhibitionTag {
   display: flex;
   padding: 4px 12px;
-  background-color: var(--thema);
+  background-color: var(--theme);
   color: var(--font);
   font-size: 14px;
   overflow: hidden;

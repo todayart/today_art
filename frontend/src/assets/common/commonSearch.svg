@@ -6,19 +6,22 @@
           fill="none"
         >
           <rect
+            class="search-icon__bg"
             x="0.5"
             y="0.5"
             width="33"
             height="33"
             rx="3.5"
-            fill="#444444"
-            stroke="#444444"
+            fill="currentColor"
+            stroke="currentColor"
           />
-          <circle cx="16" cy="15" r="6.5" stroke="white" />
+          <g class="search-icon__fg">
+          <circle cx="16" cy="15" r="6.5" stroke="currentColor" />
           <path
             d="M19.6846 21.2632L22.6319 26.0526"
-            stroke="white"
+            stroke="currentColor"
             stroke-linecap="round"
             stroke-linejoin="round"
           />
+          </g>
         </svg>
