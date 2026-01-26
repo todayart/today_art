@@ -2,6 +2,7 @@
   "navLinks": [
     {
       "name": "HOME",
+      "type": "link",
       "url": "/",
       "icon": "HomeSvg",
       "className": "",
@@ -9,13 +10,22 @@
     },
     {
       "name": "CALENDAR",
+      "type": "link",
       "url": "/calendar",
       "icon": "CalendarSvg",
       "className": "",
       "tooltip": "달력 보기"
     },
     {
+      "name": "THEMA",
+      "type": "action",
+      "icon": "ColorThemaIconSvg",
+      "className": "",
+      "tooltip": "테마 선택"
+    },
+    {
       "name": "USER",
+      "type": "link",
       "url": "#",
       "icon": "UserSvg",
       "className": "eventDisable",
@@ -23,6 +33,7 @@
     },
     {
       "name": "WISH",
+      "type": "link",
       "url": "#",
       "icon": "WishSvg",
       "className": "eventDisable",
@@ -30,6 +41,7 @@
     },
     {
       "name": "INFO",
+      "type": "link",
       "url": "#",
       "icon": "QuestionSvg",
       "className": "eventDisable",
