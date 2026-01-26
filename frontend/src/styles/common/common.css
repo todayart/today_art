@@ -31,34 +31,24 @@
 }
 
 /* 어두운 계열 테마 */
-:root[color-theme="dark"] {
+:root[color-theme^="dark"] {
   --theme: #2f2f2f;
   --background: #2f2f2f;
   --font: #ffffff;
   --font-wh: #444444;
-  --ui-background: #fff;
-  --bordercolor: #fff;
-  ----selector-border: #ffffff;
+  --ui-background: #ffffff;
+  --bordercolor: #ffffff;
+  --selector-border: #ffffff;
 }
 
 :root[color-theme="dark--green"] {
   --theme: #3d7758;
   --background: #3d7758;
-  --font: #ffffff;
-  --font-wh: #444444;
-  --ui-background: #fff;
-  --bordercolor: #fff;
-  ----selector-border: #ffffff;
 }
 
 :root[color-theme="dark--navy"] {
   --theme: #2a355d;
   --background: #2a355d;
-  --font: #ffffff;
-  --font-wh: #444444;
-  --ui-background: #fff;
-  --bordercolor: #fff;
-  ----selector-border: #ffffff;
 }
 
 :root {
@@ -198,6 +188,10 @@ nav > ul.navBox > li > a {
 }
 nav > ul.navBox > li > a > svg {
   margin-left: 6px;
+}
+/* navBox > ReactSVG div 설정 */
+.navButton {
+  background-color: var(--theme);
 }
 .hamburgerBtn {
   background: transparent;
@@ -416,7 +410,9 @@ nav > ul.navBox > li > a > svg {
   justify-content: space-between;
   align-items: center;
   cursor: pointer;
-  transition: border-color 140ms ease, box-shadow 140ms ease;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
 }
 .customSelect__button:focus-visible {
   outline: none;
@@ -455,7 +451,9 @@ nav > ul.navBox > li > a > svg {
 .customSelect__option {
   padding: 0 12px;
   cursor: pointer;
-  transition: background-color 120ms ease, color 120ms ease;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
   background: var(--theme);
   height: 34px;
   /* 글자 왼쪽 상하 중앙 정렬 */
