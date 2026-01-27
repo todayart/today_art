@@ -15,6 +15,7 @@ import SvgButton from "components/common/SvgButton";
  * @param {Object.<string, string>} props.icons - 아이콘 키를 SVG 경로(src)로 매핑한 객체 (예: { home: '/icons/home.svg' }).
  * @param {string|React.ReactNode} props.cancelIcon - 닫기 버튼에 사용할 아이콘(경로 문자열 또는 React 요소).
  * @param {function(): void} props.onClose - 메뉴를 닫을 때 호출되는 콜백 함수.
+ * @param {function(Object): void} [props.onAction] - action 타입 메뉴 클릭 시 호출되는 콜백 함수.
  * @param {React.RefObject<HTMLElement>} props.menuPanelRef - 메뉴 패널에 전달되는 ref (포커스 관리나 접근성 처리용).
  *
  * @returns {JSX.Element} 렌더된 모바일 메뉴 요소
@@ -36,6 +37,7 @@ const MobileMenu = ({
   icons,
   cancelIcon,
   onClose,
+  onAction,
   menuPanelRef,
 }) => {
   return (
@@ -71,10 +73,25 @@ const MobileMenu = ({
             return (
               <li key={link.name}>
                 {/* TODO : TAB 포커스 이동 검토 */}
-                <a role="menuitem" href={link.url} onClick={onClose}>
-                  {iconSrc && <ReactSVG src={iconSrc} />}
-                  {link.name}
-                </a>
+                {link.type === "action" ? (
+                  <button
+                    type="button"
+                    role="menuitem"
+                    className="mobileMenuAction"
+                    onClick={() => {
+                      onClose();
+                      onAction?.(link);
+                    }}
+                  >
+                    {iconSrc && <ReactSVG src={iconSrc} />}
+                    {link.name}
+                  </button>
+                ) : (
+                  <a role="menuitem" href={link.url} onClick={onClose}>
+                    {iconSrc && <ReactSVG src={iconSrc} />}
+                    {link.name}
+                  </a>
+                )}
               </li>
             );
           })}
