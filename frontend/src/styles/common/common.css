@@ -200,6 +200,8 @@ nav > ul.navBox > li > a > svg {
   align-items: center;
   justify-content: center;
 }
+
+/* 모바일 메뉴 오버레이 */
 .mobileMenuOverlay {
   position: fixed;
   inset: 0;

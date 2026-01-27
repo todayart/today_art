@@ -98,6 +98,10 @@ export default function Nav() {
     event.preventDefault();
     setModalOpen(true);
   };
+  const handleMobileAction = (link) => {
+    if (link?.type !== "action") return;
+    setModalOpen(true);
+  };
   // 메뉴 토글 핸들러
   const toggleMenu = () => {
     setMobileMenuOpen((prev) => !prev);
@@ -130,7 +134,6 @@ export default function Nav() {
                   <button
                     role="menuitem"
                     className={`${link.className} ${link.icon}` || ""}
-                    // ! Issue : 핸들러를 하나로 합쳤더니 안된다.
                     onClick={(e) => handleModalClick(e, link)}
                   >
                     {svgSrc && <ReactSVG className="navButton" src={svgSrc} />}
@@ -144,6 +147,7 @@ export default function Nav() {
                     {svgSrc && <ReactSVG className="navA" src={svgSrc} />}
                   </a>
                 )}
+                {/* 툴팁 표기 */}
                 {link.tooltip && (
                   <Tooltip className="navTooltip">{link.tooltip}</Tooltip>
                 )}
@@ -160,20 +164,22 @@ export default function Nav() {
           icons={icons}
           cancelIcon={icons.mobileMenu.cancelIcon}
           onClose={() => setMobileMenuOpen(false)}
-          onAction={handleModalClick}
+          onAction={handleMobileAction}
           menuPanelRef={menuPanelRef}
         />
       )}
       {/* 테마 선택 모달 */}
-      <ThemeModal
-        isOpen={isModalOpen}
-        onClose={() => setModalOpen(false)}
-        currentTheme={currentTheme}
-        onSelect={(theme) => {
-          setCurrentTheme(theme);
-          setModalOpen(false);
-        }}
-      />
+      {isModalOpen && (
+        <ThemeModal
+          isOpen={isModalOpen}
+          onClose={() => setModalOpen(false)}
+          currentTheme={currentTheme}
+          onSelect={(theme) => {
+            setCurrentTheme(theme);
+            setModalOpen(false);
+          }}
+        />
+      )}
     </nav>
   );
 }
