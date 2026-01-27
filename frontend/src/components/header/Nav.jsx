@@ -5,6 +5,7 @@ import useMobile from "hooks/useMobile";
 import MobileMenu from "components/mobile/MobileMenu";
 import Tooltip from "components/common/Tooltip";
 import SvgButton from "components/common/SvgButton";
+import ThemeModal from "components/common/ThemeModal";
 
 const icons = {
   HomeSvg: require("../../assets/common/home.svg").default,
@@ -12,7 +13,7 @@ const icons = {
   UserSvg: require("../../assets/common/user.svg").default,
   WishSvg: require("../../assets/common/wish.svg").default,
   QuestionSvg: require("../../assets/common/question.svg").default,
-  ColorThemaIconSvg: require("../../assets/common/colorThemaIcon.svg").default,
+  ColorThemeIconSvg: require("../../assets/common/colorThemeIcon.svg").default,
   // 모바일 메뉴 아이콘
   mobileMenu: {
     hamburgerIcon: require("../../assets/common/mobile/hamburger.svg").default,
@@ -21,49 +22,49 @@ const icons = {
 };
 
 export default function Nav() {
-  // 테마 선택 모달 상태
+  // 테마 선택 전용 상태
   const [isModalOpen, setModalOpen] = useState(false);
+  const [currentTheme, setCurrentTheme] = useState("default");
 
   // 모바일 전용 상태
   const isMobile = useMobile();
-  const [menuOpen, setMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const menuPanelRef = useRef(null);
   const toggleRef = useRef(null);
 
   // * 모바일 전용: 뷰포트 변경 시 메뉴 닫기 ----------------
   useEffect(() => {
     // 모바일이 아닐 때는 메뉴를 닫아 상태를 정리한다.
-    if (!isMobile && menuOpen) {
-      setMenuOpen(false);
+    if (!isMobile && mobileMenuOpen) {
+      setMobileMenuOpen(false);
     }
-  }, [isMobile, menuOpen]);
+  }, [isMobile, mobileMenuOpen]);
 
   useEffect(() => {
     const originalOverflow = document.body.style.overflow;
-    if (menuOpen) {
+    if (mobileMenuOpen) {
       document.body.style.overflow = "hidden";
     }
     return () => {
       document.body.style.overflow = originalOverflow;
     };
-  }, [menuOpen]);
+  }, [mobileMenuOpen]);
 
   // 메뉴 외부 클릭 및 ESC 키 처리
   useEffect(() => {
-    if (!menuOpen) return;
-
+    if (!mobileMenuOpen) return;
     const handlePointerDown = (event) => {
       const menuEl = menuPanelRef.current;
       const toggleEl = toggleRef.current;
       if (!menuEl) return;
       if (menuEl.contains(event.target)) return;
       if (toggleEl && toggleEl.contains(event.target)) return;
-      setMenuOpen(false);
+      setMobileMenuOpen(false);
     };
 
     const handleKeyDown = (event) => {
       if (event.key === "Escape") {
-        setMenuOpen(false);
+        setMobileMenuOpen(false);
       }
     };
 
@@ -74,18 +75,32 @@ export default function Nav() {
       document.removeEventListener("pointerdown", handlePointerDown);
       document.removeEventListener("keydown", handleKeyDown);
     };
-  }, [menuOpen]);
+  }, [mobileMenuOpen]);
 
-  // 메뉴 토글 핸들러
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
+  // * 테마 선택 처리 ----------------
+  // 초기 로드 시 로컬 스토리지에서 테마 정보 불러오기
+  useEffect(() => {
+    const savedTheme = window.localStorage.getItem("theme");
+    if (savedTheme) {
+      setCurrentTheme(savedTheme);
+    }
+  }, []);
+  // 테마 변경 처리
+  useEffect(() => {
+    document.documentElement.setAttribute("color-theme", currentTheme);
+    window.localStorage.setItem("theme", currentTheme);
+  }, [currentTheme]);
 
-  // * 네비게이션 링크 클릭 핸들러 ----------------
-  const handleNavClick = (event, link) => {
+  // * 핸들러 -------------------------------------
+  // 네비게이션 링크 클릭 핸들러 (테마 모달)
+  const handleModalClick = (event, link) => {
     if (link?.type !== "action") return;
     event.preventDefault();
     setModalOpen(true);
+  };
+  // 메뉴 토글 핸들러
+  const toggleMenu = () => {
+    setMobileMenuOpen((prev) => !prev);
   };
 
   return (
@@ -100,7 +115,7 @@ export default function Nav() {
               label="메뉴 열기"
               onClick={toggleMenu}
               className="hamburgerBtn"
-              aria-expanded={menuOpen}
+              aria-expanded={mobileMenuOpen}
               aria-controls="mobile-menu"
               aria-label="메뉴 열기"
             />
@@ -115,7 +130,8 @@ export default function Nav() {
                   <button
                     role="menuitem"
                     className={`${link.className} ${link.icon}` || ""}
-                    onClick={(event) => handleNavClick(event, link)}
+                    // ! Issue : 핸들러를 하나로 합쳤더니 안된다.
+                    onClick={(e) => handleModalClick(e, link)}
                   >
                     {svgSrc && <ReactSVG className="navButton" src={svgSrc} />}
                   </button>
@@ -139,16 +155,25 @@ export default function Nav() {
       {/* 모바일 레이아웃 메뉴 */}
       {isMobile && (
         <MobileMenu
-          isOpen={menuOpen}
+          isOpen={mobileMenuOpen}
           navLinks={urlMeta.navLinks}
           icons={icons}
           cancelIcon={icons.mobileMenu.cancelIcon}
-          onClose={() => setMenuOpen(false)}
+          onClose={() => setMobileMenuOpen(false)}
+          onAction={handleModalClick}
           menuPanelRef={menuPanelRef}
         />
       )}
       {/* 테마 선택 모달 */}
-      {isModalOpen && <div>모달 뷰</div>}
+      <ThemeModal
+        isOpen={isModalOpen}
+        onClose={() => setModalOpen(false)}
+        currentTheme={currentTheme}
+        onSelect={(theme) => {
+          setCurrentTheme(theme);
+          setModalOpen(false);
+        }}
+      />
     </nav>
   );
 }

@@ -98,7 +98,7 @@
     background-color: var(--theme-tablet);
   } */
   li.customSelect__option {
-    background: var(--theme-tablet);
+    background: var(--theme);
   }
 }
 /* 모바일 393x776 */
@@ -107,7 +107,7 @@
     background-color: var(--theme-mobile);
   } */
   li.customSelect__option {
-    background: var(--theme-mobile);
+    background: var(--theme);
   }
 }
 
@@ -210,7 +210,7 @@ nav > ul.navBox > li > a > svg {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  background: var(--theme-mobile);
+  background: var(--theme);
 }
 .mobileMenuOverlay .mobileMenuPanel {
   width: 100%;
@@ -256,6 +256,20 @@ nav > ul.navBox > li > a > svg {
   justify-content: flex-start;
   align-items: center;
   gap: 22px;
+}
+.mobileMenuOverlay .mobileMenuList li .mobileMenuAction {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 22px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--font-mobile-hamburgerMenu);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
 }
 /* svg 아이콘 wrapper 높이 */
 .mobileMenuOverlay .mobileMenuList li a > div > div {
@@ -627,7 +641,104 @@ nav > ul.navBox > li > a > svg {
   cursor: pointer;
 }
 
+/* Theme modal */
+.themeModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.45);
+}
+.themeModalPanel {
+  width: min(520px, calc(100vw - 40px));
+  background: var(--theme);
+  color: var(--font);
+  border: 1px solid var(--borderColor);
+  border-radius: 14px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+  padding: 20px 20px 18px 20px;
+}
+.themeModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+.themeModalHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+.themeModalClose {
+  border: 1px solid var(--borderColor);
+  background: transparent;
+  color: var(--font);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+.themeModalGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+.themeModalItem {
+  display: block;
+}
+.themeModalButton {
+  width: 100%;
+  border: 1px solid var(--borderColor);
+  background: transparent;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+.themeModalButton.is-active {
+  border-width: 2px;
+}
+.themeModalSwatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 1px solid var(--borderColor);
+  flex-shrink: 0;
+}
+.themeModalLabel {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--font);
+}
+.themeModalSwatch[data-theme="default"] {
+  background: #f1e6dd;
+}
+.themeModalSwatch[data-theme="pink"] {
+  background: #ffeef5;
+}
+.themeModalSwatch[data-theme="white"] {
+  background: #ffffff;
+}
+.themeModalSwatch[data-theme="dark"] {
+  background: #2f2f2f;
+}
+.themeModalSwatch[data-theme="dark--green"] {
+  background: #3d7758;
+}
+.themeModalSwatch[data-theme="dark--navy"] {
+  background: #2a355d;
+}
+
 /* react-datepicker 전용 */
 div.react-datepicker-popper {
   z-index: 10;
+}
+div.react-datepicker-wrapper {
+  width: 100%;
 }
