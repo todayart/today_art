@@ -863,6 +863,7 @@ div.imgBox > img {
 .smallSearchInputWrapper {
   display: flex;
   gap: 10px;
+  width: 100%;
 }
 .smallSearchWrapper {
   display: flex;
@@ -886,6 +887,7 @@ div.imgBox > img {
 .smallSearchWrapper .smallSearchInput {
   flex: 1; /* needs 남은 공간 차지 */
   height: 100%; /* should 컨테이너 높이에 맞추기 */
+  width: 100%;
   border: 1px solid var(--selector-border); /* needs 테두리 색상 */
   border-radius: 4px;
   outline: none; /* needs 포커스 시 outline 제거 */
@@ -921,7 +923,7 @@ div.imgBox > img {
 }
 .periodInputWrapper > .datePickerBox {
   position: relative;
-  width: 180px;
+  width: 100%;
 }
 .periodInputWrapper > .datePickerBox > .calendarIcon svg {
   width: 18px;

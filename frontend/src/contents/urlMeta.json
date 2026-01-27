@@ -19,7 +19,7 @@
     {
       "name": "THEMA",
       "type": "action",
-      "icon": "ColorThemaIconSvg",
+      "icon": "ColorThemeIconSvg",
       "className": "",
       "tooltip": "테마 선택"
     },
