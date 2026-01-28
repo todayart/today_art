@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -7,6 +7,22 @@
       name="description"
       content="Today Art - 경기도 안의 전시상황을 투데이 아트와 함께 살펴보세요"
     />
+    <script>
+      (function () {
+        try {
+          var allowed = {};
+          var theme = localStorage.getItem("theme");
+          if (!allowed[theme]) {
+            var prefersDark =
+              window.matchMedia &&
+              // prefers-color-scheme 미디어 특성을 사용하여 다크 모드 선호 여부 확인
+              window.matchMedia("(prefers-color-scheme: dark)").matches;
+            theme = prefersDark ? "dark" : "default";
+          }
+          document.documentElement.setAttribute("color-theme", theme);
+        } catch (e) {}
+      })();
+    </script>
     <title>Today Art</title>
   </head>
   <body>

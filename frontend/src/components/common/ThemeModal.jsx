@@ -1,13 +1,7 @@
 import { useEffect } from "react";
+import themeTokens from "contents/themeTokens.json";
 
-const DEFAULT_THEMES = [
-  { name: "기본", value: "default" },
-  { name: "핑크", value: "pink" },
-  { name: "화이트", value: "white" },
-  { name: "다크", value: "dark" },
-  { name: "다크 그린", value: "dark--green" },
-  { name: "다크 네이비", value: "dark--navy" },
-];
+const DEFAULT_THEMES = themeTokens.themes || themeTokens;
 
 export default function ThemeModal({
   isOpen,

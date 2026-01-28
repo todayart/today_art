@@ -24,7 +24,9 @@ const icons = {
 export default function Nav() {
   // 테마 선택 전용 상태
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState("default");
+  const [currentTheme, setCurrentTheme] = useState(() => {
+    return window.localStorage.getItem("theme") || "default";
+  });
 
   // 모바일 전용 상태
   const isMobile = useMobile();

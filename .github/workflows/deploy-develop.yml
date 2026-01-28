@@ -93,6 +93,11 @@ jobs:
           # CRA(react-scripts) 기준: 테스트 파일이 없어도 성공으로 처리
           npm run test -- --watch=false --passWithNoTests
 
+      - name: Check theme tokens
+        working-directory: frontend
+        run: |
+          npm run check:themes
+
       - name: Build frontend
         working-directory: frontend
         run: |
