@@ -70,6 +70,7 @@ const MobileMenu = ({
         <ul className="mobileMenuList">
           {navLinks.map((link) => {
             const iconSrc = icons[link.icon];
+            const label = link.tooltip || link.name;
             return (
               <li key={link.name}>
                 {/* TODO : TAB 포커스 이동 검토 */}
@@ -78,6 +79,7 @@ const MobileMenu = ({
                     type="button"
                     role="menuitem"
                     className="mobileMenuAction"
+                    aria-label={label}
                     onClick={() => {
                       onClose();
                       onAction?.(link);

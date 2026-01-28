@@ -17,7 +17,7 @@
       "tooltip": "달력 보기"
     },
     {
-      "name": "THEMA",
+      "name": "THEME",
       "type": "action",
       "icon": "ColorThemeIconSvg",
       "className": "",

@@ -94,7 +94,6 @@ export default function Nav() {
   }, [currentTheme]);
 
   // * 핸들러 -------------------------------------
-  // 네비게이션 링크 클릭 핸들러 (테마 모달)
   const handleModalClick = (event, link) => {
     if (link?.type !== "action") return;
     event.preventDefault();
@@ -136,6 +135,7 @@ export default function Nav() {
                   <button
                     role="menuitem"
                     className={`${link.className} ${link.icon}` || ""}
+                    aria-label={link.tooltip || link.name}
                     onClick={(e) => handleModalClick(e, link)}
                   >
                     {svgSrc && <ReactSVG className="navButton" src={svgSrc} />}
