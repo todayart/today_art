@@ -22,9 +22,10 @@
   --theme: #2f2f2f;
   --background: #2f2f2f;
   --font: #ffffff;
+  --calendarLogoFont : #ffffff;
   --font-wh: #444444;
   --ui-background: #ffffff;
-  --bordercolor: #ffffff;
+  --borderColor: #ffffff;
   --selector-border: #ffffff;
 }
 
@@ -58,7 +59,7 @@
   /* detail card 배경 */
   --detailCard-bg: rgba(217, 217, 217, 0.3);
   /* categoryBg 컬러 */
-  --categoryBg-Desktop: rgba(217, 217, 217, 0.3);
+  --categoryBg : rgba(217, 217, 217, 0.3);
   --categoryBg-Tablet: rgba(217, 217, 217, 0.2);
   /* commonHeader Selector, Input BorderLine 컬러 */
   --selector-border: #444;
@@ -250,6 +251,10 @@ nav > ul.navBox > li > a > svg {
   flex-direction: column;
   gap: 30px;
 }
+/* 모바일 메뉴 svg 컬러 고정 */
+.mobileMenuOverlay .mobileMenuList .commonSvg {
+  color : #444444;
+}
 
 .mobileMenuOverlay .mobileMenuList li a {
   display: flex;
@@ -427,6 +432,7 @@ nav > ul.navBox > li > a > svg {
   appearance: none;
   /* needs 드롭다운 기본 스타일 제거 */
   padding: 0 8px;
+  color: var(--font);
 }
 
 /* Custom Select */
@@ -675,7 +681,7 @@ nav > ul.navBox > li > a > svg {
   cursor: pointer;
 }
 
-/* Theme modal */
+/* * Theme modal ----------------------------------- */
 .themeModalOverlay {
   position: fixed;
   inset: 0;
@@ -749,41 +755,36 @@ nav > ul.navBox > li > a > svg {
   border-width: 2px;
 }
 
-.themeModalSwatch {
-  width: 28px;
-  height: 28px;
-  border-radius: 999px;
-  border: 1px solid var(--borderColor);
-  flex-shrink: 0;
-}
-
 .themeModalLabel {
   font-size: 14px;
   font-weight: 600;
-  color: var(--font);
 }
 
-.themeModalSwatch[data-theme="default"] {
+.themeModalButton[data-theme="default"] {
   background: #f1e6dd;
 }
 
-.themeModalSwatch[data-theme="pink"] {
+.themeModalButton[data-theme="pink"] {
   background: #ffeef5;
 }
 
-.themeModalSwatch[data-theme="white"] {
+.themeModalButton[data-theme="white"] {
   background: #ffffff;
 }
 
-.themeModalSwatch[data-theme="dark"] {
+.themeModalButton[data-theme^="dark"] .themeModalLabel {
+  color : #ffffff;  
+}
+
+.themeModalButton[data-theme="dark"] {
   background: #2f2f2f;
 }
 
-.themeModalSwatch[data-theme="dark--green"] {
+.themeModalButton[data-theme="dark--green"] {
   background: #3d7758;
 }
 
-.themeModalSwatch[data-theme="dark--navy"] {
+.themeModalButton[data-theme="dark--navy"] {
   background: #2a355d;
 }
 

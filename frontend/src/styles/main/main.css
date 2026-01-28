@@ -47,10 +47,10 @@
 /* 어두운 테마일 땐 */
 /* todo : 나중에 dark-theme 클래스 추가해야함 */
 [color-theme="dark"] .map-icon__bg {
-  color: var(--font-wh);
+  color: var(--font);
 }
 [color-theme="dark"] .map-icon__fg {
-  color: var(--font);
+  color: var(--font-wh);
 }
 /* 리셋 아이콘 */
 [color-theme="dark"] .reset-icon__bg {
@@ -91,19 +91,23 @@
   .categoryBox > .listBox > .listTrack {
     gap: var(--dt-gap);
   }
-  .categoryBg {
-    width: 547px;
-    height: 549px;
-    background-color: var(--categoryBg-Desktop);
-    border-radius: 274.5px;
-    top: 40%;
-    right: -16%;
+  div.categoryBg {
+    border-radius: 274.5px 0 0 274.5px;
+    top: 45%;
+    right: -20vw;
   }
 
   .detailBtnOuterBox {
     width: 74px;
     height: 83px;
     flex-shrink: 0;
+  }
+  div.smallSearchInputWrapper {
+    width: auto;
+  }
+  
+  div.periodInputWrapper > .datePickerBox {
+    width: auto;
   }
 }
 /* 테블릿 */
@@ -124,18 +128,15 @@
   .categoryBox > .listBox > .listTrack {
     gap: var(--tb-gap);
   }
-  .listContainer {
+  div.listContainer {
     grid-template-columns: repeat(3, minmax(var(--card-width), 1fr));
     column-gap: var(--tb-gap);
     padding: 0 60px;
   }
-  .categoryBg {
-    width: 547px;
-    height: 549px;
-    background-color: var(--categoryBg-Tablet);
-    border-radius: 274.5px 0 0 274.5px;
-    top: 40%;
-    right: -16%;
+  div.categoryBg {
+    transform-origin: right center;
+    top: 45%;
+    right: -275px;
   }
 
   /* FilterUiHeader 테블릿 커스텀 */
@@ -383,8 +384,6 @@
   /* 정렬 선택 모바일 커스텀 */
   main.contentsWrapper > div.sortSelectArea {
     padding: 0 35px;
-    /* width: 100%; */
-    height: 100%;
   }
 
   /* 리스트 페이지 모바일 imgCard 커스텀 */
@@ -432,6 +431,12 @@
     gap: 20px;
     margin: 20px 0;
     padding: 0 35px 50px 35px;
+  }
+
+  div.categoryBg {
+    transform-origin: left center;
+    top: 45%;
+    left: 50vw;
   }
 
   /* * Detail Page 모바일 커스텀 --------------------*/
@@ -650,14 +655,8 @@ section.title > .titleBox > .tagBox > ul > li {
   align-items: center;
   font-size: 14px;
   cursor: pointer;
+  color: var(--font);
 }
-
-/* .tagBox > ul > li:not(:first-child) {
-  margin-left: 10px;
-}
-.tagBox > ul > li:last-child {
-  margin-right: 10px;
-} */
 
 /********** category list **********/
 section.category {
@@ -674,6 +673,11 @@ section.category {
   z-index: -1;
   transition: all 0.5s ease-in-out;
   transform: translate(0, -50%);
+
+  width: 547px;
+  height: 549px;
+  border-radius: 274.5px;
+  background-color: var(--categoryBg);
 }
 
 .categoryBox {
@@ -893,6 +897,7 @@ div.imgBox > img {
   outline: none; /* needs 포커스 시 outline 제거 */
   font-size: 14px;
   background-color: transparent;
+  color: var(--font);
   padding: 0 8px;
 }
 
@@ -917,6 +922,7 @@ div.imgBox > img {
   height: 34px; /* should height 34px */
   background-color: transparent;
   box-sizing: border-box;
+  color: var(--font);
 }
 .periodInputWrapper > span.commonTitleText {
   width: 83px;
@@ -947,6 +953,7 @@ div.imgBox > img {
   flex-shrink: 0;
   background-color: transparent;
   padding: 0 8px; /* needs 좌우 padding 8px */
+  color: var(--font);
 }
 
 /* ListPage ->  .listContainer */
@@ -1044,6 +1051,7 @@ div.imgBox > img {
   padding: 0;
   cursor: pointer;
 }
+/* DetailPage --------------------------- */
 
 /* DetailPage > DetailCard */
 .detailCard {
@@ -1080,6 +1088,7 @@ div.imgBox > img {
   box-sizing: border-box;
   max-height: 346px;
   gap: 31px;
+  color: var(--font);
 }
 
 .detailCardContent .detailCardText h2,
@@ -1406,6 +1415,7 @@ div.imgBox > img {
   display: flex;
   flex-direction: column;
   row-gap: 3px;
+  color: var(--font);
 }
 
 .is-current {

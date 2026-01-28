@@ -2,7 +2,7 @@
   "rewrites": [
     {
       "source": "/api/:path*",
-      "destination": "https://YOUR-DJANGO-API.DOMAIN/:path*"
+      "destination": "https://localhost:8000/:path*"
     },
     { "source": "/(.*)", "destination": "/index.html" }
   ]

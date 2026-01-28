@@ -59,16 +59,12 @@ export default function ThemeModal({
             <li key={theme.value} className="themeModalItem">
               <button
                 type="button"
+                data-theme={theme.value}
                 className={`themeModalButton ${
                   currentTheme === theme.value ? "is-active" : ""
                 }`}
                 onClick={() => onSelect?.(theme.value)}
               >
-                <span
-                  className="themeModalSwatch"
-                  data-theme={theme.value}
-                  aria-hidden="true"
-                />
                 <span className="themeModalLabel">{theme.name}</span>
               </button>
             </li>
