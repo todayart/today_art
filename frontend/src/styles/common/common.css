@@ -800,6 +800,10 @@ nav > ul.navBox > li > a > svg {
 .themeModalButton[data-theme="dark--navy"] {
   background: #2a355d;
 }
+/* 테스트용 */
+.themeModalButton[data-theme="dark--purple"] {
+  background: #5b3b8a;
+}
 
 /* react-datepicker 전용 */
 div.react-datepicker-popper {

@@ -12,14 +12,7 @@
       (function () {
         try {
           // 테마 허용 목록을 여기에 삽입하여 token.json에 따라 업데이트 될 것이다.
-          var allowed = {
-            default: true,
-            pink: true,
-            white: true,
-            dark: true,
-            "dark--green": true,
-            "dark--navy": true,
-          };
+          var allowed = {"default":true,"pink":true,"white":true,"dark":true,"dark--green":true,"dark--navy":true,"dark--purple":true};
           var theme = localStorage.getItem("theme");
           if (!allowed[theme]) {
             var prefersDark =

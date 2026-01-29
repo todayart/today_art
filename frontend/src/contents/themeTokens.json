@@ -5,6 +5,7 @@
     { "name": "화이트", "value": "white" },
     { "name": "다크", "value": "dark" },
     { "name": "다크 그린", "value": "dark--green" },
-    { "name": "다크 네이비", "value": "dark--navy" }
+    { "name": "다크 네이비", "value": "dark--navy" },
+    { "name": "다크 퍼플", "value": "dark--purple" }
   ]
 }
