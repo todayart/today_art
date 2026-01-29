@@ -154,8 +154,8 @@ export default function EntryMain() {
           results: Array.isArray(res?.results)
             ? res.results
             : Array.isArray(res)
-            ? res
-            : [],
+              ? res
+              : [],
           total:
             res?.total ??
             (Array.isArray(res?.results) ? res.results.length : 0),
@@ -226,7 +226,7 @@ export default function EntryMain() {
   // 트랙 스타일 (슬라이드)
   const trackStyle = useMemo(
     () => ({ transform: `translateX(-${slideState.offset}px)` }),
-    [slideState.offset]
+    [slideState.offset],
   );
 
   // 카테고리 클릭 시

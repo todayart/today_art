@@ -27,7 +27,7 @@
   --ui-background: #ffffff;
   --borderColor: #ffffff;
   --selector-border: #ffffff;
-  input::placeholder{
+  input::placeholder {
     color: #fff;
   }
 }
@@ -154,7 +154,7 @@
 
 .theme-transition-enabled,
 .theme-transition-enabled * {
-  transition: var(--theme-transition) !important;
+  transition: var(--theme-transition);
 }
 
 /* body */
