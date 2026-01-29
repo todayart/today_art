@@ -6,6 +6,7 @@ import MobileMenu from "components/mobile/MobileMenu";
 import Tooltip from "components/common/Tooltip";
 import SvgButton from "components/common/SvgButton";
 import ThemeModal from "components/common/ThemeModal";
+import { useTheme } from "contexts/themeContext";
 
 const icons = {
   HomeSvg: require("../../assets/common/home.svg").default,
@@ -24,9 +25,7 @@ const icons = {
 export default function Nav() {
   // 테마 선택 전용 상태
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    return window.localStorage.getItem("theme") || "default";
-  });
+  const { theme, setTheme } = useTheme();
 
   // 모바일 전용 상태
   const isMobile = useMobile();
@@ -78,20 +77,6 @@ export default function Nav() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
-
-  // * 테마 선택 처리 ----------------
-  // 초기 로드 시 로컬 스토리지에서 테마 정보 불러오기
-  useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    if (savedTheme) {
-      setCurrentTheme(savedTheme);
-    }
-  }, []);
-  // 테마 변경 처리
-  useEffect(() => {
-    document.documentElement.setAttribute("color-theme", currentTheme);
-    window.localStorage.setItem("theme", currentTheme);
-  }, [currentTheme]);
 
   // * 핸들러 -------------------------------------
   const handleModalClick = (event, link) => {
@@ -175,9 +160,9 @@ export default function Nav() {
         <ThemeModal
           isOpen={isModalOpen}
           onClose={() => setModalOpen(false)}
-          currentTheme={currentTheme}
-          onSelect={(theme) => {
-            setCurrentTheme(theme);
+          currentTheme={theme}
+          onSelect={(nextTheme) => {
+            setTheme(nextTheme);
             setModalOpen(false);
           }}
         />

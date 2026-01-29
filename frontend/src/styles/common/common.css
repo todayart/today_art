@@ -22,11 +22,14 @@
   --theme: #2f2f2f;
   --background: #2f2f2f;
   --font: #ffffff;
-  --calendarLogoFont : #ffffff;
+  --calendarLogoFont: #ffffff;
   --font-wh: #444444;
   --ui-background: #ffffff;
   --borderColor: #ffffff;
   --selector-border: #ffffff;
+  input::placeholder{
+    color: #fff;
+  }
 }
 
 :root[color-theme="dark--green"] {
@@ -59,11 +62,15 @@
   /* detail card 배경 */
   --detailCard-bg: rgba(217, 217, 217, 0.3);
   /* categoryBg 컬러 */
-  --categoryBg : rgba(217, 217, 217, 0.3);
+  --categoryBg: rgba(217, 217, 217, 0.3);
   --categoryBg-Tablet: rgba(217, 217, 217, 0.2);
   /* commonHeader Selector, Input BorderLine 컬러 */
   --selector-border: #444;
   --selector-border-wh: #fff;
+  /* 배경 테마 트랜지션 */
+  --theme-transition:
+    background-color 0.3s ease, color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease;
 }
 
 /********************* 반응형 *********************/
@@ -145,9 +152,15 @@
   color: var(--font);
 }
 
+.theme-transition-enabled,
+.theme-transition-enabled * {
+  transition: var(--theme-transition) !important;
+}
+
 /* body */
 body {
   background-color: var(--theme);
+  /* transition: var(--theme-transition); */
 }
 
 /* 네비 */
@@ -253,7 +266,7 @@ nav > ul.navBox > li > a > svg {
 }
 /* 모바일 메뉴 svg 컬러 고정 */
 .mobileMenuOverlay .mobileMenuList .commonSvg {
-  color : #444444;
+  color: #444444;
 }
 
 .mobileMenuOverlay .mobileMenuList li a {
@@ -773,7 +786,7 @@ nav > ul.navBox > li > a > svg {
 }
 
 .themeModalButton[data-theme^="dark"] .themeModalLabel {
-  color : #ffffff;  
+  color: #ffffff;
 }
 
 .themeModalButton[data-theme="dark"] {

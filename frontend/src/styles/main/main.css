@@ -333,7 +333,26 @@
     padding: 20px 35px 0 0;
   }
 
-  /* 카테고리 모바일 커스텀 */
+  /* 디테일 필터 모바일 커스텀 */
+  div.selectScroller.isDetailPage :is(input, select, .commonSvg, .commonTitleText, .search-icon__bg, .reset-icon__bg) {
+    color : #444444;
+  }
+  div.selectScroller.isDetailPage input::placeholder {
+    color: #444444;
+    opacity: 1; /*사파리 전용*/
+  } 
+  /* Microsoft Edge (구버전) */
+  div.selectScroller.isDetailPage input::-ms-input-placeholder {color: #444444;}
+  /* Internet Explorer 10-11 */
+  div.selectScroller.isDetailPage input:-ms-input-placeholder {color: #444444;}
+  
+  div.selectScroller.isDetailPage :is(.search-icon__fg, .reset-icon__fg) {
+    color : #fff;
+  }
+  div.selectScroller.isDetailPage :is(.commonBorder, .periodInput, .smallSearchInput) {
+    border : 1px solid #444;
+  }
+
   div.selectScroller > div.selectWrapper {
     width: 100%;
     height: 34px;
@@ -1370,7 +1389,7 @@ div.imgBox > img {
   bottom: 16px;
   transform: translateX(-50%);
   font-size: 12px;
-  color: var(--font-wh);
+  color: #ffffff;
   opacity: 1;
   transition: opacity 0.6s ease;
   pointer-events: none;

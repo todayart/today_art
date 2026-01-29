@@ -6,6 +6,7 @@ export default function CommonHeader({
   selectBoxClassName = "",
   className = "",
   selectBoxId = "",
+  isDetail = false,
 }) {
   return (
     <div className={`commonHeader ${className}`}>
@@ -18,7 +19,9 @@ export default function CommonHeader({
         id={selectBoxId || undefined}
         className={`selectBox flexCenter ${selectBoxClassName}`}
       >
-        <div className="selectScroller">{children}</div>
+        <div className={`selectScroller ${isDetail ? "isDetailPage" : ""}`}>
+          {children}
+        </div>
       </div>
     </div>
   );

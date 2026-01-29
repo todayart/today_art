@@ -39,6 +39,7 @@ export default function FilterUiHeader({
       className={headerClassName}
       selectBoxClassName={selectBoxClassName}
       selectBoxId={isMobileDetail ? "mobileFilterSelectBox" : ""}
+      isDetail={isDetail}
     >
       <CommonSelect
         labelContents="카테고리"
