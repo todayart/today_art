@@ -21,12 +21,9 @@ const icons = {
   },
 };
 
-export default function Nav() {
+export default function Nav({ currentTheme, onThemeChange }) {
   // 테마 선택 전용 상태
   const [isModalOpen, setModalOpen] = useState(false);
-  const [currentTheme, setCurrentTheme] = useState(() => {
-    return window.localStorage.getItem("theme") || "default";
-  });
 
   // 모바일 전용 상태
   const isMobile = useMobile();
@@ -78,20 +75,6 @@ export default function Nav() {
       document.removeEventListener("keydown", handleKeyDown);
     };
   }, [mobileMenuOpen]);
-
-  // * 테마 선택 처리 ----------------
-  // 초기 로드 시 로컬 스토리지에서 테마 정보 불러오기
-  useEffect(() => {
-    const savedTheme = window.localStorage.getItem("theme");
-    if (savedTheme) {
-      setCurrentTheme(savedTheme);
-    }
-  }, []);
-  // 테마 변경 처리
-  useEffect(() => {
-    document.documentElement.setAttribute("color-theme", currentTheme);
-    window.localStorage.setItem("theme", currentTheme);
-  }, [currentTheme]);
 
   // * 핸들러 -------------------------------------
   const handleModalClick = (event, link) => {
@@ -167,6 +150,7 @@ export default function Nav() {
           cancelIcon={icons.mobileMenu.cancelIcon}
           onClose={() => setMobileMenuOpen(false)}
           onAction={handleMobileAction}
+          isDark={currentTheme.startsWith("dark")}
           menuPanelRef={menuPanelRef}
         />
       )}
@@ -177,7 +161,7 @@ export default function Nav() {
           onClose={() => setModalOpen(false)}
           currentTheme={currentTheme}
           onSelect={(theme) => {
-            setCurrentTheme(theme);
+            onThemeChange?.(theme);
             setModalOpen(false);
           }}
         />

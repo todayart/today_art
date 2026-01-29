@@ -13,6 +13,9 @@ export default function CalendarMobileView({
   loading,
   error,
   onRetry,
+  isDark = false,
+  currentTheme,
+  onThemeChange,
 }) {
   return (
     <>
@@ -20,6 +23,9 @@ export default function CalendarMobileView({
         selectedMonth={selectedMonth}
         onChangeMonth={onChangeMonth}
         monthsArray={monthsArray}
+        isDark={isDark}
+        currentTheme={currentTheme}
+        onThemeChange={onThemeChange}
       />
       <section className="calendarBoard">
         <CalendarStatus loading={loading} error={error} onRetry={onRetry} />

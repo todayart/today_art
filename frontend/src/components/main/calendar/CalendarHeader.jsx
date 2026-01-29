@@ -13,6 +13,9 @@ export default function CalendarHeader({
   selectedMonth = 1,
   onChangeMonth,
   monthsArray = [],
+  isDark = false,
+  currentTheme,
+  onThemeChange,
 }) {
   const isMobile = useMobile();
 
@@ -34,14 +37,14 @@ export default function CalendarHeader({
 
   return (
     <section className="commonHeader">
-      <Header />
+      <Header currentTheme={currentTheme} onThemeChange={onThemeChange} />
       {/* 로고 파트 */}
       <div
         className={
           isMobile ? "calendarLogo calendarLogo--mobile" : "calendarLogo"
         }
       >
-        <Logoimg className="calendarLogoImg" />
+        <Logoimg className="calendarLogoImg" isDark={isDark} />
         <span className="currentYear">{currentYear}</span>
       </div>
       <div

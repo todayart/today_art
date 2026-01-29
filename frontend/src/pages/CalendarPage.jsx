@@ -13,7 +13,8 @@ import useCalendarData from "hooks/useCalendarData";
  * * Api에 필요한 id 규칙
  *  1m-start, 1m-end, 2m-start, 2m-end ... 12m-start, 12m-end로 설정되어 있음
  */
-export default function CalendarPage() {
+export default function CalendarPage({ currentTheme, onThemeChange }) {
+  const isDark = currentTheme.startsWith("dark");
   // * 데스크톱
   // hover 활성화 상태
   const [activeMonth, setActiveMonth] = useState(null);
@@ -44,6 +45,9 @@ export default function CalendarPage() {
           loading={loading}
           error={error}
           onRetry={refetch}
+          isDark={isDark}
+          currentTheme={currentTheme}
+          onThemeChange={onThemeChange}
         />
       ) : (
         <CalendarDesktopView
@@ -55,6 +59,9 @@ export default function CalendarPage() {
           loading={loading}
           error={error}
           onRetry={refetch}
+          isDark={isDark}
+          currentTheme={currentTheme}
+          onThemeChange={onThemeChange}
         />
       )}
     </div>

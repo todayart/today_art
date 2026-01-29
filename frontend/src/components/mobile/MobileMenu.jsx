@@ -16,6 +16,7 @@ import SvgButton from "components/common/SvgButton";
  * @param {string|React.ReactNode} props.cancelIcon - 닫기 버튼에 사용할 아이콘(경로 문자열 또는 React 요소).
  * @param {function(): void} props.onClose - 메뉴를 닫을 때 호출되는 콜백 함수.
  * @param {function(Object): void} [props.onAction] - action 타입 메뉴 클릭 시 호출되는 콜백 함수.
+ * @param {boolean} [props.isDark=false] - 로고 다크 모드 여부.
  * @param {React.RefObject<HTMLElement>} props.menuPanelRef - 메뉴 패널에 전달되는 ref (포커스 관리나 접근성 처리용).
  *
  * @returns {JSX.Element} 렌더된 모바일 메뉴 요소
@@ -38,6 +39,7 @@ const MobileMenu = ({
   cancelIcon,
   onClose,
   onAction,
+  isDark = false,
   menuPanelRef,
 }) => {
   return (
@@ -63,7 +65,7 @@ const MobileMenu = ({
         <section className="title">
           <div className="titleBox">
             <div className="logoBox">
-              <Logoimg />
+              <Logoimg isDark={isDark} />
             </div>
           </div>
         </section>

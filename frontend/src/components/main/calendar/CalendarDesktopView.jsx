@@ -14,12 +14,18 @@ export default function CalendarDesktopView({
   loading,
   error,
   onRetry,
+  isDark = false,
+  currentTheme,
+  onThemeChange,
 }) {
   return (
     <>
-      <CalendarHeader 
-        activeMonth={activeMonth} 
-        monthsArray={monthsArray} 
+      <CalendarHeader
+        activeMonth={activeMonth}
+        monthsArray={monthsArray}
+        isDark={isDark}
+        currentTheme={currentTheme}
+        onThemeChange={onThemeChange}
       />
       <section className="calendarBoard">
         <CalendarStatus 
