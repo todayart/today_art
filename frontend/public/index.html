@@ -11,8 +11,9 @@
       console.log("Setting initial color theme");
       (function () {
         try {
+          // 초기값은 빈 객체면 수월하게 preStart 스크립트를 통과할 수 있다.
           // 테마 허용 목록을 여기에 삽입하여 token.json에 따라 업데이트 될 것이다.
-          var allowed = {"default":true,"pink":true,"white":true,"dark":true,"dark--green":true,"dark--navy":true};
+          var allowed = {};
           var theme = localStorage.getItem("theme");
           if (!allowed[theme]) {
             var prefersDark =
