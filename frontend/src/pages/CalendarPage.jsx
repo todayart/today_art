@@ -1,38 +1,68 @@
-import CalendarHeader from "components/main/calendar/CalendarHeader";
-import CalendarFixedCell from "components/main/calendar/CalendarFixedCell";
-import { useEffect, useState } from "react";
+// src/pages/CalendarPage.jsx
+// 캘린더 페이지 메인 컴포넌트
 
-import { fetchData } from "utils/fetchData";
-import { API_BASE } from "utils/api";
+import { useState } from "react";
+
+// 뷰
+import CalendarDesktopView from "components/main/calendar/CalendarDesktopView";
+import CalendarMobileView from "components/main/calendar/CalendarMobileView";
+
+// 유틸
+import { getCurrentMonth, getMonths } from "utils/calendar";
+
+// 훅
+import useMobile from "hooks/useMobile";
+import useCalendarData from "hooks/useCalendarData";
+
 /**
- * 이 컴포넌트는 calendar 페이지의 메인 컴포넌트입니다.
- *
  * * Api에 필요한 id 규칙
  *  1m-start, 1m-end, 2m-start, 2m-end ... 12m-start, 12m-end로 설정되어 있음
  */
+
 export default function CalendarPage() {
-  const [exhibitions, setExhibitions] = useState({});
-  // useEffect나 커스텀훅으로 내용을 작성
-  useEffect(() => {
-    // 여기에 필요한 초기화 작업이나 API 호출 등을 작성할 수 있습니다.
-    console.log("CalendarPage mounted");
-    fetchData(`${API_BASE}/api/calendar/`)
-      .then((data) => {
-        console.log("Fetched calendar data:", data);
-        // 데이터를 상태에 저장하거나 필요한 작업을 수행합니다.
-        setExhibitions(data);
-      })
-      .catch((error) => {
-        console.error("Error fetching calendar data:", error);
-      });
-  }, []);
+  // * 데스크톱
+  // hover 활성화 상태
+  const [activeMonth, setActiveMonth] = useState(null);
+
+  // * 모바일
+  // 화면에 띄울 월(인덱스)
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonth());
+
+  // * 공통
+  // 월 배열
+  const months = getMonths();
+  // 현재 디바이스가 모바일인지 여부
+  const isMobile = useMobile();
+  // 월 상태 범위 제한 함수
+  const clampMonth = (month) => Math.min(12, Math.max(1, month));
+
+  // 캘린더 전시 데이터 가져오기 커스텀 훅
+  const { data: exhibitions, loading, error, refetch } = useCalendarData();
 
   return (
-    <>
-      {/* 캘린더 헤더 영역 */}
-      <CalendarHeader />
-      {/* 메인 캘린더 영역 (grid layout으로 13열 x 2행) */}
-      <CalendarFixedCell exhibitions={exhibitions} />
-    </>
+    <div className="calendarPage">
+      {isMobile ? (
+        <CalendarMobileView
+          exhibitions={exhibitions}
+          monthsArray={months}
+          selectedMonth={selectedMonth}
+          onChangeMonth={(next) => setSelectedMonth(clampMonth(next))}
+          loading={loading}
+          error={error}
+          onRetry={refetch}
+        />
+      ) : (
+        <CalendarDesktopView
+          exhibitions={exhibitions}
+          monthsArray={months}
+          activeMonth={activeMonth}
+          onHoverMonth={setActiveMonth}
+          onLeaveMonth={() => setActiveMonth(null)}
+          loading={loading}
+          error={error}
+          onRetry={refetch}
+        />
+      )}
+    </div>
   );
 }

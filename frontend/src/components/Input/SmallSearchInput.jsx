@@ -1,5 +1,5 @@
-import { ReactSVG } from "react-svg";
 import CommonSearchIcon from "assets/common/commonSearch.svg";
+import SvgButton from "components/common/SvgButton";
 
 /**
  * 검색 입력창과 버튼이 결합된 컴포넌트입니다.
@@ -47,15 +47,12 @@ const SmallSearchInput = ({
       />
 
       {/* 검색 버튼 */}
-      <button
-        className="smallSearchButton"
+      <SvgButton
+        icon={CommonSearchIcon}
         aria-label="검색"
-        // type="submit"은 폼 제출 시 사용, 여기서는 버튼 클릭으로 검색 실행
-        type="button"
         onClick={onSearch}
-      >
-        <ReactSVG src={CommonSearchIcon} className="commonSearchIconSvg" />
-      </button>
+        className="smallSearchButton"
+      />
     </div>
   );
 };

@@ -1,6 +1,3 @@
-import { ReactSVG } from "react-svg";
-import imgcardDetailIcon from "assets/common/imgcardDetailIcon.svg";
-
 /**
  * 이미지와 제목·주소·기간 정보를 담은 카드 컴포넌트입니다.
  * needs 전체 크기 width 232px, height 293px
@@ -70,11 +67,6 @@ const ImgCard = ({
         <p className="imgCardPeriod imgCardPeriodFont textOverflow">
           {sPeriod} ~ {ePeriod}
         </p>
-        {/* 상세 버튼 아이콘 */}
-        {/* TODO 버튼 누를 때 일어날 이벤트를 추가해야함 */}
-        <button className="imgCardDetailButton flexCenter" type="button">
-          <ReactSVG src={imgcardDetailIcon} />
-        </button>
       </div>
     </div>
   );

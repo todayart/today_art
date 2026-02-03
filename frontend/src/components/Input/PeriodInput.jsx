@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import DatePicker from "react-datepicker";
 import { ReactSVG } from "react-svg";
 import CalendarIcon from "assets/common/calendar.svg";
 import { format } from "date-fns";
+import { useResetSubscription } from "stores/resetStore";
 
 /**
  * 시작 날짜와 종료 날짜를 각각 선택하여
@@ -27,6 +29,12 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
   const [startDate, setStartDate] = useState(null);
   const [endDate, setEndDate] = useState(null);
 
+  // DatePicker 팝퍼를 body에 렌더링하기 위한 컨테이너 함수
+  const popperContainer = ({ children }) =>
+    typeof document === "undefined"
+      ? children
+      : createPortal(children, document.body);
+
   const handleStartChange = (date) => {
     setStartDate(date);
     const payload = {
@@ -45,6 +53,15 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
     onRangeChange(payload);
   };
 
+  // 리셋 구독 및 처리
+  // 내부 상태만 초기화하도록 구현
+  const handleReset = () => {
+    setStartDate(null);
+    setEndDate(null);
+  };
+
+  useResetSubscription(handleReset);
+
   return (
     <div className="periodInputWrapper ">
       <span className="commonTitleText">기간지정</span>
@@ -55,6 +72,8 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
           onChange={handleStartChange}
           placeholderText="시작 날짜"
           dateFormat="yyyy-MM-dd"
+          popperContainer={popperContainer}
+          popperPlacement="bottom-start"
           wrapperClassName="datepickerInputWrapper"
           className="periodInput"
         />
@@ -62,7 +81,7 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
       </div>
 
       {/* 구분선 */}
-      <span>–</span>
+      <span className="dateSeparator">–</span>
 
       {/* 종료일 선택 */}
       <div className="datePickerBox">
@@ -72,6 +91,8 @@ const PeriodInput = ({ sValue, eValue, onRangeChange }) => {
           placeholderText="종료 날짜"
           dateFormat="yyyy-MM-dd"
           minDate={startDate}
+          popperContainer={popperContainer}
+          popperPlacement="top-start"
           wrapperClassName="datepickerInputWrapper"
           className="periodInput "
         />

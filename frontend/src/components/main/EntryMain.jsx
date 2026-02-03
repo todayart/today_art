@@ -3,11 +3,16 @@ import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { ReactSVG } from "react-svg";
 import { useNavigate } from "react-router-dom";
 
-import Logoimg from "./Logoimg";
-import MainSearch from "./MainSearch";
-import CategoryTag from "./CategoryTag";
-import CategoryList from "./CategoryList";
-import DetailBtn from "./DetailBtn";
+import FeedbackMessage from "components/common/FeedbackMessage";
+import IconFeedback from "components/common/IconFeedback";
+import Logoimg from "components/main/Logoimg";
+import MainSearch from "components/main//MainSearch";
+import CategoryTag from "components/main//CategoryTag";
+import CategoryList from "components/main//CategoryList";
+import DetailBtn from "components/main//DetailBtn";
+
+import { FEEDBACK_ICONS } from "constants/feedbackIcons";
+import { formatErrorMessage } from "utils/messages";
 
 import PrevBtn from "assets/main/prevBtn.svg";
 
@@ -45,10 +50,17 @@ export default function EntryMain() {
   // 필터 상태(qs) → 캐시 키 문자열
   const qsString = useMemo(() => {
     // pIndex/pSize는 API 호출에서만 붙이고, 캐시 키에는 "필터만" 고정
-    return new URLSearchParams(searchParams).toString();
+    const base = new URLSearchParams(searchParams);
+
+    // 불필요한 파라미터 제거
+    base.delete("page");
+    base.delete("pageSize");
+
+    return base.toString();
   }, [searchParams]);
 
   // 전환 종료/취소 시 will-change 해제 (슬라이드)
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     const el = listTrackRef.current;
     if (!el) return;
@@ -124,20 +136,26 @@ export default function EntryMain() {
     }
 
     const ac = new AbortController();
+
     (async () => {
       try {
+        // qsString -> URLSearchParams 복원 ( api용 )
+
+        const qs = new URLSearchParams(qsString);
+
         const res = await fetchEntriesPaged({
-          qs: searchParams, // URLSearchParams 그대로 전달
+          qs, // 필터만 들어있는 qs
           page: 1,
           pageSize: 8,
           signal: ac.signal,
         });
+
         const normalized = {
           results: Array.isArray(res?.results)
             ? res.results
             : Array.isArray(res)
-            ? res
-            : [],
+              ? res
+              : [],
           total:
             res?.total ??
             (Array.isArray(res?.results) ? res.results.length : 0),
@@ -146,6 +164,7 @@ export default function EntryMain() {
           hasMore: res?.hasMore ?? false,
           nextPage: res?.nextPage ?? 2,
         };
+
         writeCache(key, normalized);
         setFetchedData(normalized);
         setError(null);
@@ -160,7 +179,7 @@ export default function EntryMain() {
     })();
 
     return () => ac.abort();
-  }, [searchParams]);
+  }, [qsString]);
 
   // 슬라이드 상태 초기화 (슬라이드)
   useEffect(() => {
@@ -180,6 +199,7 @@ export default function EntryMain() {
 
   // 이전 버튼 핸들러 (슬라이드)
   const handlePrevClick = useCallback(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     // 시작 직전 hint on
     const listTrack = listTrackRef.current;
     if (!listTrack) return;
@@ -206,7 +226,7 @@ export default function EntryMain() {
   // 트랙 스타일 (슬라이드)
   const trackStyle = useMemo(
     () => ({ transform: `translateX(-${slideState.offset}px)` }),
-    [slideState.offset]
+    [slideState.offset],
   );
 
   // 카테고리 클릭 시
@@ -270,9 +290,13 @@ export default function EntryMain() {
       <section className="category">
         <div className="categoryBox">
           {loading ? (
-            <div className="statusMessage">Loading...</div>
+            <FeedbackMessage>로딩 중...</FeedbackMessage>
           ) : error ? (
-            <div className="statusMessage">Error : {error.message}</div>
+            <IconFeedback
+              icon={FEEDBACK_ICONS.error}
+              message={formatErrorMessage(error)}
+              role="alert"
+            />
           ) : (
             <>
               {/* arrowPrev */}

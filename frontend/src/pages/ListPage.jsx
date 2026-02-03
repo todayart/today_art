@@ -1,36 +1,76 @@
 // src/pages/ListPage.jsx
 
-import { useState } from "react";
+import { lazy, Suspense, useEffect, useRef, useState } from "react";
+import mapIcon from "assets/common/mobile/map.svg";
+import searchIcon from "assets/common/commonSearch.svg";
+
 import { useFilterParams } from "hooks/useFilterParams";
 import { useSortParam } from "hooks/useSortParams";
 import { useFilterParamsValues } from "hooks/useFilterParamsValues";
 import { useCachedEntryByTitle } from "hooks/useCachedEntryByTitle";
 import { useInfiniteEntries } from "hooks/useInfiniteEntries";
+import useMobile from "hooks/useMobile";
+
+import { emitReset } from "stores/resetStore";
 
 import FilterUiHeader from "components/header/FilterUiHeader";
-import SortSelect from "components/main/list/SortSelect";
-import ImgCard from "components/main/ImgCard";
 import DetailCard from "components/main/detail/DetailCard";
+import MobileDetailCard from "components/mobile/MobileDetailCard";
+import FeedbackMessage from "components/common/FeedbackMessage";
+import SvgButton from "components/common/SvgButton";
+
+const ListContent = lazy(() => import("components/main/list/ListContent"));
 
 export default function ListPage() {
   const { term, startDate, endDate, cate, title, searchParams } =
     useFilterParamsValues();
-
+  const isMobile = useMobile();
   const [searchTerm, setSearchTerm] = useState(term);
-  const [_, updateFilterParams] = useFilterParams();
+  // _ 대신 공백을 사용, lint 에러 방지
+  const [, updateFilterParams] = useFilterParams();
   const [sortOption, onSortChange] = useSortParam();
 
   // 리스트 데이터: 무한 스크롤 훅
-  const { items, hasMore, loading, error, sentinelRef } = useInfiniteEntries({
+  const { items, loading, error, sentinelRef } = useInfiniteEntries({
     qs: searchParams,
     pageSize: 8,
   });
+
+  // 모바일 필터 모달 관련
+  const [isMobileFilterModalOpen, setIsMobileFilterModalOpen] = useState(false);
+  const mobileFilterButtonRef = useRef(null);
+  const mobileFilterCloseButtonRef = useRef(null);
 
   // 상세 데이터
   const eventData = useCachedEntryByTitle(title);
   const isDetail = Boolean(title);
 
-  // * 핸들러
+  // eventData를 기반으로 상세 정보 매핑
+  const eventDetails = eventData
+    ? [
+        { label: "카테고리", value: eventData.CATEGORY_NM },
+        {
+          label: "전시기간",
+          value: `${eventData.BEGIN_DE} ~ ${eventData.END_DE}`,
+        },
+        {
+          label: "이벤트 시간",
+          value: eventData.EVENT_TM_INFO,
+        },
+        {
+          label: "참가비",
+          value: eventData.PARTCPT_EXPN_INFO,
+        },
+        {
+          label: "주최 기관",
+          value: eventData.HOST_INST_NM,
+        },
+        { label: "전화번호", value: eventData.TELNO_INFO },
+        { label: "홈페이지", value: eventData.HMPG_URL },
+      ]
+    : [];
+
+  // * 핸들러 -------------
   const onSearchClick = () => {
     updateFilterParams({ term: searchTerm, title: null });
   };
@@ -46,8 +86,37 @@ export default function ListPage() {
   const onBackToList = () => {
     updateFilterParams({ title: null });
   };
+  const onReset = () => {
+    setSearchTerm("");
+    updateFilterParams({
+      term: "",
+      startDate: "",
+      endDate: "",
+      cate: "",
+      title: null,
+    });
+    emitReset();
+  };
 
-  if (error) return <p>에러: {error.message}</p>;
+  // 모바일 필터 모달 토글 (mobileModalCloseIcon--mobileDetail과 mobileFilterModalBtn에서 사용)
+  const onToggleMobileFilterModal = () => {
+    setIsMobileFilterModalOpen((prev) => !prev);
+  };
+
+  useEffect(() => {
+    if (!isMobile || !isDetail) {
+      setIsMobileFilterModalOpen(false);
+    }
+  }, [isMobile, isDetail]);
+
+  useEffect(() => {
+    if (!isMobile || !isDetail) return;
+    if (isMobileFilterModalOpen) {
+      mobileFilterCloseButtonRef.current?.focus();
+    } else {
+      mobileFilterButtonRef.current?.focus();
+    }
+  }, [isMobile, isDetail, isMobileFilterModalOpen]);
 
   return (
     <>
@@ -60,74 +129,85 @@ export default function ListPage() {
         startDate={startDate}
         endDate={endDate}
         onDateRangeChange={onDateRangeChange}
+        onReset={onReset}
+        // 모바일 디테일 전용
+        isMobile={isMobile}
+        isDetail={isDetail}
+        onToggleMobileFilterModal={onToggleMobileFilterModal}
+        isMobileFilterModalOpen={isMobileFilterModalOpen}
+        closeButtonRef={mobileFilterCloseButtonRef}
       />
 
       {isDetail ? (
         eventData ? (
           <main className="contentsWrapper">
-            <DetailCard
-              title={eventData.TITLE}
-              imageUrl={eventData.IMAGE_URL}
-              handleGoBack={onBackToList}
-              details={[
-                { label: "카테고리", value: eventData.CATEGORY_NM },
-                {
-                  label: "전시기간",
-                  value: `${eventData.BEGIN_DE} ~ ${eventData.END_DE}`,
-                },
-                {
-                  label: "이벤트 시간",
-                  value: eventData.EVENT_TM_INFO,
-                },
-                {
-                  label: "참가비",
-                  value: eventData.PARTCPT_EXPN_INFO,
-                },
-                {
-                  label: "주최 기관",
-                  value: eventData.HOST_INST_NM,
-                },
-                { label: "전화번호", value: eventData.TELNO_INFO },
-                { label: "홈페이지", value: eventData.HMPG_URL },
-              ]}
-            />
+            {!isMobile ? (
+              // 데스크탑 Detail 페이지
+              <DetailCard
+                title={eventData.TITLE}
+                imageUrl={eventData.IMAGE_URL}
+                handleGoBack={onBackToList}
+                details={eventDetails}
+              />
+            ) : (
+              // 모바일 Detail 페이지
+              <>
+                <div className="mobileDetailCardBtnGroup">
+                  <SvgButton
+                    type="button"
+                    className="mobileButton bg-tr mobileMapBtn"
+                    icon={mapIcon}
+                    aria-label="지도 보기"
+                  />
+                  <SvgButton
+                    type="button"
+                    className="mobileButton bg-tr mobileFilterModalBtn"
+                    icon={searchIcon}
+                    onClick={onToggleMobileFilterModal}
+                    aria-controls="mobileFilterSelectBox"
+                    aria-expanded={isMobileFilterModalOpen}
+                    aria-label="필터 모달 열기"
+                    ref={mobileFilterButtonRef}
+                  />
+                  <button
+                    type="button"
+                    className="backButton flexCenter commonBorder"
+                    onClick={onBackToList}
+                  >
+                    이전으로
+                  </button>
+                </div>
+                <MobileDetailCard
+                  title={eventData.TITLE}
+                  imageUrl={eventData.IMAGE_URL}
+                  handleGoBack={onBackToList}
+                  details={eventDetails}
+                />
+              </>
+            )}
           </main>
         ) : (
-          <p>상세 데이터를 불러오는 중...</p>
+          <FeedbackMessage>상세 데이터를 불러오는 중...</FeedbackMessage>
         )
       ) : (
-        <main className="contentsWrapper">
-          <div className="sortSelectArea">
-            <SortSelect sortOption={sortOption} onSortChange={onSortChange} />
-          </div>
-
-          <div className="listContainer">
-            {items.length === 0 && loading ? (
-              <p>로딩 중...</p>
-            ) : items.length === 0 ? (
-              <p>결과가 없습니다.</p>
-            ) : (
-              items.map((entry, idx) => (
-                <ImgCard
-                  key={entry.URL || entry.TITLE || idx}
-                  title={entry.TITLE}
-                  address={entry.HOST_INST_NM}
-                  sPeriod={entry.BEGIN_DE}
-                  ePeriod={entry.END_DE}
-                  imageUrl={entry.IMAGE_URL}
-                  onClick={() => onCardClick(entry.TITLE)}
-                />
-              ))
-            )}
-          </div>
-
-          {/* 스크롤 센티널 */}
-          <div ref={sentinelRef} style={{ height: 1 }} />
-
-          {/* 상태 표시 */}
-          {loading && <p>로딩 중...</p>}
-          {!hasMore && items.length > 0 && <p>마지막 페이지입니다.</p>}
-        </main>
+        // 리스트 페이지
+        <Suspense
+          fallback={
+            <main className="contentsWrapper">
+              <FeedbackMessage>불러오는 중...</FeedbackMessage>
+            </main>
+          }
+        >
+          <ListContent
+            sortOption={sortOption}
+            onSortChange={onSortChange}
+            items={items}
+            loading={loading}
+            error={error}
+            sentinelRef={sentinelRef}
+            onCardClick={onCardClick}
+          />
+        </Suspense>
       )}
     </>
   );

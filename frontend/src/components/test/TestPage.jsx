@@ -3,6 +3,7 @@ import ExhibitionTag from "components/main/calendar/ExhibitionTag";
 
 export default function TestPage() {
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     console.log("TestPage mounted");
   }, []);
   // return <CalendarPage />;

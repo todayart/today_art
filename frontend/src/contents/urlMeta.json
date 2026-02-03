@@ -2,28 +2,50 @@
   "navLinks": [
     {
       "name": "HOME",
+      "type": "link",
       "url": "/",
-      "icon": "HomeSvg"
+      "icon": "HomeSvg",
+      "className": "",
+      "tooltip": "메인 홈"
     },
     {
       "name": "CALENDAR",
+      "type": "link",
       "url": "/calendar",
-      "icon": "CalendarSvg"
+      "icon": "CalendarSvg",
+      "className": "",
+      "tooltip": "달력 보기"
+    },
+    {
+      "name": "THEME",
+      "type": "action",
+      "icon": "ColorThemeIconSvg",
+      "className": "",
+      "tooltip": "테마 선택"
     },
     {
       "name": "USER",
+      "type": "link",
       "url": "#",
-      "icon": "UserSvg"
+      "icon": "UserSvg",
+      "className": "eventDisable",
+      "tooltip": "회원 기능 준비중"
     },
     {
       "name": "WISH",
+      "type": "link",
       "url": "#",
-      "icon": "WishSvg"
+      "icon": "WishSvg",
+      "className": "eventDisable",
+      "tooltip": "찜 기능 준비중"
     },
     {
       "name": "INFO",
+      "type": "link",
       "url": "#",
-      "icon": "QuestionSvg"
+      "icon": "QuestionSvg",
+      "className": "eventDisable",
+      "tooltip": "정보 준비중"
     }
   ],
   "headerLinks": [

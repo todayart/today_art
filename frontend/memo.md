@@ -2,7 +2,7 @@
 
 !! 프로젝트 마무리 준비
 
-- GITHUB ACTION을 이용한 CI/CD 배포 자동화 파이프라인 구축 완료.
+- 현재 모바일 RWD 적용 중
 
 고민되는 2가지 길
 
@@ -19,6 +19,17 @@
 !! 버그
 
 - 조건 입력됐을 때, 로딩 중이 무한으로 뜨는 현상을 관찰
+
+## 작성 규칙
+
+의존성 배열을 비울 땐 이 로그를 적어서
+에러를 최소화 하자
+
+// eslint-disable-next-line react-hooks/exhaustive-deps
+
+## dev -> main 머지
+
+- settings.py : // "destination": "https://todayart-backend.azurewebsites.net/:path*"
 
 ## 연구 필요
 

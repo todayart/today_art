@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { ThemeProvider } from "contexts/themeContext";
 
 // 페이지 컴포넌트
 import EntryPage from "pages/EntryPage";
@@ -11,12 +12,14 @@ import "react-datepicker/dist/react-datepicker.css";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<EntryPage />} />
-      <Route path="/entry" element={<EntryPage />} />
-      <Route path="/list" element={<ListPage />} />
-      <Route path="/calendar" element={<CalendarPage />} />
-    </Routes>
+    <ThemeProvider>
+      <Routes>
+        <Route path="/" element={<EntryPage />} />
+        <Route path="/entry" element={<EntryPage />} />
+        <Route path="/list" element={<ListPage />} />
+        <Route path="/calendar" element={<CalendarPage />} />
+      </Routes>
+    </ThemeProvider>
   );
 }
 

@@ -68,14 +68,13 @@ export default function DetailCard({
         </div>
       </div>
       <button
-        className="backButton flexCenter commonBorder"
+        className="backButton pcBackButtonPosition flexCenter commonBorder"
         onClick={handleGoBack}
       >
         이전으로
       </button>
       {/* 지도 버튼 */}
       {/* TODO : 외부 지도 api 페이지로 이동하는 기능을 추가해야함 */}
-      {/* TODO : 모바일 일땐, 다른 모습의 컴포넌트로 나와야함 */}
 
       <button className="mapBtn">
         MAP

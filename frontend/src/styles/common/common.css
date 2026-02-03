@@ -1,57 +1,166 @@
 @charset "uft-8";
 
 /********************* 컬러 *********************/
-/* :root[color-theme='light']{
-    --background: #444444;
-    --font: #444444;
-    --boxColor: #444444;
-    --borderColor: #444444;
-    --seachBox:#F1E6DD;
+/* 밝은 계열 테마 */
+:root[color-theme="default"] {
+  --theme: #f1e6dd;
+  --background: #f1e6dd;
 }
-:root[color-theme='dark']{
-    --background: #FFFFFF;
-    --font: #FFFFFF;
-    --boxColor: #FFFFFF;
-    --borderColor: #FFFFFF;
-    --seachBox:#2F2F2F;
-} */
+
+:root[color-theme="pink"] {
+  --theme: #ffeef5;
+  --background: #ffeef5;
+}
+
+:root[color-theme="white"] {
+  --theme: #ffffff;
+  --background: #ffffff;
+}
+
+/* 어두운 계열 테마 */
+:root[color-theme^="dark"] {
+  --theme: #2f2f2f;
+  --background: #2f2f2f;
+  --font: #ffffff;
+  --calendarLogoFont: #ffffff;
+  --font-wh: #444444;
+  --ui-background: #ffffff;
+  --borderColor: #ffffff;
+  --selector-border: #ffffff;
+  input::placeholder {
+    color: #fff;
+  }
+}
+
+:root[color-theme="dark--green"] {
+  --theme: #3d7758;
+  --background: #3d7758;
+}
+
+:root[color-theme="dark--navy"] {
+  --theme: #2a355d;
+  --background: #2a355d;
+}
+
 :root {
   --background: #444444;
-  --thema: #f1e6dd;
-  --thema-tablet: aquamarine;
-  --thema-mobile: pink;
-
+  --theme: #f1e6dd;
+  --theme-mobile-menu: #d9d9d9;
   /* 선택시 투명도 */
-  --selected-rgb: 0, 0, 0;
-  --selected-opacity: 0.1;
-
+  --selected-rgb: 68, 68, 68;
+  --selected-opacity: 0.4;
   --font: #444444;
   --font-wh: #fff;
+  --font-mobile-hamburgerMenu: #444444;
   --boxColor: #444444;
   --borderColor: #444444;
-  --seachBox: #f1e6dd;
+  --searchBox: #f1e6dd;
   --calendarLogoFont: #222;
   --calendarLogoFont-wh: #fff;
+  --scrollbarColor: #d9d9d9;
+  --ui-background: #444444;
+  /* detail card 배경 */
+  --detailCard-bg: rgba(217, 217, 217, 0.3);
+  /* categoryBg 컬러 */
+  --categoryBg: rgba(217, 217, 217, 0.3);
+  --categoryBg-Tablet: rgba(217, 217, 217, 0.2);
+  /* commonHeader Selector, Input BorderLine 컬러 */
+  --selector-border: #444;
+  --selector-border-wh: #fff;
+  /* 배경 테마 트랜지션 */
+  --theme-transition:
+    background-color 0.3s ease, color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.3s ease;
 }
 
 /********************* 반응형 *********************/
 /* 데스크탑 */
 @media (min-width: 1024px) {
-  body {
-    background-color: var(--thema);
-  }
+  /* body {
+    background-color: var(--theme);
+  } */
 }
+
 /* 테블릿 */
 @media all and (min-width: 769px) and (max-width: 1023px) {
-  body {
-    background-color: var(--thema-tablet);
+  /* body {
+    background-color: var(--theme-tablet);
+  } */
+  li.customSelect__option {
+    background: var(--theme);
   }
 }
+
 /* 모바일 393x776 */
 @media (max-width: 768px) {
-  body {
-    background-color: var(--thema-mobile);
+  /* body {
+    background-color: var(--theme-mobile);
+  } */
+  li.customSelect__option {
+    background: var(--theme);
   }
+}
+
+/* PC와 테블릿 */
+@media (min-width: 769px) {
+  *::-webkit-scrollbar {
+    width: 13px;
+    /* 8px 스크롤바 + 5px 여백 */
+  }
+
+  *::-webkit-scrollbar-thumb {
+    margin-right: 5px;
+    width: 8px;
+  }
+
+  *::-webkit-scrollbar-track {
+    border-right: 5px solid transparent;
+    background-clip: padding-box;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbarColor) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 258px;
+  background-color: inherit;
+}
+
+*::-webkit-scrollbar-track {
+  background-color: inherit;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.35);
+  border-radius: 4px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+
+*::-webkit-scrollbar-button {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+/* svg currentColor */
+.commonSvg {
+  color: var(--font);
+}
+
+.theme-transition-enabled,
+.theme-transition-enabled * {
+  transition: var(--theme-transition);
+}
+
+/* body */
+body {
+  background-color: var(--theme);
+  /* transition: var(--theme-transition); */
 }
 
 /* 네비 */
@@ -61,28 +170,204 @@ nav {
   justify-content: end;
   padding-right: 20px;
 }
+
 nav > ul.navBox {
   display: flex;
   align-items: end;
 }
+
 nav > ul.navBox > li {
   margin-left: 14px;
 }
+
+nav > ul.navBox > li.navItem {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 nav > ul.navBox > li > a {
   font-size: 12px;
   display: flex;
   align-items: center;
-  color: var(--font);
+  /* color: var(--font); */
 }
+
 nav > ul.navBox > li > a > svg {
   margin-left: 6px;
 }
+
+/* navBox > ReactSVG div 설정 */
+.navButton {
+  background-color: var(--theme);
+}
+
+.hamburgerBtn {
+  background: transparent;
+  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 모바일 메뉴 오버레이 */
+.mobileMenuOverlay {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 220ms ease;
+  z-index: 10;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  background: var(--theme);
+}
+
+.mobileMenuOverlay .mobileMenuPanel {
+  width: 100%;
+  height: 100%;
+  background: var(--theme-mobile-menu);
+  color: var(--font);
+  transform: translateY(-100%);
+  transition: transform 240ms ease;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12);
+  padding: 48px 20px 28px 20px;
+  border-radius: 0 0 18px 18px;
+}
+
+.mobileMenuPanel > button.cancelBtn {
+  position: absolute;
+  top: 8px;
+  right: 9px;
+  background-color: transparent;
+}
+
+.mobileMenuPanel > button.cancelBtn > div > div {
+  height: 41px;
+}
+
+.mobileMenuOverlay .mobileMenuPanel > h1.mobileMenuLogo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 70px;
+}
+
+.mobileMenuOverlay .mobileMenuList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+/* 모바일 메뉴 svg 컬러 고정 */
+.mobileMenuOverlay .mobileMenuList .commonSvg {
+  color: #444444;
+}
+
+.mobileMenuOverlay .mobileMenuList li a {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 22px;
+}
+
+.mobileMenuOverlay .mobileMenuList li .mobileMenuAction {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 22px;
+  background: transparent;
+  border: none;
+  padding: 0;
+  color: var(--font-mobile-hamburgerMenu);
+  font-size: 16px;
+  font-weight: 400;
+  cursor: pointer;
+}
+
+/* svg 아이콘 wrapper 높이 */
+.mobileMenuOverlay .mobileMenuList li a > div > div {
+  height: 20px;
+}
+
+.mobileMenuOverlay .mobileMenuList a {
+  color: var(--font-mobile-hamburgerMenu);
+  font-size: 16px;
+  font-weight: 400;
+}
+
+.mobileMenuOverlay.is-open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.mobileMenuOverlay.is-open .mobileMenuPanel {
+  transform: translateY(0);
+}
+
 .mainBox {
   margin: 0 auto;
   width: 100%;
   max-width: 1440px;
   height: calc(100% - 50px);
-  overflow: hidden;
+  /* overflow: hidden; */
+}
+
+.mobileButton {
+  height: 34px;
+}
+
+.mobileButton > div {
+  height: 34px;
+}
+
+.feedbackMessage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 32px 20px;
+  text-align: center;
+  color: var(--font);
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+  gap: 10px;
+}
+
+.feedbackMessage .iconFeedback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.feedbackMessage .iconFeedbackText {
+  display: inline-block;
+}
+
+/* legacy alias for older class names */
+.feedbackMessage .feedbackMessageContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.feedbackMessage .feedbackIcon {
+  width: 48px;
+  height: 48px;
+}
+
+.listContainer .feedbackMessage {
+  grid-column: 1 / -1;
 }
 
 /* 폰트 */
@@ -91,16 +376,19 @@ nav > ul.navBox > li > a > svg {
   font-size: 16px;
   font-weight: 400;
 }
+
 .imgCardAddressFont {
   color: var(--font);
   font-size: 12px;
   font-weight: 400;
 }
+
 .imgCardPeriodFont {
   color: var(--font);
   font-size: 14px;
   font-weight: 600;
 }
+
 .imgCardPlaceholderFont {
   color: var(--font-wh);
   font-size: 14px;
@@ -143,17 +431,120 @@ nav > ul.navBox > li > a > svg {
 }
 
 .commonBorder {
-  border: 1px solid var(--selector-border); /* needs 테두리 색상 */
+  border: 1px solid var(--selector-border);
+  /* needs 테두리 색상 */
   border-radius: 4px;
-  outline: none; /* needs 포커스 시 outline 제거 */
+  outline: none;
+  /* needs 포커스 시 outline 제거 */
 }
 
 .commonSelect {
   height: 100%;
   font-size: 14px;
   background-color: transparent;
-  appearance: none; /* needs 드롭다운 기본 스타일 제거 */
+  appearance: none;
+  /* needs 드롭다운 기본 스타일 제거 */
   padding: 0 8px;
+  color: var(--font);
+}
+
+/* Custom Select */
+.customSelect {
+  position: relative;
+  width: 100%;
+  font-size: 14px;
+  color: var(--font);
+}
+
+.customSelect__button {
+  background: transparent;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  transition:
+    border-color 140ms ease,
+    box-shadow 140ms ease;
+}
+
+.customSelect__button:focus-visible {
+  outline: none;
+  border-color: #666;
+  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.08);
+}
+
+.customSelect__button:disabled {
+  cursor: not-allowed;
+  background: #f2f2f2;
+  color: #aaa;
+  border-color: #ddd;
+}
+
+.customSelect__label {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.customSelect__chevron {
+  margin-left: 8px;
+  font-size: 12px;
+  color: #888;
+}
+
+.customSelect__list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  width: 100%;
+  max-height: 240px;
+  overflow-y: auto;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  z-index: 20;
+}
+
+.customSelect__option {
+  padding: 0 12px;
+  cursor: pointer;
+  transition:
+    background-color 120ms ease,
+    color 120ms ease;
+  background: var(--theme);
+  height: 34px;
+  /* 글자 왼쪽 상하 중앙 정렬 */
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--selector-border);
+}
+
+.customSelect__option.is-active {
+  border: 2px solid var(--selector-border);
+}
+
+.customSelect__option.is-selected {
+  font-weight: 600;
+  color: var(--font);
+}
+
+.customSelect__option.is-disabled {
+  cursor: not-allowed;
+  color: #aaa;
+}
+
+.customSelect__option.is-disabled.is-active {
+  background: transparent;
+}
+
+.customSelect--error .customSelect__button {
+  border-color: #e74c3c;
+  box-shadow: 0 0 0 2px rgba(231, 76, 60, 0.15);
+}
+
+.customSelect--open .customSelect__button {
+  border-color: #666;
 }
 
 /* 생략 옵션 */
@@ -168,9 +559,12 @@ nav > ul.navBox > li > a > svg {
   height: 34px;
   padding: 8px 11px;
   gap: 10px;
-  background: var(--background);
+  background: var(--ui-background);
   color: var(--font-wh);
   font-weight: bold;
+}
+
+.pcBackButtonPosition {
   position: absolute;
   right: 0;
   top: -12px;
@@ -179,7 +573,12 @@ nav > ul.navBox > li > a > svg {
 
 /* shadow */
 .shadow {
-  box-shadow: "0px 4px 6px rgba(0, 0, 0, 0.1)";
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* transform */
+.reverse {
+  transform: rotate(180deg);
 }
 
 /* a11yHidden */
@@ -194,4 +593,219 @@ nav > ul.navBox > li > a > svg {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   word-wrap: normal;
+}
+
+.bg-tr {
+  background-color: transparent;
+}
+
+.eventDisable {
+  cursor: not-allowed;
+  pointer-events: none;
+  opacity: 0.25;
+}
+
+/* tooltip */
+.tooltip {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 8px 14px;
+  background: #444;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 14px;
+  line-height: 1;
+  white-space: nowrap;
+  margin-top: 6px;
+}
+
+.tooltip::after {
+  content: "";
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 6px solid transparent;
+  border-bottom-color: #444;
+  z-index: 10;
+}
+
+.tooltip.navTooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  opacity: 0;
+  /* 클릭 방지 */
+  pointer-events: none;
+  transition: opacity 160ms ease;
+  z-index: 5;
+}
+
+.tooltip.longPressTooltip {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  pointer-events: none;
+  z-index: 10;
+  display: inline-block;
+  width: max-content;
+  max-width: calc(100vw - 40px);
+  white-space: normal;
+  text-align: center;
+  line-height: 1.1;
+  /* word-break: keep-all;
+  overflow-wrap: break-word; */
+}
+
+.longPressTarget {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+
+.navItem:hover .tooltip.navTooltip,
+.navItem:focus-within .tooltip.navTooltip {
+  opacity: 1;
+}
+
+/* ReactSVG 아이콘 공동 Wrapper */
+.reactSVGBox {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 0;
+  font-size: 0;
+}
+
+/* ReactSVG를 감싸는 button */
+.iconButton {
+  display: inline-flex;
+  /* 한 줄 텍스트가 아니라 flex 박스로 취급해야 함 */
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  background: transparent;
+  line-height: 0;
+  font-size: 0;
+  cursor: pointer;
+}
+
+/* * Theme modal ----------------------------------- */
+.themeModalOverlay {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 사파리 호환 */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(1.5px);
+  transition: all 2s;
+}
+
+.themeModalPanel {
+  width: min(520px, calc(100vw - 40px));
+  background: var(--theme);
+  color: var(--font);
+  border-radius: 4px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
+  padding: 20px 20px 18px 20px;
+}
+
+.themeModalHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.themeModalHeader h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.themeModalClose {
+  border: 1px solid var(--borderColor);
+  background: transparent;
+  color: var(--font);
+  border-radius: 8px;
+  padding: 6px 10px;
+  cursor: pointer;
+}
+
+.themeModalGrid {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+}
+
+.themeModalItem {
+  display: block;
+}
+
+.themeModalButton {
+  width: 100%;
+  border: 1px solid var(--borderColor);
+  background: transparent;
+  border-radius: 12px;
+  padding: 12px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+}
+
+.themeModalButton.is-active {
+  border-width: 2px;
+}
+
+.themeModalLabel {
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.themeModalButton[data-theme="default"] {
+  background: #f1e6dd;
+}
+
+.themeModalButton[data-theme="pink"] {
+  background: #ffeef5;
+}
+
+.themeModalButton[data-theme="white"] {
+  background: #ffffff;
+}
+
+.themeModalButton[data-theme^="dark"] .themeModalLabel {
+  color: #ffffff;
+}
+
+.themeModalButton[data-theme="dark"] {
+  background: #2f2f2f;
+}
+
+.themeModalButton[data-theme="dark--green"] {
+  background: #3d7758;
+}
+
+.themeModalButton[data-theme="dark--navy"] {
+  background: #2a355d;
+}
+
+/* react-datepicker 전용 */
+div.react-datepicker-popper {
+  z-index: 10;
+}
+
+div.react-datepicker-wrapper {
+  width: 100%;
 }

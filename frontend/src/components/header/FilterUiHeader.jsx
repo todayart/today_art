@@ -1,9 +1,13 @@
+import urlMeta from "contents/urlMeta.json";
+
 import CommonHeader from "components/header/CommonHeader";
 import CommonSelect from "components/Input/CommonSelect";
 import SmallSearchInput from "components/Input/SmallSearchInput";
 import PeriodInput from "components/Input/PeriodInput";
+import SvgButton from "components/common/SvgButton";
 
-import urlMeta from "contents/urlMeta.json";
+import CommonResetIcon from "assets/common/commonResetIcon.svg";
+import MobileModalCloseIcon from "assets/main/nextBtn.svg";
 
 export default function FilterUiHeader({
   term,
@@ -14,15 +18,34 @@ export default function FilterUiHeader({
   startDate,
   endDate,
   onDateRangeChange,
+  onReset,
+  // 모바일 전용
+  onToggleMobileFilterModal,
+  isMobile,
+  isDetail,
+  // 모바일 필터 모달 열림 상태
+  isMobileFilterModalOpen,
+  closeButtonRef,
 }) {
+  const isMobileDetail = isMobile && isDetail;
+  const headerClassName = isMobileDetail ? "commonHeader--mobileDetail" : "";
+  const selectBoxClassName = isMobileDetail
+    ? `selectBox--mobileDetail${
+        isMobileFilterModalOpen ? " commonHeader--modalOpen" : ""
+      }`
+    : "";
   return (
-    <CommonHeader>
+    <CommonHeader
+      className={headerClassName}
+      selectBoxClassName={selectBoxClassName}
+      selectBoxId={isMobileDetail ? "mobileFilterSelectBox" : ""}
+      isDetail={isDetail}
+    >
       <CommonSelect
         labelContents="카테고리"
         labels={urlMeta.headerLinks[1].category}
         selected={cate || "전체"}
         id="cateSelect"
-        selectStyle={{ width: "220px" }}
         onChange={onCategoryChange}
       />
       <PeriodInput
@@ -30,12 +53,30 @@ export default function FilterUiHeader({
         eValue={endDate}
         onRangeChange={onDateRangeChange}
       />
-      <SmallSearchInput
-        value={term}
-        onChange={setTerm}
-        onSearch={onSearch}
-        placeholder="검색어를 입력하세요"
-      />
+      <div className="smallSearchInputWrapper">
+        <SmallSearchInput
+          value={term}
+          onChange={setTerm}
+          onSearch={onSearch}
+          placeholder="검색어를 입력하세요"
+        />
+        <SvgButton
+          icon={CommonResetIcon}
+          label="필터 초기화 버튼"
+          onClick={onReset}
+        />
+      </div>
+      {isMobileDetail && isMobileFilterModalOpen && (
+        <SvgButton
+          icon={MobileModalCloseIcon}
+          className={"mobileModalCloseIcon--mobileDetail"}
+          label="모바일 필터 모달 최소화 버튼"
+          onClick={onToggleMobileFilterModal}
+          aria-controls="mobileFilterSelectBox"
+          aria-expanded={isMobileFilterModalOpen}
+          ref={closeButtonRef}
+        />
+      )}
     </CommonHeader>
   );
 }
