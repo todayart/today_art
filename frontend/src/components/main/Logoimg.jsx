@@ -10,7 +10,8 @@ export default function Logoimg({
 }) {
   // Router 내비게이터
   const navigate = useNavigate();
-  const { isDark } = useTheme();
+  const { theme, isDark } = useTheme();
+  const useDarkLogo = theme !== "default" && isDark;
   // 로고 클릭 시
   const onLogoClick = () => {
     navigate(`/`);
@@ -23,7 +24,7 @@ export default function Logoimg({
       style={{ cursor: "pointer", ...style }}
     >
       <img
-        src={isDark ? TitleLogoWhite : TitleLogo}
+        src={useDarkLogo ? TitleLogoWhite : TitleLogo}
         alt="TodayArt 홈페이지의 로고입니다."
         className={className}
       />
