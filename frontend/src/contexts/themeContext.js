@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
+import { normalizeString } from "utils/util";
 
 /**
  * @fileoverview 테마 관리를 위한 Context API 구현
@@ -49,6 +50,7 @@ export function ThemeProvider({ children }) {
     },
   );
   const [isReady, setIsReady] = useState(false);
+  const normalizedTheme = normalizeString(theme, "default");
 
   useEffect(() => {
     // 하이드레이션 완료 후 아주 짧은 지연시간 뒤에 트랜지션 허용
@@ -56,12 +58,17 @@ export function ThemeProvider({ children }) {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    if (theme === normalizedTheme) return;
+    setTheme(normalizedTheme);
+  }, [theme, normalizedTheme]);
+
   // 테마 변경 시 HTML 속성 및 로컬 스토리지 업데이트
   useEffect(() => {
     if (typeof window === "undefined") return;
-    document.documentElement.setAttribute("color-theme", theme);
-    window.localStorage.setItem("theme", theme);
-  }, [theme]);
+    document.documentElement.setAttribute("color-theme", normalizedTheme);
+    window.localStorage.setItem("theme", normalizedTheme);
+  }, [normalizedTheme]);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -71,7 +78,7 @@ export function ThemeProvider({ children }) {
 
     const handleChange = (event) => {
       setSystemPrefersDark(event.matches);
-      if (theme === "default") {
+      if (normalizedTheme === "default") {
         document.documentElement.setAttribute(
           "color-theme",
           event.matches ? "dark" : "default",
@@ -82,7 +89,7 @@ export function ThemeProvider({ children }) {
     mediaQuery.addEventListener("change", handleChange);
 
     return () => mediaQuery.removeEventListener("change", handleChange);
-  }, [theme]);
+  }, [normalizedTheme]);
 
   // 컨텍스트 값 메모이제이션
   /**
@@ -91,12 +98,13 @@ export function ThemeProvider({ children }) {
    */
   const value = useMemo(() => {
     return {
-      theme,
+      theme: normalizedTheme,
       setTheme,
       isDark:
-        theme.startsWith("dark") || (theme === "default" && systemPrefersDark),
+        normalizedTheme.startsWith("dark") ||
+        (normalizedTheme === "default" && systemPrefersDark),
     };
-  }, [theme, systemPrefersDark]);
+  }, [normalizedTheme, systemPrefersDark]);
 
   // 컨텍스트 프로바이더 렌더링
   return (
