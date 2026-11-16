@@ -216,6 +216,29 @@ environment: production
 
 ---
 
+## 🔁 Render 임시 이전 (2026-11) — Azure 복귀 필요
+
+Azure Web App(`todayart-backend.azurewebsites.net`)이 내려가 DNS에서 사라져,
+백엔드를 **임시로 Render**에서 호스팅합니다. **추후 Azure로 다시 옮겨야 합니다.**
+
+### 현재(Render) 구성
+
+- `render.yaml` (리포 루트): Render Blueprint. `main` push 시 Render가 자동 배포
+- `deploy-production.yml`: Azure 단계는 리포 변수 `BACKEND_HOST == 'azure'` 일 때만 실행 (미설정 시 건너뜀)
+- Render 환경변수: `OPEN_API_KEY`(직접 입력), `SECRET_KEY`(자동 생성), `DEBUG=False`
+- Vercel 환경변수 `REACT_APP_API_BASE_URL` = Render 서비스 URL (끝에 `/` 없이)
+- Render 무료 플랜은 15분 무요청 시 잠들어 첫 요청이 수십 초 걸릴 수 있음
+
+### Azure 복귀 절차
+
+1. Azure Web App 재생성 (`backend/command.md` 의 Azure CLI 커맨드), Startup Command·앱 설정(`OPEN_API_KEY`, `SECRET_KEY`) 복원
+2. OIDC Secrets(`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`)가 유효한지 확인
+3. 리포 변수 설정: `gh variable set BACKEND_HOST --body azure -R todayart/today_art`
+4. Vercel `REACT_APP_API_BASE_URL` 을 Azure URL로 되돌리고 재배포
+5. 확인 후 Render 서비스 중지, `render.yaml` 삭제
+
+---
+
 이 버전은
 
 - **실제 작업 흐름**에만 집중

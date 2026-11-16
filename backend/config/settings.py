@@ -41,6 +41,12 @@ ALLOWED_HOSTS = [
     "today-art-lac.vercel.app"
 ]
 
+# Render 임시 호스팅: Render가 서비스 호스트명을 환경변수로 주입합니다.
+# (Azure 복귀 시에도 그대로 두어도 무해합니다.)
+RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
+
 # Cookies 설정
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True

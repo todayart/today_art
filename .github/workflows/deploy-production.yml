@@ -26,7 +26,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      # 백엔드는 임시로 Render에서 호스팅 중 (render.yaml, main push 시 Render가 자동 배포).
+      # Azure로 복귀하려면 리포 변수 BACKEND_HOST=azure 를 설정하면 아래 Azure 단계가 다시 실행됩니다.
       - name: Azure Login
+        if: vars.BACKEND_HOST == 'azure'
         uses: azure/login@v2
         with:
           client-id: ${{ secrets.AZURE_CLIENT_ID }}
@@ -54,6 +57,7 @@ jobs:
         run: python manage.py check
 
       - name: Deploy to Azure Web App (OIDC)
+        if: vars.BACKEND_HOST == 'azure'
         uses: azure/webapps-deploy@v3
         with:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
