@@ -25,8 +25,10 @@ import { getQSInt, safeInt } from "./numberUtil";
  */
 
 // * 환경 변수 기반 API 베이스 URL
-export const API_BASE =
-  process.env.REACT_APP_API_BASE_URL || "http://localhost:8000";
+// 끝의 슬래시를 제거해 `${API_BASE}/api/...` 가 `//api` 로 나가지 않게 한다.
+export const API_BASE = (
+  process.env.REACT_APP_API_BASE_URL || "http://localhost:8000"
+).replace(/\/+$/, "");
 
 /**
  * 필터링된 전시 리스트 가져오기

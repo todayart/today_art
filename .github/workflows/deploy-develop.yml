@@ -37,6 +37,13 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
+      - name: Ensure backend requirements.txt exists
+        run: |
+          # 루트 requirements.txt만 있고 backend/requirements.txt가 없는 경우에만 복사 (production 워크플로와 동일)
+          if [ -f requirements.txt ] && [ ! -f backend/requirements.txt ]; then
+            cp requirements.txt backend/requirements.txt
+          fi
+
       - name: Install backend dependencies
         working-directory: backend
         run: |

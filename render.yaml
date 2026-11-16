@@ -1,0 +1,25 @@
+# Render Blueprint — Django 백엔드 (임시 호스팅)
+# Azure(todayart-backend.azurewebsites.net)가 내려가 있어 임시로 Render를 사용합니다.
+# Azure로 복귀하는 방법: .github/workflows/README.md 의 "Render 임시 이전" 절 참고
+services:
+  - type: web
+    name: todayart-backend
+    runtime: python
+    plan: free
+    region: singapore
+    branch: main
+    autoDeploy: true
+    # requirements.txt 가 리포 루트에 있으므로 rootDir 를 지정하지 않습니다.
+    buildCommand: pip install -r requirements.txt
+    startCommand: cd backend && gunicorn --bind 0.0.0.0:$PORT config.wsgi:application
+    healthCheckPath: /
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.13.4
+      - key: DEBUG
+        value: "False"
+      - key: SECRET_KEY
+        generateValue: true
+      # 경기도 공공데이터 API 키 — Render 대시보드에서 직접 입력
+      - key: OPEN_API_KEY
+        sync: false
