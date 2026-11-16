@@ -7,6 +7,36 @@ from datetime import date
 from datetime import datetime
 
 CACHE_KEY = "entries_all"
+
+# 날짜 필드: 공공 API가 'YYYYMMDD'로 내려주는 경우가 있어 'YYYY-MM-DD'로 통일한다.
+DATE_FIELDS = ("BEGIN_DE", "END_DE")
+
+
+def _normalize_date(value):
+    """
+    'YYYYMMDD', 'YYYY-MM-DD', 'YYYY.MM.DD', 'YYYY/MM/DD' 를 'YYYY-MM-DD' 로 맞춘다.
+    날짜로 해석할 수 없는 값은 그대로 돌려준다.
+    """
+    if not isinstance(value, str):
+        return value
+    digits = value.strip().replace("-", "").replace(".", "").replace("/", "")
+    if len(digits) != 8 or not digits.isdigit():
+        return value
+    try:
+        return datetime.strptime(digits, "%Y%m%d").strftime("%Y-%m-%d")
+    except ValueError:
+        return value
+
+
+def _normalize_entry(row):
+    """필터·정렬·달력이 한 가지 날짜 형식만 다루도록 항목의 날짜 필드를 통일한다."""
+    entry = dict(row)
+    for field in DATE_FIELDS:
+        if field in entry:
+            entry[field] = _normalize_date(entry[field])
+    return entry
+
+
 def _load_all_entries():
     """
     1) 캐시에서 'entries_all' 키를 찾습니다.
@@ -38,7 +68,7 @@ def _load_all_entries():
             else:
                 rows = []
     
-            entries = [row for row in rows]
+            entries = [_normalize_entry(row) for row in rows]
             cache.set(CACHE_KEY, entries, timeout=3600)
             print(f"총 {len(entries)}개의 항목을 가져와 캐시했습니다.")
         except requests.RequestException as e:
