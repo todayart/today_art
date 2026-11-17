@@ -47,6 +47,12 @@ RENDER_EXTERNAL_HOSTNAME = os.getenv("RENDER_EXTERNAL_HOSTNAME")
 if RENDER_EXTERNAL_HOSTNAME:
     ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
+# Azure App Service: 기본 호스트명(예: todayart-backend-xxxx.koreacentral-01.azurewebsites.net)을
+# 환경변수 WEBSITE_HOSTNAME으로 주입합니다. 새 형식 주소는 고정 이름을 쓸 수 없어 이 값을 사용합니다.
+WEBSITE_HOSTNAME = os.getenv("WEBSITE_HOSTNAME")
+if WEBSITE_HOSTNAME:
+    ALLOWED_HOSTS.append(WEBSITE_HOSTNAME)
+
 # Cookies 설정
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
