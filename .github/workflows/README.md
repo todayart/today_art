@@ -216,26 +216,31 @@ environment: production
 
 ---
 
-## 🔁 Render 임시 이전 (2026-11) — Azure 복귀 필요
+## 🔁 Render 임시 이전 → Azure 복귀 완료 (2026-11)
 
-Azure Web App(`todayart-backend.azurewebsites.net`)이 내려가 DNS에서 사라져,
-백엔드를 **임시로 Render**에서 호스팅합니다. **추후 Azure로 다시 옮겨야 합니다.**
+2026-01 옛 Azure 구독이 사라져 백엔드를 잠시 Render에서 호스팅했고, 2026-11-18 Azure로 복귀했습니다.
 
-### 현재(Render) 구성
+### 현재(Azure) 구성
 
-- `render.yaml` (리포 루트): Render Blueprint. `main` push 시 Render가 자동 배포
-- `deploy-production.yml`: Azure 단계는 리포 변수 `BACKEND_HOST == 'azure'` 일 때만 실행 (미설정 시 건너뜀)
-- Render 환경변수: `OPEN_API_KEY`(직접 입력), `SECRET_KEY`(자동 생성), `DEBUG=False`
-- Vercel 환경변수 `REACT_APP_API_BASE_URL` = Render 서비스 URL (끝에 `/` 없이)
-- Render 무료 플랜은 15분 무요청 시 잠들어 첫 요청이 수십 초 걸릴 수 있음
+- 구독 `Azure 구독 1` (종량제), 리소스 그룹 `pf-todayArt-backend` (koreacentral)
+- App Service 플랜 `ASP-pftodayArtbackend-a2ff` — **F1 Free** (Linux)
+  - 한도: CPU 하루 60분 / 5분당 3분, 메모리 1GB. 넘으면 다음 UTC 0시까지 정지
+- 웹앱 `todayart-backend`, 런타임 `PYTHON|3.13`
+  - 주소: `https://todayart-backend-bffvb5h7cec3fkfg.koreacentral-01.azurewebsites.net`
+    (새 형식 기본 호스트명이라 `settings.py`가 `WEBSITE_HOSTNAME` 환경변수로 `ALLOWED_HOSTS`에 추가)
+  - Startup Command: `cd backend && gunicorn --bind 0.0.0.0:$PORT config.wsgi:application`
+  - 앱 설정: `OPEN_API_KEY`, `SECRET_KEY`, `DEBUG=False`, `SCM_DO_BUILD_DURING_DEPLOYMENT=true`
+- OIDC: Entra 앱 `todayart-github-deploy`
+  - 연합 자격 증명 subject `repo:todayart/today_art:ref:refs/heads/main`
+  - 역할 `Contributor` (범위: 리소스 그룹 `pf-todayArt-backend`)
+  - 리포 시크릿 `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`
+- 리포 변수 `BACKEND_HOST=azure` — `deploy-production.yml`의 Azure 단계 실행 스위치. 지우면 Azure 배포를 건너뜀
+- Vercel 환경변수 `REACT_APP_API_BASE_URL` = 위 Azure 주소 (끝에 `/` 없이)
 
-### Azure 복귀 절차
+### 다시 Render로 옮겨야 할 때
 
-1. Azure Web App 재생성 (`backend/command.md` 의 Azure CLI 커맨드), Startup Command·앱 설정(`OPEN_API_KEY`, `SECRET_KEY`) 복원
-2. OIDC Secrets(`AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`)가 유효한지 확인
-3. 리포 변수 설정: `gh variable set BACKEND_HOST --body azure -R todayart/today_art`
-4. Vercel `REACT_APP_API_BASE_URL` 을 Azure URL로 되돌리고 재배포
-5. 확인 후 Render 서비스 중지, `render.yaml` 삭제
+`git show "d330f46:render.yaml"` 로 옛 Blueprint를 꺼내 쓰고, `BACKEND_HOST` 변수를 지운 뒤 Vercel 주소를 Render로 바꿉니다.
+`settings.py`의 `RENDER_EXTERNAL_HOSTNAME` 블록은 그대로 남아 있습니다.
 
 ---
 

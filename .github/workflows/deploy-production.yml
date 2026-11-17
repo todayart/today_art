@@ -26,8 +26,8 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 백엔드는 임시로 Render에서 호스팅 중 (render.yaml, main push 시 Render가 자동 배포).
-      # Azure로 복귀하려면 리포 변수 BACKEND_HOST=azure 를 설정하면 아래 Azure 단계가 다시 실행됩니다.
+      # 아래 Azure 단계는 리포 변수 BACKEND_HOST=azure 일 때만 실행됩니다 (2026-11 Azure 복귀 후 설정됨).
+      # 변수를 지우면 Azure 배포를 건너뜁니다. 자세한 내용은 .github/workflows/README.md 참고.
       - name: Azure Login
         if: vars.BACKEND_HOST == 'azure'
         uses: azure/login@v2
