@@ -45,7 +45,7 @@ jobs:
           fi
           files=$(git diff --name-only "$BEFORE" "$GITHUB_SHA")
           echo "$files"
-          echo "$files" | grep -qE "^backend/|^requirements\.txt$|$wf" && b=true || b=false
+          echo "$files" | grep -qE "^backend/|^requirements\.txt$" && b=true || b=false
           echo "$files" | grep -qE "^frontend/" && f=true || f=false
           echo "backend=$b" >> "$GITHUB_OUTPUT"
           echo "frontend=$f" >> "$GITHUB_OUTPUT"
