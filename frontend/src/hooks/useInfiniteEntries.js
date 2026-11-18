@@ -96,10 +96,13 @@ export function useInfiniteEntries({ qs, pageSize = 8, enabled = true }) {
   }, [key, enabled, fetchPage]);
 
   // IO 구현
-  const sentinelRef = useRef(null);
+  // 센티널은 lazy 로드되는 ListContent 안에 있어, 이 훅의 effect보다 늦게 마운트될 수 있다.
+  // ref 객체(useRef)는 마운트돼도 effect를 다시 돌리지 않으므로(캐시 히트로 fetch가 없으면 특히)
+  // callback ref로 노드를 state에 담아, 노드가 생기거나 바뀔 때 observer를 다시 붙인다.
+  const [sentinelEl, sentinelRef] = useState(null);
   useEffect(() => {
     if (!enabled) return;
-    const el = sentinelRef.current;
+    const el = sentinelEl;
     if (!el) return;
     const io = new IntersectionObserver((entries) => {
       const [it] = entries;
@@ -107,7 +110,7 @@ export function useInfiniteEntries({ qs, pageSize = 8, enabled = true }) {
     });
     io.observe(el);
     return () => io.disconnect();
-  }, [enabled, page, hasMore, loading, fetchPage]);
+  }, [enabled, sentinelEl, page, hasMore, loading, fetchPage]);
 
   return {
     items, // Array
@@ -115,7 +118,7 @@ export function useInfiniteEntries({ qs, pageSize = 8, enabled = true }) {
     loading, // boolean
     error, // any
     loadMore: () => fetchPage(page),
-    sentinelRef, // attach to <div ref={sentinelRef} />
+    sentinelRef, // callback ref: <div ref={sentinelRef} />
     page,
   };
 }
