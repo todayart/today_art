@@ -72,6 +72,13 @@ az role assignment create \
 
 - workflow_dispatch (수동 실행)
 
+경로 필터 (`changes` job, 2026-11-18 추가):
+
+- `backend/`, `requirements.txt` 변경 → 백엔드(Azure) 배포
+- `frontend/` 변경 → 프론트(Vercel) 배포
+- 이 워크플로 파일 변경, 또는 수동 실행 → 둘 다 배포
+- 그 밖(스킬, 문서 등)만 바뀌면 둘 다 건너뜀. Azure F1 하루 CPU 한도를 아끼기 위함
+
 권한 설정:
 
 ```
