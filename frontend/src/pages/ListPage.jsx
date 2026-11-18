@@ -119,7 +119,9 @@ export default function ListPage() {
   }, [isMobile, isDetail, isMobileFilterModalOpen]);
 
   return (
-    <>
+    // 헤더 높이는 화면마다 달라서(294/332/160px) main이 남은 높이를 flex로 채운다.
+    // main 아래 끝이 뷰포트 안에 있어야 무한 스크롤 센티널이 보인다.
+    <div className="listPageLayout">
       <FilterUiHeader
         term={searchTerm}
         setTerm={setSearchTerm}
@@ -209,6 +211,6 @@ export default function ListPage() {
           />
         </Suspense>
       )}
-    </>
+    </div>
   );
 }

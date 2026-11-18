@@ -184,7 +184,6 @@
 
   /* *Detail 페이지 테블릿 커스텀----- */
   main.contentsWrapper {
-    height: calc(100vh - 294px);
     padding-bottom: 24px;
   }
   div.detailCard {
@@ -402,6 +401,7 @@
 
   /* 정렬 선택 모바일 커스텀 */
   main.contentsWrapper > div.sortSelectArea {
+    height: auto;
     padding: 0 35px;
   }
 
@@ -486,6 +486,8 @@
     display: flex;
     flex-direction: column;
     align-self: center;
+    /* 가운데 정렬은 유지하되 카드 폭을 넘지 않게. 넘치면 왼쪽이 잘린다 */
+    max-width: 100%;
   }
 
   div.detailCardContent img {
@@ -975,17 +977,32 @@ div.imgBox > img {
   color: var(--font);
 }
 
+/* ListPage: 헤더 + main을 뷰포트 높이에 맞춰 세로로 쌓음 */
+.listPageLayout {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.listPageLayout > .commonHeader {
+  flex-shrink: 0;
+}
+
 /* ListPage ->  .listContainer */
 .contentsWrapper {
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* 스크롤 기능을 허용하기 위해 수직 overflow와 높이 지정 */
+  /* 헤더를 뺀 남은 높이를 채우고, 그 안에서 수직 스크롤 */
+  flex: 1 1 auto;
+  min-height: 0;
   overflow-y: auto;
   overflow-x: hidden;
-  height: calc(100vh - 160px);
   position: relative;
+}
+/* 스크롤 상자 안 자식은 줄이지 않고 넘치게 둔다(상세 카드 500px가 찌그러지지 않게) */
+.contentsWrapper > * {
+  flex-shrink: 0;
 }
 .contentsWrapper .sortSelectArea {
   width: 100%;
@@ -1153,7 +1170,9 @@ div.imgBox > img {
 .detailCardContent .detailCardText ul li span:last-child {
   max-width: 415px;
   margin-left: 12px;
-  flex-shrink: 0;
+  /* 칸이 좁으면 줄어들어 말줄임(…) 처리. 줄지 않으면 카드 밖으로 넘친다 */
+  flex-shrink: 1;
+  min-width: 0;
   font-size: 14px;
 }
 
